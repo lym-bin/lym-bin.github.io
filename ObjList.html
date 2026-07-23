@@ -1,0 +1,404 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/global.css" rel="stylesheet"/>
+    <link href="./css/ObjetBlist.css" rel="stylesheet"/>
+    <title>상품 목록 페이지</title>
+</head>
+<body>
+    <header class="main-header">
+    <div class="main-container">
+        <ul><li><a href="nav-caregory"><img src="images/category_1.svg" alt="카테고리" width="20" height="20"></a></li></ul>
+        <a href="ObjetB.html" class="main-logo"><img src="images/Logo_1.svg" alt="" width="80" height="80"></a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="#" class="nav-search"><img src="images/search_1.svg" alt="검색" width="20" height="20"></a></li>
+                <li><a href="#"><img src="images/cart_1.svg" alt="카트" width="20" height="20"></a></li>
+                <li><a href="#"><img src="images/login_1.svg" alt="로그인" width="20" height="20"></a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <main>
+        <section class="product-info">
+            <div class="product-container">
+            <!-- 좌측 상품 갯수(추후에 자바스크립트로 갯수조정)-->
+            <div class="product-total">
+                TOTAL <span class="count">000</span> ITEMS
+            </div>
+            <!-- 우측 nav-->
+            <div class="product-filter-group">
+                <ul class="sort-list">
+          <!-- aria-current="true"로 현재 선택된 상태임을 스크린 리더에 알림 -->
+          <li><button type="button" class="sort-btn active" aria-current="true">신상품 순</button></li>
+          <li><button type="button" class="sort-btn">낮은 가격순</button></li>
+          <li><button type="button" class="sort-btn">높은 가격순</button></li>
+          <li><button type="button" class="sort-btn">인기순</button></li>
+                </ul>
+                <button type="button" class="filter-open-btn" aria-haspopup="true" aria-expanded="false">Filter</button>
+            </div>
+            </div>
+            <!-- 화면 옆에서 열릴 사이드바 (기본적으론 CSS로 숨겨둠) -->
+   <!-- 화면 우측에서 슬라이드인 될 사이드바 -->
+<aside class="filter-sidebar" aria-label="상품 상세 필터">
+  
+  <!--  헤더 영역 (타이틀 & 닫기 버튼) -->
+  <div class="sidebar-header">
+    <h3>Filter</h3>
+    <button type="button" class="filter-close-btn">닫기</button>
+  </div>
+
+  <!--  본문 영역 (스크롤 가능, Form으로 구성) -->
+  <div class="sidebar-content">
+    <form action="" method="GET" class="filter-form">
+      
+      <!-- [섹션 1] 색상 필터 (다중 선택 가능하게 Checkbox 사용) -->
+      <section class="filter-section">
+        <h4 class="filter-title">색상</h4>
+        <div class="filter-options color-grid">
+          
+          <!-- 옵션 1: 블랙 -->
+          <label class="filter-item">
+            <input type="checkbox" name="color" value="black" class="blind-input">
+            <span class="filter-box">블랙</span>
+          </label>
+          
+          <!-- 옵션 2: 화이트 -->
+          <label class="filter-item">
+            <input type="checkbox" name="color" value="white" class="blind-input">
+            <span class="filter-box">화이트</span>
+          </label>
+          
+          <!-- 옵션 3: 블루 -->
+          <label class="filter-item">
+            <input type="checkbox" name="color" value="blue" class="blind-input">
+            <span class="filter-box">블루</span>
+          </label>
+          
+          <!-- 옵션 4: 그레이 -->
+          <label class="filter-item">
+            <input type="checkbox" name="color" value="gray" class="blind-input">
+            <span class="filter-box">그레이</span>
+          </label>
+
+          <!-- 옵션 5: 브라운 -->
+          <label class="filter-item">
+            <input type="checkbox" name="color" value="brown" class="blind-input">
+            <span class="filter-box">브라운</span>
+          </label>
+
+          <!-- 옵션 6: 베이지 -->
+          <label class="filter-item">
+            <input type="checkbox" name="color" value="beige" class="blind-input">
+            <span class="filter-box">베이지</span>
+          </label>
+
+          <!-- 옵션 7: 레드 -->
+          <label class="filter-item">
+            <input type="checkbox" name="color" value="red" class="blind-input">
+            <span class="filter-box">레드</span>
+          </label>
+
+          <!-- 옵션 8: 옐로우 -->
+          <label class="filter-item">
+            <input type="checkbox" name="color" value="yellow" class="blind-input">
+            <span class="filter-box">옐로우</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- [섹션 2] 사이즈 필터 -->
+      <section class="filter-section">
+        <h4 class="filter-title">사이즈</h4>
+        <div class="filter-options size-grid">
+          
+          <label class="filter-item">
+            <input type="checkbox" name="size" value="xxxs" class="blind-input">
+            <span class="filter-box">XXXS</span>
+          </label>
+          
+          <label class="filter-item">
+            <input type="checkbox" name="size" value="xxs" class="blind-input">
+            <span class="filter-box">XXS</span>
+          </label>
+
+          <label class="filter-item">
+            <input type="checkbox" name="size" value="xs" class="blind-input">
+            <span class="filter-box">XS</span>
+          </label>
+
+          <label class="filter-item">
+            <input type="checkbox" name="size" value="s" class="blind-input">
+            <span class="filter-box">S</span>
+          </label>
+
+          <label class="filter-item">
+            <input type="checkbox" name="size" value="m" class="blind-input">
+            <span class="filter-box">M</span>
+          </label>
+
+          <label class="filter-item">
+            <input type="checkbox" name="size" value="l" class="blind-input">
+            <span class="filter-box">L</span>
+          </label>
+          
+          <label class="filter-item">
+            <input type="checkbox" name="size" value="xl" class="blind-input">
+            <span class="filter-box">XL</span>
+          </label>
+
+          <label class="filter-item">
+            <input type="checkbox" name="size" value="xxl" class="blind-input">
+            <span class="filter-box">XXL</span>
+          </label>
+        </div>
+      </section>
+    </form>
+  </div>
+</aside>
+        </section>
+
+
+
+       <!--상품 그리드-->
+<!--계속 기억 * 전체 화면 비율 설정 컨테이너-->
+<section class="product-grid">
+
+  <!-- ==========================================
+       1번째 줄: 3열 그리드로 감싸는 ul태그 (type-3col 추가)
+  ========================================== -->
+  <ul class="card-list type-3col">
+    <!--*ul의 자식은 오직 li 뿐이어야 하며, 다른 태그들은 li의 자식-->
+    
+    <!-- 상품 카드 1 -->
+    <li class="card-item">
+      <a href="ObjDetail.html" class="card-link">
+        <!-- 이미지 영역 -->
+        <div class="card-img-wrap">
+          <img src="" alt="제품명 대체 텍스트">
+        </div>
+        
+        <!-- 정보 영역 (위아래로 떨어지도록 구조화) -->
+        <div class="card-info">
+          <strong class="product-name">제품명 : *****</strong>
+          <span class="product-price">가격 $ ***</span>
+        </div>
+      </a>
+    </li>
+
+    <!-- 상품 카드 2 -->
+    <li class="card-item">
+      <a href="#" class="card-link">
+        <div class="card-img-wrap">
+          <img src="" alt="제품명 대체 텍스트">
+        </div>
+        <div class="card-info">
+          <strong class="product-name">제품명 : *****</strong>
+          <span class="product-price">가격 $ ***</span>
+        </div>
+      </a>
+    </li>
+
+    <!-- 상품 카드 3 -->
+    <li class="card-item">
+      <a href="#" class="card-link">
+        <div class="card-img-wrap">
+          <img src="" alt="제품명 대체 텍스트">
+        </div>
+        <div class="card-info">
+          <strong class="product-name">제품명 : *****</strong>
+          <span class="product-price">가격 $ ***</span>
+        </div>
+      </a>
+    </li>
+  </ul>
+
+  <!-- ==========================================
+       2번째 줄: 혼합 그리드로 감싸는 ul태그 (type-mixed 추가)
+  ========================================== -->
+  <ul class="card-list type-mixed">
+    
+    <!-- 왼쪽의 엄청 큰 카드 (is-large 클래스 추가) -->
+    <li class="card-item is-large">
+      <a href="#" class="card-link">
+        <div class="card-img-wrap">
+          <img src="" alt="큰 제품명 대체 텍스트">
+        </div>
+        <div class="card-info">
+          <strong class="product-name">큰 제품명 : *****</strong>
+          <span class="product-price">가격 $ ***</span>
+        </div>
+      </a>
+    </li>
+
+    <!--  오른쪽의 일반 크기 카드 (첫 번째 줄과 완전 동일 구조) -->
+    <li class="card-item">
+      <a href="#" class="card-link">
+        <div class="card-img-wrap">
+          <img src="" alt="제품명 대체 텍스트">
+        </div>
+        <div class="card-info">
+          <strong class="product-name">제품명 : *****</strong>
+          <span class="product-price">가격 $ ***</span>
+        </div>
+      </a>
+    </li>
+  </ul>
+
+  <!-- ==========================================
+       3번째 줄: 3열 그리드로 감싸는 ul태그
+  ========================================== -->
+  <ul class="card-list type-3col">
+    <!-- 상품 카드 1 -->
+    <li class="card-item">
+      <a href="#" class="card-link">
+        <!-- 이미지 영역 -->
+        <div class="card-img-wrap">
+          <img src="" alt="제품명 대체 텍스트">
+        </div>
+        
+        <!-- 정보 영역 (위아래로 떨어지도록 구조화) -->
+        <div class="card-info">
+          <strong class="product-name">제품명 : *****</strong>
+          <span class="product-price">가격 $ ***</span>
+        </div>
+      </a>
+    </li>
+
+    <!-- 상품 카드 2 -->
+    <li class="card-item">
+      <a href="#" class="card-link">
+        <div class="card-img-wrap">
+          <img src="" alt="제품명 대체 텍스트">
+        </div>
+        <div class="card-info">
+          <strong class="product-name">제품명 : *****</strong>
+          <span class="product-price">가격 $ ***</span>
+        </div>
+      </a>
+    </li>
+
+    <!-- 상품 카드 3 -->
+    <li class="card-item">
+      <a href="#" class="card-link">
+        <div class="card-img-wrap">
+          <img src="" alt="제품명 대체 텍스트">
+        </div>
+        <div class="card-info">
+          <strong class="product-name">제품명 : *****</strong>
+          <span class="product-price">가격 $ ***</span>
+        </div>
+      </a>
+    </li>
+  </ul>
+  <!-- ==========================================
+       4 번째 줄: 혼합 그리드로 감싸는 ul태그(위치변경)
+  ========================================== -->
+  <ul class="card-list type-mixed">
+    
+    
+    <li class="card-item">
+      <a href="#" class="card-link">
+        <div class="card-img-wrap">
+          <img src="" alt="제품명 대체 텍스트">
+        </div>
+        <div class="card-info">
+          <strong class="product-name">제품명 : *****</strong>
+          <span class="product-price">가격 $ ***</span>
+        </div>
+      </a>
+    </li>
+
+    <li class="card-item is-large">
+      <a href="#" class="card-link">
+        <div class="card-img-wrap">
+          <img src="" alt="큰 제품명 대체 텍스트">
+        </div>
+        <div class="card-info">
+          <strong class="product-name">큰 제품명 : *****</strong>
+          <span class="product-price">가격 $ ***</span>
+        </div>
+      </a>
+    </li>
+  </ul>
+  <div class="more-btn-wrap">
+    <button type="button" class="btn-more">더보기</button>
+  </div>
+</section>
+    </main>
+
+    <footer class="footer-wrapper">
+        <div class="footer-inner">
+        <!--푸터 상단-->
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <a href="#"><img src="images/Logo_1.svg" alt="Objet & B 로고" width="100" height="100"></a>
+                    <p class="footer-desc">대표 : 임상빈 | persie24@naver.com</p>
+                    <p class="footer-desc">연락처 : 010-5150-5589</p>
+                    <p class="footer-desc"><a href="https://app.notion.com/p/Lym-Sang-Bin-Web-Portfolio-b43e7e42ec0882f4951d818987cefb4d"><img src="images/notion-icon.svg" alt="노션"></a></p>
+                </div>
+            </div>
+
+        <!--푸터 중단-->
+        <div class="footer-middle">
+            <nav class="footer-nav">
+                    <h2 class="nav-title"><strong>Minialist</strong></h2>
+                    <ul class="sub-nav">
+                        <li><a href="#">COMPANY</a></li>
+                        <li><a href="#">AGREE MENT</a></li>
+                        <li><a href="#">PRIVACY POLICY</a></li>
+                        <li><a href="#">GUIDE</a></li>
+                    </ul>
+                        <span class="nav-shop-desc">High-and Minimalist object shop</span>
+            </nav>
+        </div>
+
+        <!--푸터 하단-->
+        <div class="footer-copy">
+            &copy;2026 Objet - B. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+    
+    /*const : 변수선업 document.querySelector : doc(문서)에서 이 클래스를 가져오겠다.*/
+const filterOpenBtn = document.querySelector('.filter-open-btn');
+const filterCloseBtn = document.querySelector('.filter-close-btn');
+const filterSidebar = document.querySelector('.filter-sidebar');
+const filterCheckboxes = filterSidebar.querySelectorAll('input[type="checkbox"]');
+
+// 2. Filter 버튼을 클릭했을 때 -> .open 클래스 추가 (사이드바 등장)
+filterOpenBtn.addEventListener('click', () => {
+  filterSidebar.classList.add('open');
+  // 웹 접근성(A11y)을 위해 '열림' 상태라고 알려줌
+  filterOpenBtn.setAttribute('aria-expanded', 'true'); 
+});
+
+// 3. 닫기 버튼을 클릭했을 때 -> .open 클래스 제거 (사이드바 숨김)
+filterCloseBtn.addEventListener('click', () => {
+  filterSidebar.classList.remove('open');
+  // 웹 접근성(A11y)을 위해 '닫힘' 상태라고 알려줌
+  filterOpenBtn.setAttribute('aria-expanded', 'false'); 
+});
+
+// 4. 필터 최대 3개 선택 유효성 검사
+filterCheckboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', (e) => {
+    // 실제 '체크박스' 중에서 '체크된' 개수만 정확히 필터링해서 셉니다.
+    const checkedCount = filterSidebar.querySelectorAll('input[type="checkbox"]:checked').length;
+    
+    // 유효성 검사: 3개를 초과(4개째)했는지 확인
+    if (checkedCount > 3) {
+      alert('필터는 최대 3개까지만 선택할 수 있습니다.');
+      
+      // 방금 체크한 4번째 체크박스를 강제로 취소 처리
+      e.target.checked = false;
+    }
+  });
+});
+
+    </script>
+</body>
+</html>

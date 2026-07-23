@@ -1,0 +1,288 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/ObjetB.css" rel="stylesheet"/>
+    <link href="./css/global.css" rel="stylesheet"/>
+    <title>ObjetB Main</title>
+</head>
+<body>
+    <header class="main-header">
+    <div class="main-container">
+        <ul><li><a href="nav-caregory"><img src="images/category_1.svg" alt="카테고리" width="20" height="20"></a></li></ul>
+        <a href="#" class="main-logo"><img src="images/Logo_1.svg" alt="" width="80" height="80"></a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="#" class="nav-search"><img src="images/search_1.svg" alt="검색" width="20" height="20"></a></li>
+                <li><a href="#"><img src="images/cart_1.svg" alt="카트" width="20" height="20"></a></li>
+                <li><a href="#"><img src="images/login_1.svg" alt="로그인" width="20" height="20"></a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="shop-banner">
+        <div class="main-banner">
+            <!-- 좌측 텍스트 콘텐츠 영역 (시안의 왼쪽 정렬된 부분) -->
+            <div class="banner-content">
+                <h2 class="banner-title">/ Minimalist<br>COLLECTION</h2>
+                <p class="banner-desc">
+                    뷰니크가 트렌드의 무게 제어는 현대적인 명암의 대비와 완벽한 조화를 선사합니다. 
+                    정교한 가죽 질감과 미니멀한 실루엣의 가치를 만나보세요.
+                </p>
+                <button class="btn-buy">BUY $115</button>
+            </div>
+            
+            <!-- 우측 이미지 및 슬라이드 내비게이션 영역 -->
+            <div class="banner-slider">
+                <div class="banner-img-wrap">
+
+                    <a href="ObjList.html"><img src="images/main-banner.svg" alt="Minimalist Collection Room View"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="quick-nav">
+    <div class="quick-container">
+        <ul class="quick-list">
+            <li><a href="#">FASHION</a></li>
+            <li><a href="#">TRAVEL</a></li>
+            <!-- 현재 활성화된 카테고리에 class="active" 부여 -->
+            <li><a href="#" class="active">EVERY DAY</a></li>
+            <li><a href="#">MINIATURES</a></li>
+        </ul>
+    </div>
+</section>
+
+
+    <section>
+        <div class="shop-container">
+            <ul class="shop-list">
+                <li><a href="ObjList.html">
+                    <div class="product-img"><img src="images/modalgrid_1.jpg" alt="">
+                    </div>
+                    <div class="product-info">
+                        <em class="prod-name">White T</em>
+                        <span class="prod-option">(White)</span>
+                        <strong class="prod-price">$ 500</strong>
+                    </div>
+                </a>
+            </li>
+                <li><a href="ObjList.html">
+                    <div class="product-img"><img src="images/modalgrid_2.jpg" alt="">
+                    </div>
+                    <div class="product-info">
+                        <em class="prod-name">Jacket</em>
+                        <span class="prod-option">(Matte Black)</span>
+                        <strong class="prod-price">$ 800</strong>
+                    </div>
+                </a>
+            </li>
+            <li><a href="ObjList.html">
+                    <div class="product-img"><img src="images/modalgrid_3.jpg" alt="">
+                    </div>
+                    <div class="product-info">
+                        <em class="prod-name">White Shirt</em>
+                        <span class="prod-option">(White)</span>
+                        <strong class="prod-price">$ 400</strong>
+                    </div>
+                </a>
+            </li>
+            <li><a href="ObjList.html">
+                    <div class="product-img"><img src="images/modalgrid_4.jpg" alt="">
+                    </div>
+                    <div class="product-info">
+                        <em class="prod-name">Jean(Slax)</em>
+                        <span class="prod-option">(Beige)</span>
+                        <strong class="prod-price">$ 430</strong>
+                    </div>
+                </a>
+            </li>
+            <li><a href="ObjList.html">
+                    <div class="product-img"><img src="images/modalgrid_5.jpg" alt="">
+                    </div>
+                    <div class="product-info">
+                        <em class="prod-name">Denim Shirt</em>
+                        <span class="prod-option">(Matte Blue)</span>
+                        <strong class="prod-price">$ 640</strong>
+                    </div>
+                </a>
+            </li>
+            <li><a href="ObjList.html">
+                    <div class="product-img"><img src="images/modalgrid_6.jpg" alt="">
+                    </div>
+                    <div class="product-info">
+                        <em class="prod-name">Shoes</em>
+                        <span class="prod-option">(Matte Black)</span>
+                        <strong class="prod-price">$ 350</strong>
+                    </div>
+                </a>
+            </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 첫번째 배너(크로스 모델)-->
+    <section class="customer-banner">
+        <div class="customer-container">
+                <div class="customer-slide">
+            <div class="slide-banner-wrap">
+            <a href="#"><img src="images/Model_1.jpg" alt=""></a>
+            </div>
+        </div>
+         <div class="customer-content">
+                <h2 class="customer-title">Minimalist & Sophisticated<br></h2>
+                <p class="customer-desc">Elevate your everyday, redefined by design Timeless design for modern life.</p>
+                </div>
+        </div> 
+    </section>
+    <!-- 두번째 배너 반복구조에 배열만 다르면 reverse 추가--> 
+     <section class="customer-banner reverse">
+        <div class="customer-container">
+                <div class="customer-slide">
+            <div class="slide-banner-wrap">
+            <a href="#"><img src="images/model_2.jpg" alt=""></a>
+            </div>
+        </div>
+         <div class="customer-content">
+                <h2 class="customer-title">Minimalist & Sophisticated<br></h2>
+                <p class="customer-desc">Elevate your everyday, redefined by design Timeless design for modern life.</p>
+                </div>
+        </div> 
+    </section>
+
+    <!-- 베스트 리뷰-->
+     <section class="best-review">
+    <h2 class="best-title">Best Review</h2>
+    <div class="review-grid">
+        <!-- 리뷰 카드 1 -->
+        <article class="review-card">
+            <img src="images/card_1.svg" alt="상품 이미지">
+            <div class="card-text">
+                <p class="product-name">ObjET & B [Men] Shoes</p>
+                <div class="best-info">
+                    <span>색상 : White & Blue</span>
+                    <span>사이즈 : 265</span>
+                    <span>평소 사이즈 : 270</span>
+                </div>
+                <p class="review-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+                <div class="best-meta">
+                    <span>asdsadadsa23</span>
+                    <span>2026.00.00</span>
+                </div>
+            </div>
+        </article>
+        
+        <!-- 리뷰 카드 2 -->
+        <article class="review-card"><img src="images/card_2.svg" alt="상품 이미지">
+            <div class="card-text">
+                <p class="product-name"> ObjET & B [Men] Black jean</p>
+                <div class="best-info">
+                    <span>색상 : Denim Black</span>
+                    <span>사이즈 : 30</span>
+                    <span>평소 사이즈 : 28</span>
+                </div>
+                <p class="review-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+                <div class="best-meta">
+                    <span>asdsadadsa23</span>
+                    <span>2026.00.00</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- 리뷰 카드 3 -->
+        <article class="review-card"><img src="images/card_3.svg" alt="상품 이미지">
+            <div class="card-text">
+                <p class="product-name">ObjET & B [Men&Women] White Shoes</p>
+                <div class="best-info">
+                    <span>색상 : White</span>
+                    <span>사이즈 : 285</span>
+                    <span>평소 사이즈 : 280</span>
+                </div>
+                <p class="review-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+                <div class="best-meta">
+                    <span>asdsadadsa23</span>
+                    <span>2026.00.00</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- 리뷰 카드 4 -->
+        <article class="review-card"><img src="images/card_4.svg" alt="상품 이미지">
+            <div class="card-text">
+                <p class="product-name">ObjET & B [Men] Black Shoes</p>
+                <div class="best-info">
+                    <span>색상 : Black</span>
+                    <span>사이즈 : 290</span>
+                    <span>평소 사이즈 : 280</span>
+                </div>
+                <p class="review-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+                <div class="best-meta">
+                    <span>asdsadadsa23</span>
+                    <span>2026.00.00</span>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+</main>
+
+    <footer class="footer-wrapper">
+        <div class="footer-inner">
+        <!--푸터 상단-->
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <a href="#"><img src="images/Logo_1.svg" alt="Objet & B 로고" width="100" height="100"></a>
+                    <p class="footer-desc">대표 : 임상빈 | persie24@naver.com</p>
+                    <p class="footer-desc">연락처 : 010-5150-5589</p>
+                    <p class="footer-desc"><a href="https://app.notion.com/p/Lym-Sang-Bin-Web-Portfolio-b43e7e42ec0882f4951d818987cefb4d"><img src="images/notion-icon.svg" alt="노션"></a></p>
+                </div>
+            </div>
+
+        <!--푸터 중단-->
+        <div class="footer-middle">
+            <nav class="footer-nav">
+                    <h2 class="nav-title"><strong>Minialist</strong></h2>
+                    <ul class="sub-nav">
+                        <li><a href="#">COMPANY</a></li>
+                        <li><a href="#">AGREE MENT</a></li>
+                        <li><a href="#">PRIVACY POLICY</a></li>
+                        <li><a href="#">GUIDE</a></li>
+                    </ul>
+                        <span class="nav-shop-desc">High-and Minimalist object shop</span>
+            </nav>
+        </div>
+
+        <!--푸터 하단-->
+        <div class="footer-copy">
+            &copy;2026 Objet - B. All rights reserved.
+        </div>
+    </footer>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // 타임아웃을 살짝 주어 브라우저가 요소를 완전히 그릴 시간을 확보합니다.
+    setTimeout(() => {
+        gsap.from('.shop-list li', {
+            opacity: 0, 
+            y: 50,
+            duration: 1,
+            scrollTrigger: {
+                trigger: '.shop-list',
+                start: 'top 90%', // 조금 더 일찍 시작하게 설정
+                toggleActions: 'play none none none'
+            },
+            stagger: 0.2
+        });
+    }, 500);
+</script>
+    
+</body>
+</html>

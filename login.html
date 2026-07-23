@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Pretendard&display=swap" rel="stylesheet"/>
+    <link href="./css/login.css" rel="stylesheet"/>
+    <title>로그인 페이지</title>
+</head>
+<body>
+
+<!-- 메인 로그인 컨테이너 -->
+<main class="login-container">
+  <a href="index.html"><img src="images/v1_4.png" alt="포인핸드 홈" class="logo"></a>
+  
+  <form id="login-form">
+    <input type="text" placeholder="아이디" required>
+    <input type="password" placeholder="비밀번호" required>
+    
+    <div class="login-options">
+      <label class="checkbox-group">
+        <input type="checkbox"> 로그인 상태 유지
+      </label>
+      <span class="ip-security">IP보안</span>
+    </div>
+    
+    <button type="submit" class="login-btn">로그인</button>
+  </form>
+  
+  <nav class="links">
+    <a href="#">비밀번호 찾기</a>
+    <a href="#">아이디 찾기</a>
+    <a href="#">회원가입</a>
+  </nav>
+  
+<!-- target="_blank"는 새 탭으로 연결-->
+  <section class="social-login">
+    <a href="https://nid.naver.com/nidlogin.login" target="_blank"><button class="btn-naver">네이버 로그인</button></a>
+    <a href="https://accounts.kakao.com/login/?continue=https%3A%2F%2Faccounts.kakao.com%2Fweblogin%2Faccount#login" target="_blank"><button class="btn-kakao">카카오 로그인</button></a>
+    <button class="btn-pawinhand">포인핸드 앱 연동</button>
+  </section>
+</main>
+
+<section class="promotion-area">
+  <article class="promotion-banner">
+    <a href="#">
+      <img src="images/news_1.svg" alt="포인핸드 입양 캠페인 상세 보기">
+    </a>
+  </article>
+</section>
+
+
+<!-- 푸터 -->
+<footer class="footer_wrapper">
+  <div class="footer_inner">
+    <a href="#">이용약관</a>
+    <a href="#">개인정보 처리방침</a>
+    <a href="#">회원정보 고객센터</a>
+  </div>
+
+  <div class="footer_bottom">
+    <a href="index.html"><img src="images/v1_4.png" alt=""></a>
+    <p>&copy; Pawinhand all rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>
