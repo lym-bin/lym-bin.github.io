@@ -1,11 +1,11 @@
-/*상품 list info*/
+/*상품 영역*/
 .detail-container {
-    display: flex;
+    display: flex; /*세로구조 가로로 배치*/
     justify-content: space-between;
     gap: 40px;
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto; /*가운데 정렬*/
     padding: 40px 40px;
 }
 /*왼쪽 이미지 크기 조절*/
@@ -15,15 +15,15 @@
 .detail-img-wrap img, .model-img-wrap img{
     width: 100%;
     height: 400px;
-    background-color: #f5f5f5;
-    object-fit: cover;
+    background-color: #f5f5f5; /*이미지 추가시 컬러 삭제*/
+    object-fit: cover; 
     margin-top: 20px;
 }
 /*오른쪽 폼 전체*/
 .detail-info-area {
     margin-top: 20px;
 }
-/*상품명*/
+/*상품명(블랙 데님 화이드 스트레이트 진)*/
 .product-title {
     font-size: 24px;
     font-weight: 400px;
@@ -52,10 +52,15 @@
     font-size: 18px;
     margin-bottom: 10px;
 }
+.size-title{
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
 .color-options, .size-options {
     display: flex;
     gap: 20px;
-    flex-wrap: wrap; /*한줄 나란히 정렬 flex랑 같이씀*/
+    flex-wrap: wrap; /*flex랑 같이 쓰며 한 줄로 제한되는지 줄바꿈이 되는지를 지정해줄 수 있음.(공간을 다 차지하면 한 줄로 감싸서 다음줄로)*/
 }
 /*라디오 버튼 설정*/
 .color-input, .size-input{
@@ -116,7 +121,79 @@
     margin-top: 20px;
     text-align: left; /* 중앙 정렬 대신 자연스러운 좌측 정렬 */
 }
-
+/*사이즈 가이드바 전체 설정*/
+.guide-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 360px;
+    height: 100vh;
+     /*디자인*/
+    background-color: #ffffff;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); /*그림자 경계*/
+    z-index: 9999; /*position 속성(absolute, relative, fixed, sticky 등)이 함께 지정되어야 사용가능 상단 배치*/
+    /* 기본상태*/
+    /*사이드바 숨김 설정*/
+    transform: translate(100%); /*오른쪽으로 쭉 밈*/
+    /*내부 레이아웃*/
+    display: flex;
+    flex-direction: column;
+}
+/*가이드 오픈 일 때 */
+.guide-sidebar.open {
+    transform: translate(0);
+}
+/* 사이드바 내부 헤더 (타이틀과 닫기 버튼 양끝 배치) */
+.size-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #000;
+    padding-bottom: 16px;
+}
+.size-sidebar-header h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+.size-close-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+.size-grid-table {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-left: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
+}
+/* 표의 최상단 헤더 칸(Size, Pants...) */
+.grid-th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    color: #000;
+    padding: 14px 10px;
+    text-align: center;
+    font-size: 14px;
+    border-right: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+}
+/* 표의 데이터 칸 (XXS, 34, 28...) */
+.grid-td {
+    padding: 14px 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    border-right: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+}
+/*첫 글자 강조*/
+.size-grid-table .grid-td:nth-child(3n+1) {
+    font-weight: 500;
+    color: #000;
+}
 /*장바구니 사이드바 전체 설정*/
 .cart-sidebar {
     /*크기 및 위치 조절*/
@@ -136,8 +213,7 @@
     display: flex;
     flex-direction: column;
 }
-
-/*장바구님 담기 오픈 일 떄 (JS)*/
+/*장바구니 담기 오픈 일 떄 (JS)*/
 .cart-sidebar.open {
     transform: translate(0); /*제자리로 돌아옴*/
 }
@@ -175,8 +251,6 @@
     padding: 24px;
     overflow-y: auto; /* 내용이 길어지면 스크롤 생김 */
 }
-
-
 /*내부 이미지 조절*/
 /*이미지 박스 설정*/
 .card-item-img-wrap {
@@ -191,7 +265,6 @@
     height: 100%;
     object-fit: cover; /*이미지 잘림방지*/
 }
-
 /*내부 텍스트*/
 .card-item-info {
     /* display: block; 기본적으로 div태그, h2태그, p태그는 block성질을 가지고 있음*/
@@ -244,7 +317,6 @@
  .cancel-btn:hover {
     background-color: #e5e5e5;
  }
- 
 /*중간 그리드 이미지 설정*/
 .grid-title {
     font-size: 16px;

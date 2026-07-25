@@ -1,0 +1,137 @@
+/*!
+ * @Project: POWINHAND 웹 사이트 리뉴얼 
+ * @Author: [임상빈]
+ * @Organization: [MBC컴퓨터 아카데미 수원점]
+ * @Copyright: 2026 [임상빈]. All rights reserved.
+ * @Version: 1.0.0
+
+* [이미지 저작권 안내]
+ * 본 사이트는 개인 역량 평가를 위한 구직/포트폴리오 용도로 제작되었습니다.
+ * 사용된 모든 이미지는 핀터레스트 등의 외부 플랫폼에서 가져온 것으로, 
+ * 오직 비상업적인 연구 및 레이아웃 구현 목적으로만 사용되었습니다.
+ * 모든 이미지의 원저작권은 최초 창작자에게 있습니다.
+ */
+
+/* ==========================================================
+
+                       CSS 공통(global) 초기화
+
+    ==========================================================
+ */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /*padding이나 border를 아무리 줘도 전체 박스 width 유지*/
+}
+/* 목록 스타일(기호,번호) 제거 */
+ul,
+ol {
+  list-style: none;
+}
+/*글꼴 기울임 제거*/
+p {
+  font-style: normal;
+}
+/* 링크 스타일 제거 */
+a {
+  text-decoration: none;
+  color: inherit; /* 부모의 색상을 따라감 */
+}
+/* 전체 폰트 가져오기*/
+body {
+  font-family: "Pretendard", sans-serif; /* 피그마폰트 적용 */
+}
+/*===========================================================*/
+
+/*헤더 공통 작업*/
+.main-header {
+  margin-bottom: 20px;
+}
+.main-logo {
+  display: block; /* 레이아웃 자유롭게 배치하기 위해*/
+}
+.main-logo img {
+  width: 150px; /* 데스크톱 기준*/
+  display: block;
+  height: auto;
+}
+.nav-item {
+  display: inline-block;
+  transition: all 0.3s ease; /* 호버 효과가 부드럽게 나타나게 함 */
+}
+.nav-item:hover {
+  opacity: 0.8;
+  color: #ff5900;
+}
+/*메인 전체 콘테이너 배치*/
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto; /* 가운데 정렬 */
+  display: flex; /* 로고와 nav를 가로로 배치 */
+  justify-content: space-between; /* 로고는 왼쪽, 메뉴는 오른쪽 끝으로 */
+  align-items: center; /* 세로 기준 가운데 정렬 */
+  padding: 8px 18px;
+  margin-top: 20px;
+}
+/* 메뉴 가로 나열 */
+.main-nav {
+  display: flex;
+  gap: 30px; /* 메뉴 사이 간격 */
+}
+/* 푸터 css*/
+/* 기본 레이아웃 구성 */
+.footer-wrapper {
+  width: 100%;
+  padding: 50px 0;
+  border-top: 1px solid #ddd;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between; /* 왼쪽 로고와 오른쪽 메뉴 간격 최대로 벌림 */
+  align-items: flex-start; /*컨테이너에 시작줄(왼쪽)에서 정렬*/
+  max-width: 100%;
+  margin: 0 auto; /*가운데 정렬*/
+  padding: 0 50px;
+}
+.footer-left {
+  display: flex;
+  flex-direction: column; /* 로고 아래 SNS가 오도록 */
+  align-items: flex-start; /* 왼쪽 정렬 */
+}
+/* SNS 아이콘 가로 정렬 */
+.sns-links {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 0;
+}
+/* 내비게이션 영역 (가로 배치) */
+.nav-list {
+  display: flex;
+  gap: 60px; /* 메뉴 그룹 간의 간격 */
+}
+.sub-nav {
+  padding: 0;
+  margin-top: 15px;
+}
+.sub-nav li {
+  margin-bottom: 10px;
+}
+.sub-nav a {
+  color: #333;
+  font-size: 16px;
+}
+/* 하단 영역 */
+.footer-bottom {
+  max-width: 100%;
+  width: 100%;
+  padding: 20px 50px 0;
+  border-top: 2px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #888;
+}

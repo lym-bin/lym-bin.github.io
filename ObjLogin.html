@@ -2,9 +2,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/global.css" rel="stylesheet"/>
+    <link href="./css/ObjLogin.css" rel="stylesheet"/>
     <title>로그인 페이지</title>
 </head>
 <body>
-    
+    <main class="login-container">
+<!--로고 영역-->
+        <a href="ObjetB.html" class="login-logo"><img src="images/Logo_1.svg" alt="ObjetB 로고"></a>
+<!--아이디, 비밀번호 폼 영역-->
+        <form action="" id="login-form">
+            <input type="text" placeholder="아이디를 입력해주세요." required>
+            <input type="password" placeholder="비밀번호를 입력해주세요." required>
+        <div class="login-options">
+            <label for="keep" class="checkbox-label">
+                <input type="checkbox" id="keep">
+                <span>자동 로그인</span>
+            </label>
+            <div class="find-links">
+<!--실제 연결 시엔 #빼고 html로 연결-->
+                <a href="#find-password">비밀번호 찾기</a>
+                <span class="divider">|</span>
+                <a href="#find-id">아이디 찾기</a>
+            </div>
+        </div>
+            <button type="submit" class="btn-login">로그인</button>
+        </form>
+<!-- 소셜 로그인 -->
+    <section class="social-login">
+<!-- target="_blank"는 이용약관이나 개인정보처리방침 현재 페이지를 벗어나도 될 떄 사용-->
+        <a href="https://nid.naver.com/nidlogin.login" class="btn-naver">
+            네이버 로그인
+        </a>
+        <a href="https://accounts.kakao.com/login" class="btn-kakao">
+            카카오 로그인
+        </a>
+    </section>
+    </main>
 </body>
 </html>

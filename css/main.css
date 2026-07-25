@@ -1,153 +1,40 @@
-/* CSS 전체초기화 */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* 목록 스타일 제거 */
-ul,
-ol {
-  list-style: none;
-}
-
-/* 링크 스타일 제거 */
-a {
-  text-decoration: none;
-  color: inherit; /* 부모의 색상을 따라감 */
-}
-
-/* 전체 폰트 가져오기*/
-body {
-  font-family: "Pretendard", sans-serif; /* 피그마에서 확인한 폰트 적용 */
-}
-
-section {
-  margin-top: 100px;
-}
-
-/*헤더 작업*/
-.main_logo {
-  display: block; /* 레이아웃 자유롭게 배치하기 위해*/
-}
-
-header {
-  /* 기존 스타일 */
-  border-bottom: 1px solid #ddd; /* 바로 이 줄이 경계선입니다! */
-  padding-bottom: 20px; /* 로고와 선 사이의 여백 */
-  margin-bottom: 20px; /* 선과 검색창 사이의 여백 */
-}
-
-.main_logo img {
-  width: 150px; /* 데스크톱 기준*/
-  display: block;
-  height: auto;
-}
-
-.nav_item {
-  display: inline-block;
-  transition: all 0.3s ease; /* 호버 효과가 부드럽게 나타나게 함 */
-}
-
-.nav_item:hover {
-  opacity: 0.8;
-  color: #ff5900;
-}
-
-/*메인 전체 콘테이너 배치*/
-.main_container {
-  max-width: 1200px;
-  margin: 0 auto; /* 가운데 정렬 */
-  display: flex; /* 로고와 nav를 가로로 배치 */
-  justify-content: space-between; /* 로고는 왼쪽, 메뉴는 오른쪽 끝으로 */
-  align-items: center; /* 세로 기준 가운데 정렬 */
-  padding: 8px 18px;
-}
-
-/* 메뉴 가로 나열 */
-.main_nav {
-  display: flex;
-  gap: 30px; /* 메뉴 사이 간격 */
-}
-
 /*상단 배너*/
-
-.main_section {
+.banner-container {
   background-color: #fdebeb;
   border: 1px solid #eee;
   border-radius: 20px;
   padding: 28px; /* 내부 여백 */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* 약간의 그림자 효과 */
-  text-align: center; /* h2를 포함한 내부 요소를 전체적으로 가운데 정렬 */
-  margin-top: 50px;
+  margin-bottom: 20px;
 }
-
-.stats_list {
-  display: flex;
-  justify-content: space-around; /* 항목 간격을 균등하게 */
-  padding: 20px;
-  background: #f9f9f9; /* 카드 배경색 */
-  border-radius: 12px;
+.banner-img-wrap {
+  width: 100%;
+  height: 200px;
 }
-
-.box_title {
-  font-size: 20px;
-  margin-bottom: 25px; /* 리스트와의 간격 */
-  color: #333;
+.banner-img-wrap img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-
-.stat_item {
-  display: flex;
-  flex-direction: column; /* 라벨과 숫자를 세로로 */
-  align-items: center; /* 가운데 정렬 */
-}
-
-/* 입양률 */
-.stat_value1 {
-  font-size: 30px;
-  color: #3a6fff;
-  margin-top: 8px;
-}
-
-/* 안락사율 */
-.stat_value2 {
-  font-size: 30px;
-  color: #ff7963;
-  margin-top: 8px;
-}
-
-/* 구조된 동물 */
-.stat_value3 {
-  font-size: 30px;
-  color: #39a966;
-  margin-top: 8px;
-}
-
 /* 퀵 메뉴바*/
-
-.quick_menu {
+.quick-menu {
   padding: 38px 20px; /* 전체 섹션 여백 */
-  text-align: left; /* 제목과 메뉴를 전체적으로 가운데 정렬 */
 }
-
-.quick_title {
+.quick-title {
   font-size: 20px; /* 제목 크기 */
   font-weight: 700; /* 제목 굵기 */
   color: #333333; /* 색상 */
   margin-bottom: 30px; /* 제목과 메뉴 리스트 사이 간격 */
 }
-
-.quick_list {
-  display: flex;
-  justify-content: left;
+.quick-list {
+  display: flex; /*li부모인 ul에 flex로 구조 잡아주기*/
+  justify-content: center; /*처음엔 left였으나 center로 수정*/
   gap: 3px; /* 항목 사이의 여백을 넉넉하게 */
   padding: 0;
 }
-
-.quick_list a {
-  display: flex;
+.quick-list a {
+  display: flex; /*a태그안에 있는 아이콘들도 flex로 구조 잡아주기*/
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -155,33 +42,34 @@ header {
   transition: transform 0.2s; /* 살짝 커지는 효과 */
   width: 100px; /* 고정 너비 주기*/
 }
-
-.quick_list a span {
+.quick-list a span {
   margin-top: 6px; /* 아이콘과 텍스트 사이 간격 */
   line-height: 1.2; /* 줄간격 조정 */
   word-break: keep-all; /* 글자가 너무 길면 자동으로 끊기지 않게 방지 */
   font-size: 14px;
 }
-
-.quick_list a:hover {
+.quick-list a:hover {
   transform: translateY(-5px); /* 마우스를 올리면 위로 살짝 이동 */
 }
-
 /* 오늘의 추천동물*/
-
-.today_animal {
+.today-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333333;
+  margin: 0;
+}
+.today-animal {
   padding: 38px 20px;
   text-align: left;
 }
-
-.today_header {
+.today-header {
   display: flex;
-  justify-content: space-between; /* 제목과 버튼을 양쪽 끝으로 밀어냄 */
+  justify-content: space-between; /* 제목과 버튼(더보기)를 양쪽 끝으로 밀어냄 */
   align-items: baseline; /* 제목과 버튼의 하단 라인을 맞춤 */
   margin-bottom: 20px; /* 리스트와 간격 */
 }
-
-.btn_more {
+/*더보기 버튼*/
+.btn-more {
   background: none;
   border: 1px solid #ddd;
   border-radius: 20px;
@@ -189,25 +77,14 @@ header {
   cursor: pointer;
   font-size: 14px;
 }
-
-/* 시 군 도 css 설정*/
-
-.today_title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #333333;
-  margin: 0;
-}
-
-.today_list {
+/* 시 군 도 영역 설정*/
+.today-list {
   display: flex;
-  justify-content: left;
+  justify-content: left; /*무조건 왼쪽부터 정렬*/
   gap: 3px;
   padding: 0;
-  margin-bottom: 20px;
 }
-
-.today_list a {
+.today-list a {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -216,25 +93,21 @@ header {
   transition: transform 0.2s;
   width: 100px;
 }
-
-.today_list a span {
+/*시 군 도 텍스트 가평군......*/
+.today-list a span {
   margin-top: 6px;
   line-height: 1.2;
-  word-break: keep-all;
+  word-break: keep-all; /*줄 맞춤*/
   font-size: 14px;
 }
-
 /* 시 군 도 슬라이드 효과*/
-
-.todaySwiper {
+.today-swiper {
   width: 100%;
   overflow: hidden; /* 밖으로 나가는 건 숨김 */
 }
-
-.today_list {
+.today-list {
   animation: slide 20s linear infinite; /* 20초 동안 무한 반복 */
 }
-
 /* @keyframes 속성 : 어떤 모양으로 변화시키는지 설계도 역할 뒤에는(slide) 변수명*/
 @keyframes slide {
   0% {
@@ -244,148 +117,120 @@ header {
     transform: translateX(-50%);
   } /* 전체 길이의 절반만큼 왼쪽으로 이동 */
 }
-
 /* 오늘의 추천 동물 카드 리스트 그리드*/
-
 /* 리스트를 그리드 컨테이너로 설정 */
-
-.card_list {
+.card-list {
   display: grid;
   /* 한 줄에 3개씩 배치 */
   grid-template-columns: repeat(3, 1fr);
   gap: 15px; /* 카드 사이의 간격 */
   padding: 0;
+  margin-top: 20px;
 }
-
 /* 개별 카드 디자인 */
-
-.card_list li {
-  background: #fff;
+.card-list li {
   border: 1px solid #eee;
   border-radius: 15px; /* 모서리 둥글게 */
   overflow: hidden;
   transition: transform 0.3s; /* 마우스 올렸을 때 애니메이션 */
 }
-
-.card_list li:hover {
+.card-list li:hover {
   transform: translateY(-5px); /* 마우스 올리면 살짝 위로 이동 */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
-
 /* 카드 내부 링크 및 텍스트 정렬 */
-
-.card_list li a {
+.card-list li a {
   display: flex;
   flex-direction: column; /* 세로 정렬 */
   padding: 11px;
   text-align: center;
   color: #333;
 }
-
-.card_list li img {
+.card-list li img {
   width: 100%; /*세트로 사용 가로는 부모 너비에 맞춤*/
   aspect-ratio: 16 / 9; /* 가로 세로 종횡비 조절 16:9 padding 대신 사용*/
   border-radius: 10px;
   margin-bottom: 10px;
 }
-
 /* 상세 정보 텍스트 스타일 */
-
-.card_list li span {
+.card-list li span {
   font-size: 16px;
   margin-bottom: 5px;
 }
-
 /* 첫 번째 span 강조 */
-
-.card_list li span:nth-of-type(1) {
+.card-list li span:nth-of-type(1) {
   font-weight: bold;
   color: #000;
 }
-
 /* 베스트 입양후기 제목 및 더보기 버튼*/
-
-.best_animal {
+.best-animal {
   padding: 38px 20px;
   text-align: left;
 }
-
-.best_header {
+.best-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 20px;
 }
-
-.best_title {
+.best-title {
   font-size: 20px;
   font-weight: 700;
   color: #333333;
   margin: 0;
 }
-
 /* 베스트 입양후기 카드 리스트 그리드*/
-
-.best_cardlist {
+.best-cardlist {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   padding: 0;
 }
-
-.best_cardlist li {
+.best-cardlist li {
   background: #fff;
   border: 1px solid #eee;
   border-radius: 15px;
-  overflow: hidden;
+  overflow: hidden; /*화면을 벗어나면 숨김*/
   transition: transform 0.3s;
 }
-
-.best_cardlist li:hover {
+.best-cardlist li:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
-
-.best_cardlist li a {
+.best-cardlist li a {
   display: flex;
   flex-direction: column;
   padding: 11px;
   text-align: center;
   color: #333;
 }
-
-.best_cardlist li img {
+.best-cardlist li img {
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 10px;
   margin-bottom: 10px;
 }
-
-.best_cardlist li span {
+.best-cardlist li span {
   font-size: 16px;
   margin-bottom: 5px;
 }
-
-.best_cardlist li span:nth-of-type(1) {
+.best-cardlist li span:nth-of-type(1) {
+  /*li 태그안에 span태그만 가상선택자 만들어서 bold처리*/
   font-weight: bold;
   color: #000;
 }
-
 /* 포인핸드 소식 제목 및 더보기 버튼*/
-
-.ph_news {
+.ph-news {
   padding: 38px 20px;
   text-align: left;
 }
-
-.news_title {
+.news-title {
   font-size: 20px;
   font-weight: 700;
   color: #333333;
   margin: 0;
 }
-
-.news_header {
+.news-header {
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -393,72 +238,71 @@ header {
   margin-bottom: 20px;
   animation: bannermove 5s linear infinite;
 }
-
 /* 사진 리스트 슬라이드 css*/
-
-.news_list {
+.news-list {
   display: flex;
-  justify-content: center;
-  gap: 20px;
   padding: 0;
-  width: 200%;
-  animation: news_slider 6s infinite ease-in-out;
-}
-
-.news_slider {
+  margin: 0;
   width: 100%;
+  animation: news_slider_action 16s infinite ease-in-out;
+  background: #999;
+}
+.news-slider {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   overflow: hidden; /* 영역 밖 숨김 */
   position: relative;
 }
-
-.news_list li {
-  flex: 0 0 calc(50% - 10px); /* 2열 배치 */
+.news-list li {
+  width: calc(100% / 3); /* 너비를 부모의 1/3로 설정 */
+  flex-shrink: 0; /* 화면이 좁아져도 절대 줄어들지(구겨지지) 않게 방지 shrink기본값은 1, 0을주면 절대방어 */
 }
-
-.news_list li img {
+.news-list li img {
   width: 100%;
-  height: 500px;
+  height: auto;
   display: block;
 }
-
-@keyframes news_slider {
+@keyframes news-slider-action {
+  /* 1번 사진 보여주기 및 정지 (0% ~ 25%) */
   0%,
-  40% {
+  30% {
     transform: translateX(0);
-  } /* 1, 2번 사진 */
-  50%,
-  90% {
-    transform: translateX(-50%);
-  } /* 3, 4번 사진 */
+  }
+  /* 2번 사진으로 스르륵 이동 후 정지 (33% ~ 58%) */
+  35%,
+  65% {
+    transform: translateX(-100%);
+  }
+  /* 3번 사진으로 스르륵 이동 후 정지 (66% ~ 91%) */
+  70%,
+  95% {
+    transform: translateX(-200%);
+  }
+  /* 다시 1번 사진으로 돌아가기 */
   100% {
     transform: translateX(0);
   }
 }
-
 /* 실종/제보 동물 헤더 */
-
-.missing_report {
+.missing-report {
   padding: 38px 20px;
   text-align: left;
 }
-
-.miss_title {
+.miss-title {
   font-size: 20px;
   font-weight: 700;
   color: #333333;
   margin: 0;
 }
-
-.miss_header {
+.miss-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 20px;
 }
-
 /* 실종/제보 동물 카드 리스트*/
-
-.miss_list {
+.miss-list {
   width: 100%;
   aspect-ratio: 16 / 9;
   background-color: #ddd; /* 회색 박스로 영역 표시 */
@@ -471,72 +315,64 @@ header {
   border-radius: 10px; /* 디자인 통일감 */
   border: 2px dashed #bbb; /* 점선 테두리로 '영역'임을 표시 */
 }
-
-/* 푸터 css*/
-
-footer {
-  margin-top: 100px; /* 푸터가 본문과 너무 붙지 않게 큰 여백 추가 */
-}
-
-/* 기본 레이아웃 구성 */
-.footer_wrapper {
+/*유기동물 통계바*/
+/* 1. 하단 스크롤 고정 바 전체 영역 */
+.stats-section {
+  position: fixed; /* 스크롤 변환을 줘도 화면 하단 고정 */
+  bottom: 0; /*화면 제일 바닥*/
+  left: 0; /*화면 제일 왼쪽부터 시작*/
   width: 100%;
-  padding: 50px 0;
-  border-top: 1px solid #ddd;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e5e5;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); /* 상단 은은한 그림자 */
+  padding: 16px 24px;
+  z-index: 1000; /* 다른 요소를 덮지 않도록 맨 위 배치 */
+  /* 헤더(제목)와 통계 컨테이너를 양끝 배치 */
+  display: flex; /*자식(stats-header)와 (stats-container)를 가로로 나열*/
+  justify-content: space-between;
+  align-items: center;
 }
-
-.footer_inner {
-  display: flex;
-  justify-content: space-between; /* 왼쪽 로고와 오른쪽 메뉴 간격 최대로 벌림 */
-  align-items: flex-start;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 50px;
+/* 2. 유기동물 통계 제목 */
+#stats-date {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333333;
+  margin: 0;
+  white-space: nowrap; /* 제목 줄바꿈 방지 */
 }
-
-.footer_left {
-  display: flex;
-  flex-direction: column; /* 로고 아래 SNS가 오도록 */
-  align-items: flex-start; /* 왼쪽 정렬 */
+/* 3. 수치 항목들을 들고 있는 컨테이너 */
+.stats-container {
+  display: flex; /* 직속 자식인 stat-box를 가로로 나열 */
+  align-items: center;
+  gap: 32px; /* 항목 간 간격 조정 */
 }
-
-/* SNS 아이콘 가로 정렬 */
-.sns_links {
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
-  padding: 0;
-}
-
-/* 내비게이션 영역 (가로 배치) */
-.nav_list {
-  display: flex;
-  gap: 60px; /* 메뉴 그룹 간의 간격 */
-}
-
-.sub_nav {
-  padding: 0;
-  margin-top: 15px;
-}
-
-.sub_nav li {
-  margin-bottom: 10px;
-}
-
-.sub_nav a {
-  text-decoration: none;
-  color: #333;
+/* 4. 개별 수치 박스*/
+.stat-box {
+  display: flex; /*라벨, 숫자, 단위 가로 나열*/
+  align-items: center;
+  gap: 6px; /* 라벨, 숫자, 단위 사이의 작은 간격 */
   font-size: 16px;
 }
-
-/* 하단 영역 */
-.footer_bottom {
-  max-width: 100%;
-  width: 100%;
-  padding: 20px 50px 0;
-  border-top: 2px solid #eee;
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #888;
+.stat-box .label {
+  font-weight: 600;
+  color: #666666;
+}
+.stat-box .value {
+  font-size: 18px;
+  font-weight: 700;
+}
+.stat-box .unit {
+  color: #888888;
+}
+/* 1. 구조 - 초록색 */
+.stat-box.totCnt .value {
+  color: #28a745; /* Green */
+}
+/* 2. 입양률 - 파란색 */
+.stat-box.adoptRate .value {
+  color: #007bff; /* Blue */
+}
+/* 3. 안락사율 - 주황색 */
+.stat-box.euthanasiaRate .value {
+  color: #fd7e14; /* Orange */
 }

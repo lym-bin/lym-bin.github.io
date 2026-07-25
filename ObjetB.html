@@ -2,29 +2,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./css/ObjetB.css" rel="stylesheet"/>
-    <link href="./css/global.css" rel="stylesheet"/>
+    <link href="./css/ObjetB.css" rel="stylesheet"/> <!--메인 CSS-->>
+    <link href="./css/global.css" rel="stylesheet"/> <!--글로벌 다중 CSS-->
     <title>ObjetB Main</title>
 </head>
 <body>
+
+<!--헤더 영역-->
     <header class="main-header">
+<!--flex구조로 만들 헤더 컨테이너-->
     <div class="main-container">
-        <ul><li><a href="nav-caregory"><img src="images/category_1.svg" alt="카테고리" width="20" height="20"></a></li></ul>
+<!--헤더 카테고리-->
+        <ul>
+            <li><a href="nav-caregory"><img src="images/category_1.svg" alt="카테고리" width="20" height="20"></a></li>
+        </ul>
+<!--메인 로고 이미지-->
         <a href="#" class="main-logo"><img src="images/Logo_1.svg" alt="" width="80" height="80"></a>
+<!--헤더 NAV바-->
         <nav>
             <ul class="main-nav">
                 <li><a href="#" class="nav-search"><img src="images/search_1.svg" alt="검색" width="20" height="20"></a></li>
                 <li><a href="#"><img src="images/cart_1.svg" alt="카트" width="20" height="20"></a></li>
-                <li><a href="#"><img src="images/login_1.svg" alt="로그인" width="20" height="20"></a></li>
+                <li><a href="ObjLogin.html"><img src="images/login_1.svg" alt="로그인" width="20" height="20"></a></li>
             </ul>
         </nav>
     </div>
+<!--헤더 닫기-->
 </header>
-
 <main>
+<!--메인 영역-->
     <section class="shop-banner">
+<!--flex구조로 만들 메인 배너 영역-->
         <div class="main-banner">
-            <!-- 좌측 텍스트 콘텐츠 영역 (시안의 왼쪽 정렬된 부분) -->
+            <!-- 메인 배너 좌측 영역 -->
             <div class="banner-content">
                 <h2 class="banner-title">/ Minimalist<br>COLLECTION</h2>
                 <p class="banner-desc">
@@ -33,36 +43,35 @@
                 </p>
                 <button class="btn-buy">BUY $115</button>
             </div>
-            
-            <!-- 우측 이미지 및 슬라이드 내비게이션 영역 -->
+<!-- 우측 이미지 및 슬라이드 내비게이션 영역 -->
             <div class="banner-slider">
                 <div class="banner-img-wrap">
-
                     <a href="ObjList.html"><img src="images/main-banner.svg" alt="Minimalist Collection Room View"></a>
                 </div>
             </div>
         </div>
     </section>
-
+<!-- 퀵 메뉴 영역-->
     <section class="quick-nav">
     <div class="quick-container">
+<!-- flex구조로 만들 quick컨테이너-->
         <ul class="quick-list">
             <li><a href="#">FASHION</a></li>
             <li><a href="#">TRAVEL</a></li>
-            <!-- 현재 활성화된 카테고리에 class="active" 부여 -->
-            <li><a href="#" class="active">EVERY DAY</a></li>
+            <li><a href="#">EVERY DAY</a></li>
             <li><a href="#">MINIATURES</a></li>
         </ul>
     </div>
 </section>
-
-
+<!--카드 리스트 영역-->
     <section>
         <div class="shop-container">
+<!--grid구조로 잡아줄 ul 영역-->
             <ul class="shop-list">
                 <li><a href="ObjList.html">
                     <div class="product-img"><img src="images/modalgrid_1.jpg" alt="">
                     </div>
+<!--상품 상세 텍스트 영역-->
                     <div class="product-info">
                         <em class="prod-name">White T</em>
                         <span class="prod-option">(White)</span>
@@ -123,8 +132,7 @@
             </ul>
         </div>
     </section>
-
-    <!-- 첫번째 배너(크로스 모델)-->
+<!-- 첫번째 배너(모델컷)-->
     <section class="customer-banner">
         <div class="customer-container">
                 <div class="customer-slide">
@@ -135,10 +143,10 @@
          <div class="customer-content">
                 <h2 class="customer-title">Minimalist & Sophisticated<br></h2>
                 <p class="customer-desc">Elevate your everyday, redefined by design Timeless design for modern life.</p>
-                </div>
+            </div>
         </div> 
     </section>
-    <!-- 두번째 배너 반복구조에 배열만 다르면 reverse 추가--> 
+<!-- 두번째 배너 반복구조에 배열만 다르면 reverse 추가--> 
      <section class="customer-banner reverse">
         <div class="customer-container">
                 <div class="customer-slide">
@@ -152,12 +160,11 @@
                 </div>
         </div> 
     </section>
-
-    <!-- 베스트 리뷰-->
+<!-- 베스트 리뷰 영역-->
      <section class="best-review">
     <h2 class="best-title">Best Review</h2>
+<!-- grid구조로 잡아줄 리스트 영역 -->
     <div class="review-grid">
-        <!-- 리뷰 카드 1 -->
         <article class="review-card">
             <img src="images/card_1.svg" alt="상품 이미지">
             <div class="card-text">
@@ -174,8 +181,7 @@
                 </div>
             </div>
         </article>
-        
-        <!-- 리뷰 카드 2 -->
+<!-- 리뷰 카드 2 -->
         <article class="review-card"><img src="images/card_2.svg" alt="상품 이미지">
             <div class="card-text">
                 <p class="product-name"> ObjET & B [Men] Black jean</p>
@@ -191,8 +197,7 @@
                 </div>
             </div>
         </article>
-
-        <!-- 리뷰 카드 3 -->
+<!-- 리뷰 카드 3 -->
         <article class="review-card"><img src="images/card_3.svg" alt="상품 이미지">
             <div class="card-text">
                 <p class="product-name">ObjET & B [Men&Women] White Shoes</p>
@@ -208,8 +213,7 @@
                 </div>
             </div>
         </article>
-
-        <!-- 리뷰 카드 4 -->
+<!-- 리뷰 카드 4 -->
         <article class="review-card"><img src="images/card_4.svg" alt="상품 이미지">
             <div class="card-text">
                 <p class="product-name">ObjET & B [Men] Black Shoes</p>
@@ -228,10 +232,10 @@
     </div>
 </section>
 </main>
-
+<!-- 푸터 영역-->
     <footer class="footer-wrapper">
         <div class="footer-inner">
-        <!--푸터 상단-->
+<!--푸터 상단-->
             <div class="footer-left">
                 <div class="footer-logo">
                     <a href="#"><img src="images/Logo_1.svg" alt="Objet & B 로고" width="100" height="100"></a>
@@ -240,8 +244,7 @@
                     <p class="footer-desc"><a href="https://app.notion.com/p/Lym-Sang-Bin-Web-Portfolio-b43e7e42ec0882f4951d818987cefb4d"><img src="images/notion-icon.svg" alt="노션"></a></p>
                 </div>
             </div>
-
-        <!--푸터 중단-->
+<!--푸터 중단-->
         <div class="footer-middle">
             <nav class="footer-nav">
                     <h2 class="nav-title"><strong>Minialist</strong></h2>
@@ -254,21 +257,17 @@
                         <span class="nav-shop-desc">High-and Minimalist object shop</span>
             </nav>
         </div>
-
-        <!--푸터 하단-->
+<!--푸터 하단-->
         <div class="footer-copy">
             &copy;2026 Objet - B. All rights reserved.
         </div>
     </footer>
-
-
+<!-- 스크립트 선언-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
 <script>
     gsap.registerPlugin(ScrollTrigger);
-    
-    // 타임아웃을 살짝 주어 브라우저가 요소를 완전히 그릴 시간을 확보합니다.
+    // 타임아웃을 살짝 주어 브라우저가 요소를 완전히 그릴 시간을 확보
     setTimeout(() => {
         gsap.from('.shop-list li', {
             opacity: 0, 
@@ -283,6 +282,5 @@
         });
     }, 500);
 </script>
-    
 </body>
 </html>

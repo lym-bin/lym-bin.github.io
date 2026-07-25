@@ -13,29 +13,36 @@
  */
  
 
-/* CSS 전체초기화 */
+
+ /* ==========================================================
+
+                       CSS 공통(global) 초기화
+
+    ==========================================================
+ */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box; /*padding이나 border를 아무리 줘도 전체 박스 width 유지*/
 }
-
-/* 목록 스타일 제거 */
+/* 목록 스타일(기호,번호) 제거 */
 ul, ol {
   list-style: none;
 }
-
+/*글꼴 기울임 제거*/
+p {
+  font-style: normal;
+}
 /* 링크 스타일 제거 */
 a {
   text-decoration: none;
   color: inherit; /* 부모의 색상을 따라감 */
 }
-
 /* 전체 폰트 가져오기*/
 body {
   font-family:'Pretendard', sans-serif; /* 피그마폰트 적용 */
 }
-
+/*===========================================================*/
 /*헤더 공통작업*/
 .main-container {
  display: flex; 
@@ -47,36 +54,29 @@ body {
  align-items: center;
  height: 80px;
 }
-
 .main-container > ul {
   flex: 1;
   display: flex;
   justify-content: flex-start;
 }
-
 .main-logo {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .main-container > nav {
   flex: 1;
   display: flex;
   justify-content: flex-end;
 }
-
 .main-header {
   border-bottom: 1px solid #ccc;
 }
-
 .main-nav {
   display: flex; 
   gap: 30px;
 }
-
 /*푸터 공통 작업*/
-
 /*푸터 전체 컨테이너*/
 .footer-wrapper {
   width: 100%;

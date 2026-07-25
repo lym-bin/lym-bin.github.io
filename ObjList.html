@@ -7,6 +7,7 @@
     <title>상품 목록 페이지</title>
 </head>
 <body>
+<!--텍스트 및 이미지는 작업 후 추가 예정 TODO-LIST(26.07.23)-->
     <header class="main-header">
     <div class="main-container">
         <ul><li><a href="nav-caregory"><img src="images/category_1.svg" alt="카테고리" width="20" height="20"></a></li></ul>
@@ -20,18 +21,20 @@
         </nav>
     </div>
 </header>
-
+<!--상품 영역-->
     <main>
+<!--상단 컨테이너 영역-->
         <section class="product-info">
+<!--flex구조로 양끝을 밀어줄 영역-->
             <div class="product-container">
-            <!-- 좌측 상품 갯수(추후에 자바스크립트로 갯수조정)-->
+<!-- 좌측 상품 갯수(추후에 자바스크립트로 갯수조정)-->
             <div class="product-total">
                 TOTAL <span class="count">000</span> ITEMS
             </div>
-            <!-- 우측 nav-->
+<!-- 우측 nav-->
             <div class="product-filter-group">
                 <ul class="sort-list">
-          <!-- aria-current="true"로 현재 선택된 상태임을 스크린 리더에 알림 -->
+<!-- aria-current="true"로 현재 선택된 상태임을 스크린 리더에 알림(웹 접근성에 유효하게 넣어줘야 함) -->
           <li><button type="button" class="sort-btn active" aria-current="true">신상품 순</button></li>
           <li><button type="button" class="sort-btn">낮은 가격순</button></li>
           <li><button type="button" class="sort-btn">높은 가격순</button></li>
@@ -40,76 +43,72 @@
                 <button type="button" class="filter-open-btn" aria-haspopup="true" aria-expanded="false">Filter</button>
             </div>
             </div>
-            <!-- 화면 옆에서 열릴 사이드바 (기본적으론 CSS로 숨겨둠) -->
-   <!-- 화면 우측에서 슬라이드인 될 사이드바 -->
+<!-- 화면 옆에서 열릴 filter 사이드바 (기본적으론 CSS로 숨겨둠) -->
+<!-- 화면 우측에서 슬라이드인 될 사이드바(사이드바,퀵메뉴,광고,본문옆은 aside태그 사용)-->
 <aside class="filter-sidebar" aria-label="상품 상세 필터">
-  
-  <!--  헤더 영역 (타이틀 & 닫기 버튼) -->
+<!--  헤더 영역 (타이틀 & 닫기 버튼) -->
   <div class="sidebar-header">
     <h3>Filter</h3>
     <button type="button" class="filter-close-btn">닫기</button>
   </div>
-
-  <!--  본문 영역 (스크롤 가능, Form으로 구성) -->
+<!--  본문 영역 (스크롤 가능, Form으로 구성) -->
   <div class="sidebar-content">
+<!--메서드를 post방식이 아닌 get방식을 쓴 이유는 사이드바 팝업이 새로고침할 때 양식을 다시 제출하시겠습니까가 뜨고 
+    조회만 할떄는 get방식 * 보안상 민감한 정보가 필터면 post방식
+    form action은 비워놓고 비동기로 이동(TODO)-->
     <form action="" method="GET" class="filter-form">
-      
-      <!-- [섹션 1] 색상 필터 (다중 선택 가능하게 Checkbox 사용) -->
+<!-- [섹션 1] 색상 필터 (다중 선택 가능하게 Checkbox 사용) -->
       <section class="filter-section">
         <h4 class="filter-title">색상</h4>
         <div class="filter-options color-grid">
-          
-          <!-- 옵션 1: 블랙 -->
+<!-- 옵션 1: 블랙 -->
+<!--lable태그는 id와 value값이 정확해야함.-->
           <label class="filter-item">
             <input type="checkbox" name="color" value="black" class="blind-input">
             <span class="filter-box">블랙</span>
           </label>
-          
-          <!-- 옵션 2: 화이트 -->
+<!-- 옵션 2: 화이트 -->
           <label class="filter-item">
             <input type="checkbox" name="color" value="white" class="blind-input">
             <span class="filter-box">화이트</span>
-          </label>
-          
-          <!-- 옵션 3: 블루 -->
+          </label>  
+<!-- 옵션 3: 블루 -->
           <label class="filter-item">
             <input type="checkbox" name="color" value="blue" class="blind-input">
             <span class="filter-box">블루</span>
           </label>
           
-          <!-- 옵션 4: 그레이 -->
+<!-- 옵션 4: 그레이 -->
           <label class="filter-item">
             <input type="checkbox" name="color" value="gray" class="blind-input">
             <span class="filter-box">그레이</span>
           </label>
 
-          <!-- 옵션 5: 브라운 -->
+<!-- 옵션 5: 브라운 -->
           <label class="filter-item">
             <input type="checkbox" name="color" value="brown" class="blind-input">
             <span class="filter-box">브라운</span>
           </label>
 
-          <!-- 옵션 6: 베이지 -->
+<!-- 옵션 6: 베이지 -->
           <label class="filter-item">
             <input type="checkbox" name="color" value="beige" class="blind-input">
             <span class="filter-box">베이지</span>
           </label>
-
-          <!-- 옵션 7: 레드 -->
+<!-- 옵션 7: 레드 -->
           <label class="filter-item">
             <input type="checkbox" name="color" value="red" class="blind-input">
             <span class="filter-box">레드</span>
           </label>
 
-          <!-- 옵션 8: 옐로우 -->
+<!-- 옵션 8: 옐로우 -->
           <label class="filter-item">
             <input type="checkbox" name="color" value="yellow" class="blind-input">
             <span class="filter-box">옐로우</span>
           </label>
         </div>
       </section>
-
-      <!-- [섹션 2] 사이즈 필터 -->
+<!-- [섹션 2] 사이즈 필터 -->
       <section class="filter-section">
         <h4 class="filter-title">사이즈</h4>
         <div class="filter-options size-grid">
@@ -159,36 +158,27 @@
   </div>
 </aside>
         </section>
-
-
-
-       <!--상품 그리드-->
+<!--상품 그리드-->
 <!--계속 기억 * 전체 화면 비율 설정 컨테이너-->
 <section class="product-grid">
-
-  <!-- ==========================================
-       1번째 줄: 3열 그리드로 감싸는 ul태그 (type-3col 추가)
-  ========================================== -->
+<!--1번째 줄: 3열 그리드로 감싸는 ul태그-->
   <ul class="card-list type-3col">
-    <!--*ul의 자식은 오직 li 뿐이어야 하며, 다른 태그들은 li의 자식-->
-    
-    <!-- 상품 카드 1 -->
+<!--*ul밑(부모)에는 오직 li만와야함(반복실수그만)li안(자식)에 넣어야함-->
+<!-- 상품 카드 1 -->
     <li class="card-item">
       <a href="ObjDetail.html" class="card-link">
-        <!-- 이미지 영역 -->
+<!-- 이미지 영역 -->
         <div class="card-img-wrap">
           <img src="" alt="제품명 대체 텍스트">
         </div>
-        
-        <!-- 정보 영역 (위아래로 떨어지도록 구조화) -->
+<!-- 정보 영역 (위아래로 떨어지도록 구조화) -->
         <div class="card-info">
           <strong class="product-name">제품명 : *****</strong>
           <span class="product-price">가격 $ ***</span>
         </div>
       </a>
     </li>
-
-    <!-- 상품 카드 2 -->
+<!-- 상품 카드 2 -->
     <li class="card-item">
       <a href="#" class="card-link">
         <div class="card-img-wrap">
@@ -200,8 +190,7 @@
         </div>
       </a>
     </li>
-
-    <!-- 상품 카드 3 -->
+<!-- 상품 카드 3 -->
     <li class="card-item">
       <a href="#" class="card-link">
         <div class="card-img-wrap">
@@ -214,13 +203,9 @@
       </a>
     </li>
   </ul>
-
-  <!-- ==========================================
-       2번째 줄: 혼합 그리드로 감싸는 ul태그 (type-mixed 추가)
-  ========================================== -->
+<!--2번째 줄: 혼합 그리드로 감싸는 ul태그-->
   <ul class="card-list type-mixed">
-    
-    <!-- 왼쪽의 엄청 큰 카드 (is-large 클래스 추가) -->
+<!-- 좌측 2열 차지하는 큰 카드 -->
     <li class="card-item is-large">
       <a href="#" class="card-link">
         <div class="card-img-wrap">
@@ -232,8 +217,7 @@
         </div>
       </a>
     </li>
-
-    <!--  오른쪽의 일반 크기 카드 (첫 번째 줄과 완전 동일 구조) -->
+<!--오른쪽의 일반 크기 카드-->
     <li class="card-item">
       <a href="#" class="card-link">
         <div class="card-img-wrap">
@@ -246,28 +230,23 @@
       </a>
     </li>
   </ul>
-
-  <!-- ==========================================
-       3번째 줄: 3열 그리드로 감싸는 ul태그
-  ========================================== -->
+<!--3번째 줄: 3열 그리드로 감싸는 ul태그-->
   <ul class="card-list type-3col">
-    <!-- 상품 카드 1 -->
+<!-- 상품 카드 1 -->
     <li class="card-item">
       <a href="#" class="card-link">
-        <!-- 이미지 영역 -->
+<!-- 이미지 영역 -->
         <div class="card-img-wrap">
           <img src="" alt="제품명 대체 텍스트">
         </div>
-        
-        <!-- 정보 영역 (위아래로 떨어지도록 구조화) -->
+<!-- 정보 영역 (위아래로 떨어지도록 구조화) -->
         <div class="card-info">
           <strong class="product-name">제품명 : *****</strong>
           <span class="product-price">가격 $ ***</span>
         </div>
       </a>
     </li>
-
-    <!-- 상품 카드 2 -->
+<!-- 상품 카드 2 -->
     <li class="card-item">
       <a href="#" class="card-link">
         <div class="card-img-wrap">
@@ -279,8 +258,7 @@
         </div>
       </a>
     </li>
-
-    <!-- 상품 카드 3 -->
+<!-- 상품 카드 3 -->
     <li class="card-item">
       <a href="#" class="card-link">
         <div class="card-img-wrap">
@@ -293,12 +271,8 @@
       </a>
     </li>
   </ul>
-  <!-- ==========================================
-       4 번째 줄: 혼합 그리드로 감싸는 ul태그(위치변경)
-  ========================================== -->
+<!-- 4 번째 줄: 혼합 그리드로 감싸는 ul태그(위치변경reverse) -->
   <ul class="card-list type-mixed">
-    
-    
     <li class="card-item">
       <a href="#" class="card-link">
         <div class="card-img-wrap">
@@ -310,7 +284,6 @@
         </div>
       </a>
     </li>
-
     <li class="card-item is-large">
       <a href="#" class="card-link">
         <div class="card-img-wrap">
@@ -331,7 +304,7 @@
 
     <footer class="footer-wrapper">
         <div class="footer-inner">
-        <!--푸터 상단-->
+<!--푸터 상단-->
             <div class="footer-left">
                 <div class="footer-logo">
                     <a href="#"><img src="images/Logo_1.svg" alt="Objet & B 로고" width="100" height="100"></a>
@@ -340,8 +313,7 @@
                     <p class="footer-desc"><a href="https://app.notion.com/p/Lym-Sang-Bin-Web-Portfolio-b43e7e42ec0882f4951d818987cefb4d"><img src="images/notion-icon.svg" alt="노션"></a></p>
                 </div>
             </div>
-
-        <!--푸터 중단-->
+<!--푸터 중단-->
         <div class="footer-middle">
             <nav class="footer-nav">
                     <h2 class="nav-title"><strong>Minialist</strong></h2>
@@ -354,51 +326,43 @@
                         <span class="nav-shop-desc">High-and Minimalist object shop</span>
             </nav>
         </div>
-
-        <!--푸터 하단-->
+<!--푸터 하단-->
         <div class="footer-copy">
             &copy;2026 Objet - B. All rights reserved.
         </div>
     </footer>
-
     <script>
-    
-    /*const : 변수선업 document.querySelector : doc(문서)에서 이 클래스를 가져오겠다.*/
+/*1. const : 변수선업 document.querySelector : doc(문서)에서 이 클래스를 가져오겠다.*/
 const filterOpenBtn = document.querySelector('.filter-open-btn');
 const filterCloseBtn = document.querySelector('.filter-close-btn');
 const filterSidebar = document.querySelector('.filter-sidebar');
 const filterCheckboxes = filterSidebar.querySelectorAll('input[type="checkbox"]');
-
 // 2. Filter 버튼을 클릭했을 때 -> .open 클래스 추가 (사이드바 등장)
 filterOpenBtn.addEventListener('click', () => {
   filterSidebar.classList.add('open');
   // 웹 접근성(A11y)을 위해 '열림' 상태라고 알려줌
   filterOpenBtn.setAttribute('aria-expanded', 'true'); 
+  console.log("확인");
 });
-
 // 3. 닫기 버튼을 클릭했을 때 -> .open 클래스 제거 (사이드바 숨김)
 filterCloseBtn.addEventListener('click', () => {
   filterSidebar.classList.remove('open');
   // 웹 접근성(A11y)을 위해 '닫힘' 상태라고 알려줌
   filterOpenBtn.setAttribute('aria-expanded', 'false'); 
 });
-
 // 4. 필터 최대 3개 선택 유효성 검사
 filterCheckboxes.forEach(checkbox => {
   checkbox.addEventListener('change', (e) => {
     // 실제 '체크박스' 중에서 '체크된' 개수만 정확히 필터링해서 셉니다.
     const checkedCount = filterSidebar.querySelectorAll('input[type="checkbox"]:checked').length;
-    
     // 유효성 검사: 3개를 초과(4개째)했는지 확인
     if (checkedCount > 3) {
       alert('필터는 최대 3개까지만 선택할 수 있습니다.');
-      
       // 방금 체크한 4번째 체크박스를 강제로 취소 처리
       e.target.checked = false;
     }
   });
 });
-
     </script>
 </body>
 </html>

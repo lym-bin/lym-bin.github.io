@@ -21,11 +21,10 @@
     </div>
 </header>
 
-    <!--상품 list 및 info-->
-    <!-- 전체 상세 페이지를 감싸는 부모 상자 (flex를 줘서 좌우로 배치) -->
+<!--상품 리스트 영역 -->
+<!-- 전체 상세 페이지를 감싸는 부모 상자 (flex를 줘서 좌우로 배치) -->
 <main class="detail-container">
-
-  <!-- 📦 [왼쪽 상자] 오직 상품, 모델 이미지 비주얼만 담당 -->
+<!-- 왼쪽 영역 오직 상품, 모델 이미지 비주얼만 담당 -->
   <section class="detail-visual">
     <div class="detail-img-wrap">
       <img src="" alt="블랙 데님 와이드 진 상품 대표 이미지">
@@ -35,17 +34,17 @@
     </div>
   </section>
 
-  <!-- 📦 [오른쪽 상자] 상품의 모든 정보와 옵션 선택을 담당 (하나의 form으로 묶음) -->
+<!-- 📦 [오른쪽 상자] 상품의 모든 정보와 옵션 선택을 담당 (하나의 form으로 묶음) -->
   <section class="detail-info-area">
     <form action="" method="get" class="order-form">
       
-      <!-- 상품 기본 텍스트 정보 -->
+<!-- 상품 기본 텍스트 정보 -->
       <div class="product-header">
         <h1 class="product-title">블랙 데님 와이드 스트레이트 진</h1>
         <div class="product-price">$ 120</div>
       </div>
 
-      <!-- 색상 필터 영역(중복 방지 radio 타입 사용 *하나만 사용해야해서*)-->
+<!-- 색상 필터 영역(중복 방지 radio 타입 사용 *하나만 사용해야해서*)-->
       <div class="option-group color-select-group">
         <strong class="color-title">색상 : </strong>
         <div class="color-options">
@@ -71,7 +70,7 @@
         </div>
       </div>
 
-      <!-- 사이즈 필터 영역-->
+<!-- 사이즈 필터 영역-->
        <div class="option-group size-select-group">
         <strong class="size-title">사이즈 : </strong>
         <div class="size-options">
@@ -110,40 +109,91 @@
         </div>
        </div>
 
-       <!--사이즈 가이드 버튼-->
+<!--사이즈 가이드 버튼-->
        <div class="size-guide">
         <button type="button" class="size-btn">사이즈 가이드</button>
        </div>
+<!-- 사이즈 가이드 사이드바 -->
+<aside class="guide-sidebar" aria-label="사이즈 가이드">
+    <!-- 헤더 영역 (타이틀 & 닫기버튼) -->
+    <header class="size-sidebar-header">
+        <h3>Men's Size Guide</h3>
+        <button type="button" class="size-close-btn" aria-label="사이즈 가이드 닫기">닫기</button>
+    </header>
 
-       <!--장바구니 담기 버튼-->
+<!-- 💡 사이즈 테이블 -->
+    <div class="size-grid-table">
+<!-- 1행: 헤더 타이틀 -->
+        <div class="grid-th">Size</div>
+        <div class="grid-th">Pants</div>
+        <div class="grid-th">인치(Alternative)</div> <!-- 시안 우측 열 공간 매칭 -->
+
+<!-- 2행 -->
+        <div class="grid-td">XXS</div>
+        <div class="grid-td">34</div>
+        <div class="grid-td">28</div>
+
+<!-- 3행 -->
+        <div class="grid-td">XXS ~ XS</div>
+        <div class="grid-td">36</div>
+        <div class="grid-td">30</div>
+
+<!-- 4행 -->
+        <div class="grid-td">XS ~ S</div>
+        <div class="grid-td">38</div>
+        <div class="grid-td">32</div>
+
+<!-- 5행 -->
+        <div class="grid-td">S ~ M</div>
+        <div class="grid-td">40</div>
+        <div class="grid-td">34</div>
+
+<!-- 6행 -->
+        <div class="grid-td">M ~ L</div>
+        <div class="grid-td">42</div>
+        <div class="grid-td">36</div>
+
+<!-- 7행 -->
+        <div class="grid-td">L ~ XL</div>
+        <div class="grid-td">44</div>
+        <div class="grid-td">38</div>
+
+<!-- 8행 -->
+        <div class="grid-td">XL ~ XXL</div>
+        <div class="grid-td">46</div>
+        <div class="grid-td">40</div>
+    </div>
+</aside>
+
+<!--장바구니 담기 버튼-->
        <div class="product-cart">
         <button type="submit" class="cart-btn">장바구니 담기</button>
        </div>
 
-       <!--장바구니 사이드바-->
+<!--장바구니 사이드바-->
        <aside class="cart-sidebar" aria-label="장바구니">
 
-       <!--사이드바 헤더 영역(사이드바도 시맨틱을지켜서 마크업하면 유지보수 및 css가 편해짐 div남발X)-->
+<!--사이드바 헤더 영역(사이드바도 시맨틱을지켜서 마크업하면 유지보수 및 css가 편해짐 div남발X)-->
         <header class="cart-sidebar-header">
           <h3>Cart</h3>
           <button type="button" class="cart-close-btn" aria-label="장바구니 닫기">Close</button>
         </header>
 
-        <!--장바구니 컨텐츠 영역(하나의 form에 넣어야 데이터 전송이 편리함)-->
+<!--장바구니 컨텐츠 영역(하나의 form에 넣어야 데이터 전송이 편리함)-->
             <form action="" method="post" class="cart-form">
               
-              <!--스크롤이 나오게되면 조절할 수 있는 컨테이너-->
+<!--스크롤이 나오게되면 조절할 수 있는 컨테이너-->
               <div class="cart-sidebar-body">
 
-                <!--구매 상품 카드-->
+<!--구매 상품 카드-->
               <article class="card-item">
 
-              <!--상품 이미지-->
+<!--상품 이미지-->
                 <div class="card-item-img-wrap">
                   <img src="" alt="이미지 추가 예정">
                 </div>
 
-              <!--상품 INFO-->
+<!--상품 INFO-->
                 <div class="card-item-info">
                   <h4>제품명 : <span>블랙 데님 와이드 스트레이트 진</span></h4>
                   <p>가격 : <span>$ 113</span></p>
@@ -156,10 +206,9 @@
 
 
 
-        <!--footer 역할로 하단에 고정할 컨테이너-->
+<!--footer 역할로 하단에 고정할 컨테이너-->
         <footer class="cart-sidebar-footer">
-
-        <!--결제, 취소버튼-->
+<!--결제, 취소버튼-->
         <div class="buy-checkout-btn">
           <button type="submit" class="buy-btn">결제</button>
         </div>
@@ -171,7 +220,7 @@
             </form> 
        </aside>
 
-      <!-- 상품 상세 설명 본문 -->
+<!-- 상품 상세 설명 본문 -->
       <div class="product-info">
         <p class="product-text">
           풍부한 질감이 느껴지는 블랙 데님 소재의 와이드 스트레이트 레그 미드 라이즈 진. 톤온톤 탑스티칭 및 클래식한 파이브 포켓 디자인. 
@@ -193,7 +242,7 @@
 
         <span class="grid-item-name">비슷한 상품 이름</span>
         </a>
-        <!--두번째 상품-->
+<!--두번째 상품-->
       <a href="#" class="grid-item">
       <div class="grid-img-wrap">
       <img src="" alt="상품 그리드 이미지">
@@ -203,7 +252,7 @@
         </a>
       </div>
   </section>
-         <!--세번째 상품-->
+<!--세번째 상품-->
          <section class="grid-container">
           <h2 class="grid-title">후기 컷</h2>
           <div class="product-grid">
@@ -215,7 +264,7 @@
         <span class="grid-item-name">비슷한 상품 이름</span>
         </a>
 
-         <!--네번째 상품-->
+<!--네번째 상품-->
       <a href="#" class="grid-item">
       <div class="grid-img-wrap">
       <img src="" alt="상품 그리드 이미지">
@@ -228,7 +277,7 @@
 
 <footer class="footer-wrapper">
         <div class="footer-inner">
-        <!--푸터 상단-->
+<!--푸터 상단-->
             <div class="footer-left">
                 <div class="footer-logo">
                     <a href="#"><img src="images/Logo_1.svg" alt="Objet & B 로고" width="100" height="100"></a>
@@ -238,7 +287,7 @@
                 </div>
             </div>
 
-        <!--푸터 중단-->
+<!--푸터 중단-->
         <div class="footer-middle">
             <nav class="footer-nav">
                     <h2 class="nav-title"><strong>Minialist</strong></h2>
@@ -252,7 +301,7 @@
             </nav>
         </div>
 
-        <!--푸터 하단-->
+<!--푸터 하단-->
         <div class="footer-copy">
             &copy;2026 Objet - B. All rights reserved.
         </div>
@@ -263,22 +312,36 @@
       const cartSideBar = document.querySelector('.cart-sidebar');
       const buyBtn = document.querySelector('.buy-btn');
       const cancelBtn = document.querySelector('.cancel-btn');
+      const sizeBtn = document.querySelector('.size-btn');
+      const sizeCloseBtn = document.querySelector('.size-close-btn');
+      const guideSideBar = document.querySelector('.guide-sidebar');
 
-      /*장바구니 담기 열기 이벤트*/
+/*장바구니 담기 열기 이벤트*/
       cartBtn.addEventListener('click', (e) => {
         e.preventDefault(); /*새로고침없이 사이드바 팝업 열수 있게함*/
         cartSideBar.classList.add('open');
         cartBtn.setAttribute('aria-expanded', 'true'); /*스크린리더한테 열었어요 알려주기*/
         alert("오픈");
       });
-      /*닫기*/
+/*닫기*/
       cartCloseBtn.addEventListener('click', (e) => {
         e.preventDefault();
         cartSideBar.classList.remove('open');
         cartBtn.setAttribute('aria-expanded', 'false');
-        alert("닫기");
       });
-      /*결제창 클릭 이벤트*/
+/*사이즈 가이드 열기 이벤트*/
+      sizeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        guideSideBar.classList.add('open');
+        sizeBtn.setAttribute('aria-expanded', 'true');
+      });
+/*닫기*/
+      sizeCloseBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        guideSideBar.classList.remove('open');
+        sizeBtn.setAttribute('aria-expanded', 'false');
+      });
+/*결제창 클릭 이벤트*/
       if (buyBtn && cartSideBar) { /*결제창 넘어 갈 시 버튼이 없을경우 자바스크립트 붕괴 방어(null)뜰 수가 있음 둘 다 있을경우 구동 아닐 시 if문 전체삭제*/
       buyBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -286,7 +349,7 @@
         buyBtn.setAttribute('aria-expanded', 'true');
          alert("결제창으로 이동합니다. 잠시만 기다려주세요.");
          setTimeout(() => { /*사이드바 닫고 결제창 이동까지 time 주기*/
-        window.location.href = './ObjOder.html';
+        window.location.href = './ObjOrder.html';
         },  400) /*0.4초 */
       });
       }

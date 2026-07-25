@@ -1,53 +1,30 @@
 /*상단 컨테이너 설정 최대 너비 제한 중앙 정렬*/
 .product-info {
-  width: 100%;
+  width: 100%; /*공통으로 컨테이너사이즈는 width: 100% + max-width: 1200px + margin:0, auto*/
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;  
 }
 /*좌 우 메뉴 정렬 flex + space-between*/
 .product-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
+  display: flex; /*flex + justify-content + align-itmes은 세트로 같이씀*/
+  justify-content: space-between; /*양쪽끝으로 벌림(TOTAL과 신상품순 nav)*/
+  align-items: center; /*교차축을 중심으로 가운데 정렬*/
 }
-/*정렬 리스트 가로 배치*/
+/*filter btn 가로배치*/
 .product-filter-group {
-  display: flex;       /* 정렬 리스트와 Filter 버튼을 한 줄로! */
+  display: flex;       /* Filter 버튼을 가로 한 줄로 ul태그와 filter btn이 따로 있기 때문에 */
   align-items: center; /* 세로축 가운데 정렬 */
   gap: 24px;           /* 리스트와 Filter 버튼 사이의 여백 */
 }
-
+/*필터 메뉴들 가로배치*/
 .product-filter-group ul {
-  display: flex;
+  display: flex; /*세로 배치를 가로(한줄)배치로 나열*/
   margin: 0;
   padding: 0;
   gap: 16px; /* '신상품' '낮은가격' 등 글자 사이 간격 */
 }
-
-
-
-
-
-/*필터 사이드바 CSS*/
-
-/* 사이드바 내부 헤더 정렬 */
-.sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.sidebar-header h3 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 700;
-}
-/*필터 버튼*/
-
+/*필터 오픈 버튼*/
 .filter-open-btn {
   background: none;
   border: none;
@@ -56,7 +33,21 @@
   font-weight: bold;
   color: #222;
 }
-
+/*필터 사이드바 CSS*/
+/* 사이드바 헤더 영역 */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+/*필터 닫기 버튼*/
 .filter-close-btn {
   background: none;
   border: none;
@@ -64,87 +55,69 @@
   font-size: 14px;
   color: #222;
 }
-/* 사이드바 내부 콘텐츠 */
+/* 사이드바 내부 영역 */
 .sidebar-content {
-  flex: 1;
+  flex: 1; /*내부 비율 1로*/
   padding: 32px 24px;
   overflow-y: auto; /* 내용이 길어지면 스크롤 생김 */
 }
 /*사이드바 숨김 설정*/
 .filter-sidebar {
-/* 화면 전체에 완전히 고정시키는 핵심 속성 */
-  position: fixed;        
+  position: fixed; /* 화면 전체에 완전히 고정시키는 핵심 속성 */        
   top: 0;
-  right: 0;/* 우측 끝 정렬 */
-  
+  right: 0;/* 우측 상단 끝 정렬 */
 /*  크기 설정 */
   width: 360px;           
   height: 100vh; /* 화면 높이 100% 꽉 차게 */
-  
 /*  디자인 스타일 */
   background-color: #ffffff;
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); /* 사이드바 경계 그림자 */
   z-index: 9999; /* 다른 어떤 요소보다 위에 오도록 최상단 배치 */
-  
 /* 기본 상태는 우측 화면 바깥(100%)으로 완전히 밀어내기 */
   transform: translateX(100%);
-  
 /* 열고 닫힐 때 부드럽게 움직이는 애니메이션 */
   transition: transform 0.3s ease-in-out;
-  
 /* 내부 레이아웃 */
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /*내부 한줄로 위에서 아래로 붙게*/
 }
-
 /*JS로 오픈 상태일 때*/
-.cart-sidebar.open {  
-/* 화면 안(원래 자리 0)으로 스르륵 들어옴 */
-  transform: translateX(0); 
+.filter-sidebar.open {  
+  transform: translateX(0); /* 화면 안(원래 자리 0)으로 스르륵 들어옴 */
 }
-
 .filter-section {
   margin-bottom: 40px; /* 섹션과 섹션(색상과 사이즈) 사이의 넓은 여백 */
 }
-
 /* 마지막 섹션은 하단 여백 제거 */
 .filter-section:last-child {
   margin-bottom: 0;
 }
-
 .filter-title {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
   font-size: 14px;
   font-weight: 700;
   color: #111111;
   margin: 0 0 16px 0; /* 타이틀 바로 아래 그리드와의 간격(16px) 확보 */
-  letter-spacing: 0.05em;
+  letter-spacing: 0.05em; /*글자간 간격*/
 }
-
 /* 색상 그리드 (2열) */
 .color-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 13px; /* 버튼 사이 여백 */
 }
-
 /* 사이즈 그리드 (4열) */
 .size-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 13px;
 }
-
 /* 실제 input은 눈에 안 보이게 숨김 */
 .blind-input {
-  position: absolute;
+  position: absolute; /*부모에 위치 영향을 받음 부모가 fixed이므로 자식도 영향받아서 고정되게*/
   width: 1px;
   height: 1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
-  clip-path: inset(50%);    /* 최신 브라우저 대응용 표준 속성 */
 }
-
 /* 기본 박스 스타일 */
 .filter-box {
   display: block;
@@ -156,14 +129,12 @@
   cursor: pointer;
   border: 1px solid transparent; /*테두리 투명*/
 }
-
 /* 선택(체크)되었을 때 스타일 전환 */
 .blind-input:checked + .filter-box {
   background-color: #222222; /* 검은색 배경 전환 */
-  color: #ffffff;            /* 글자색 흰색 전환 */
+  color: #ffffff; /* 글자색 흰색 전환 */
   font-weight: bold;
 }
-
 /*sort 버튼*/
 .sort-btn {
   background: none;
@@ -180,71 +151,56 @@
 .sort-btn:hover {
   font-weight: bold;
 }
-
 /*상품 카드 그리드(화면 설정)*/
 .product-grid {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
-
 /*공통 그리드 컨테이너 설정*/
 .card-list {
   display: grid;
   gap: 24px;
   margin-bottom: 40px;
 }
-
 /*리스트 행, 열 구체화*/
-
 .card-list.type-3col {
   grid-template-columns: repeat(3, 1fr);
 }
-
-/* repeat(2, 1fr)이 아니라 3장중에 2장을 겹쳐야하기때문 */
 .card-list.type-mixed {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /*2, 1fr이 아닌 이유는 3열을 2열로 합쳐야 하기 때문*/
 }
-
 .card-list.type-mixed .card-item.is-large {
-  /* 3열 중에서 혼자 2열만큼의 너비를 차지하겠다는 뜻 */
-  grid-column: span 2; 
+  grid-column: span 2; /* 3열 중에서 혼자 2열만큼의 너비를 차지 */
 }
-
 /*개별 카드 이미지 박스 설정*/
 .card-info {
   display: flex;
   justify-content: space-between;
 }
-
 .card-item {
   width: 100%;
 }
-
 .card-link {
   display: block;
 }
-
 .card-img-wrap {
   background-color: #f5f5f5;
   width: 100%;
-  aspect-ratio: 3 / 4; /*화면이 줄어지든 이뻐지던 3:4 비율 유지(상품카드리스트라 위에서 아래로 떨어지기때문 배너는 보통 16 / 9 가로로 */
+  aspect-ratio: 3 / 4; /* 화면이 줄어지든 넓어지던 3:4 비율 유지(상품카드리스트라 위에서 아래로 떨어지기때문 배너는 보통 16 / 9 가로로 */
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 }
-
 /*더보기 버튼*/
-/* 버튼을 감싸는 박스: 상단 여백을 주어 카드들과 간격을 벌리고 정중앙 정렬 */
 .more-btn-wrap {
-  display: flex;
+  display: flex; /* 상단 여백을 주고 flex박스로 옆으로 배치 카드들과 간격을 벌리고 정중앙 정렬 */
   justify-content: center;
   margin-top: 48px; /* 두 번째 줄 카드들과의 간격 */
   margin-bottom: 40px;
 }
-
-/* 피그마 시안에 맞게 버튼 디자인 스타일링 */
+/*피그마 시안 버튼 디자인 스타일링 */
 .btn-more {
   padding: 12px 40px;
   background-color: #fff;
