@@ -71,3 +71,102 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.warn("데이터가 비어있습니다.");
   }
 });
+
+//지역별 버튼으로 배열리스트 필터링
+
+// ==========================================
+// [1단계] 데이터를 뿌려줄 부모 컨테이너(DOM) 선택하기
+// ==========================================
+const listContainer = document.getElementById("today-dummy");
+
+// ==========================================
+// [2단계] 사용자가 클릭할 지역 버튼들 모두 가져오기 (NodeList 반환)
+// ==========================================
+const regionButtons = document.querySelectorAll("#today-region");
+
+// ==========================================
+// [3단계] 사용할 원본 더미데이터(데이터베이스 역할) 정의하기
+// ==========================================
+const rescueAnimals = [
+  {
+    region: "군산시",
+    kindCd: "강아지",
+    sexCd: "M",
+    age: "2024년생",
+    popfile: "images/todaycard_1.svg",
+  },
+  {
+    region: "창원시",
+    kindCd: "고양이",
+    sexCd: "F",
+    age: "2022년생",
+    popfile: "images/todaycard_2.svg",
+  },
+  {
+    region: "가평군",
+    kindCd: "강아지",
+    sexCd: "M",
+    age: "2022년생",
+    popfile: "images/todaycard_3.svg",
+  },
+];
+
+// ==========================================
+// [4단계] 데이터를 받아서 화면에 HTML 카드로 그려주는 렌더링 함수 정의하기
+// ==========================================
+function renderAnimals(data) {
+  // 4-1. 새로운 데이터가 들어오기 전, 기존에 있던 리스트 내용을 싹 비워 초기화
+  listContainer.innerHTML = "";
+
+  // 4-2. 만약 전달된 데이터가 비어있다면(조건에 맞는 동물이 없다면) 안내 문구 출력 후 종료
+  if (data.length === 0) {
+    listContainer.innerHTML =
+      "<li>해당 지역에 등록된 동물 데이터가 없습니다.</li>";
+    return;
+  }
+
+  console.log("여기오냐"); // 함수가 정상적으로 실행되는지 확인용 로그
+
+  // 4-3. 데이터 배열을 순회(forEach)하며 각각의 동물 정보를 HTML 문자열로 조립
+  data.forEach((animal) => {
+    const cardHTML = `
+      <li>
+        <a href="">
+          <img src="${animal.popfile}" alt="강아지1">
+          <span>품종: ${animal.kindCd}</span>
+          <span>성별: ${animal.sexCd}</span>
+          <span>나이: ${animal.age}</span>
+        </a>
+      </li>
+    `;
+
+    // 4-4. 조립된 HTML 카드를 부모 컨테이너(ul) 내부의 기존 내용 뒤에 차곡차곡 추가
+    listContainer.innerHTML += cardHTML;
+  });
+}
+
+// ==========================================
+// [5단계] 페이지가 처음 켜졌을 때 전체 데이터를 화면에 기본 출력하기
+// ==========================================
+renderAnimals(rescueAnimals);
+
+// ==========================================
+// [6단계] 지역 버튼들에 클릭 이벤트(EventListener)를 각각 걸어주기
+// ==========================================
+regionButtons.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    // 6-1. a 태그나 버튼 고유의 기본 동작(페이지 새로고침 등) 막기
+    e.preventDefault();
+
+    // 6-2. 사용자가 클릭한 버튼의 텍스트 가져오기 (예: "군산시", 양옆 공백 제거)
+    const selectedRegion = e.target.textContent.trim();
+
+    // 6-3. 전체 더미데이터 중에서 클릭한 지역(`animal.region`)과 일치하는 데이터만 걸러내기(filter)
+    const filteredData = rescueAnimals.filter(
+      (animal) => animal.region === selectedRegion,
+    );
+
+    // 6-4. 필터링된 데이터만 렌더링 함수에 넘겨주어 화면을 새롭게 갱신하기
+    renderAnimals(filteredData);
+  });
+});
