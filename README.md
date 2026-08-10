@@ -3,8 +3,8 @@ Markdown
 포인핸드 웹 리뉴얼 프로젝트
 ## 데모
 데모화면(동물검색/상세페이지) 
-<div style="overflow: hidden; max-height: 400px;">
-  <video src="https://github.com/user-attachments/assets/8a9184ec-c15e-442b-b165-519ae48d5481" autoplay loop muted width="100%" style="margin-top: -60px;"></video>
+<div style="overflow: hidden; max-height: 350px;">
+  <video src="https://github.com/user-attachments/assets/8a9184ec-c15e-442b-b165-519ae48d5481" autoplay loop muted width="100%" style="margin-top: -90px;"></video>
 </div>
 
 ## 소개
