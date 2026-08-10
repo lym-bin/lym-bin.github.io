@@ -1,11 +1,10 @@
 Markdown
 # 프로젝트 이름 
 포인핸드 웹 리뉴얼 프로젝트
+
 ## 데모
-데모화면(동물검색/상세페이지) 
-<div style="overflow: hidden; max-height: 350px;">
-  <video src="https://github.com/user-attachments/assets/8a9184ec-c15e-442b-b165-519ae48d5481" autoplay loop muted width="100%" style="margin-top: -90px;"></video>
-</div>
+(동물검색 페이지 / 동물상세 페이지)
+<video src="https://github.com/user-attachments/assets/50b07d9c-4495-4a85-bd2b-749bc4a62fc4" autoplay loop muted width="100%"></video>
 
 ## 소개
 이 프로젝트는 [프로젝트에 대한 간단한
