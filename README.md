@@ -4,7 +4,8 @@ Markdown
 
 ## 데모
 (동물검색 페이지 / 동물상세 페이지)
-<video src="https://github.com/user-attachments/assets/50b07d9c-4495-4a85-bd2b-749bc4a62fc4" autoplay loop muted width="100%"></video>
+<video src="https://github.com/user-attachments/assets/50b07d9c-4495-4a85-bd2b-749bc4a62fc4" autoplay loop muted playsinline width="100%"></video>
+*(크롬 등 최신 브라우저 정책으로 인해 자동 재생이 차단될 경우, 음소거(muted) 상태이거나 컨트롤러를 눌러 재생할 수 있습니다.)*
 
 ## 소개
 이 프로젝트는 기존에 포인핸드 웹사이트에서 동물검색 기능을 추가하고 로그인탭 기능을 추가하고 공공API를 이용해서
@@ -31,16 +32,15 @@ Markdown
  ┣ 📄 README.md
  ┗ 📄 .gitignore        # api키가 들어있는 부분 ignore
 
-사용 기술
 ## 사용 기술
-- **Language**: ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black)
-- **Markup / Styling**: ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white)
-- **Environment**: ![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+- **Language**: 
+- **Markup:
+- **Environment**: 
 
-배포 링크
+## 배포 링크
 - **상태**: 추후 배포 예정 (현재 로컬 환경 실행)
 
-설치 및 실행
+## 설치 및 실행
 요구사항
 
 
