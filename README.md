@@ -2,7 +2,7 @@ Markdown
 # 프로젝트 이름 
 포인핸드 웹 리뉴얼 프로젝트
 ## 데모
-![데모 화면[pawinhand-screen-capture.webm](https://github.com/user-attachments/assets/8a9184ec-c15e-442b-b165-519ae48d5481)]
+![데모 화면 동물검색 / ]<video src="https://github.com/user-attachments/assets/8a9184ec-c15e-442b-b165-519ae48d5481" autoplay loop muted width="100%"></video>
 
 ## 소개
 이 프로젝트는 [프로젝트에 대한 간단한
