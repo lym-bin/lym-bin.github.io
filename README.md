@@ -17,7 +17,7 @@ Markdown
 - **동물 맞춤 검색 및 필터링**: 지역, 축종, 품종, 상태 등 다양한 조건으로 필요한 동물 정보를 빠르게 탐색
 - **상세 정보 및 반응형 UI**: 동물의 상세한 특징과 보호소 정보를 직관적으로 확인할 수 있는 상세 페이지 제공
 
-## 디렉토리 구조
+## 📁디렉토리 구조
 ```text
 📦 lym-bin.github.io
  ┣ 📂 .vscode
@@ -32,16 +32,18 @@ Markdown
  ┣ 📄 README.md
  ┗ 📄 .gitignore        # api키가 들어있는 부분 ignore
 
-## 사용 기술
-- **Language**: 
-- **Markup:
-- **Environment**: 
+## 🛠️ 기술 스택 (Tech Stack)
+- **Environment**: Git, GitHub
+- **Frontend**: HTML5, CSS3, JavaScript (Vanilla JS, ES6+)
+- **Styling**: CSS Custom Properties, Flexbox, Grid
+- **API**: 공공데이터포털 유기동물 조회 Open API
 
 ## 배포 링크
 - **상태**: 추후 배포 예정 (현재 로컬 환경 실행)
 
-## 설치 및 실행
-요구사항
-
-
+## 📌 트러블슈팅 및 주요 고민
+- **공공데이터 API 비동기 데이터 바인딩 최적화**: 
+  - 대량의 유기동물 데이터를 받아올 때 화면이 멈추거나 깨지는 현상을 방지하기 위해 `async/await`와 예외 처리 블록을 적용하고, 초기 노출 개수를 제한(`displayLimit`)하여 렌더링 성능을 개선했습니다.
+- **상태 관리 및 모듈화**:
+  - `localStorage`를 활용해 간단한 회원가입 및 로그인 세션 유지 기능을 구현하여 멀티 페이지 간 사용자 인증 상태를 동기화했습니다.
 
