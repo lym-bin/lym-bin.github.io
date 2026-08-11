@@ -31,7 +31,7 @@ Markdown
  ┣ 📄 login.html        # 로그인/회원가입 페이지
  ┣ 📄 README.md
  ┗ 📄 .gitignore        # api키가 들어있는 부분 ignore
-
+```
 ## 🛠️ 기술 스택 (Tech Stack)
 - **Environment**: Git, GitHub
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla JS, ES6+)
