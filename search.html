@@ -1,28 +1,307 @@
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Pretendard&display=swap" rel="stylesheet"/>
-    <link href="./css/search.css" rel="stylesheet"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>동물 검색 페이지</title>
-</head>
-<body>
-     <!-- 메인홈페이지 헤더 -->
-    <header class="main_header">
-        <div class="main_container">
-            <a href="#" class="main_logo">
-                <img src="images/v1_4.png" alt="포인핸드 메인로고">
-            </a>
-            <!-- 메인영역 nav-->
+    <link href="images/dog-solid-full.png" type="image/png" rel="icon" />
+    <link href="./css/common.css" rel="stylesheet" />
+    <link href="./css/search.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- 메인홈페이지 헤더 -->
+    <header class="main-header">
+      <div class="main-container">
+        <a href="#" class="main-logo">
+          <img src="images/v1_4.png" alt="포인핸드 메인로고" />
+        </a>
+        <!-- 메인영역 nav-->
         <nav>
-            <ul class="main_nav">
-            <li><a href="index.html" class="nav_item">홈</a></li>
-            <li><a href="detail.html" class="nav_item">보호소</a></li>
-            <li><a href="search.html" class="nav_item">동물검색</a></li>
-            <li><a href="login.html" class="nav_item">로그인</a></li>
-            </ul>
+          <ul class="main-nav">
+            <li><a href="index.html" class="nav-item">홈</a></li>
+            <li><a href="shelter.html" class="nav-item">보호소</a></li>
+            <li><a href="search.html" class="nav-item">동물검색</a></li>
+            <li>
+              <a href="login.html" class="nav-item" id="nav-login">로그인</a>
+            </li>
+          </ul>
         </nav>
-        </div>
+      </div>
     </header>
-</body>
+
+    <main class="search-container">
+      <!-- 검색 폼 영역 -->
+      <div class="form-container">
+        <form action="">
+          <div class="search-row">
+            <label for="search-input" class="sr-only">동물 검색</label>
+            <input
+              id="search-input"
+              type="text"
+              class="form-design"
+              placeholder="품종,지역,특징을 검색해 보세요."
+            />
+            <button type="submit" class="search-btn">검색</button>
+          </div>
+
+          <!-- 필터 및 초기화 영역 -->
+          <div class="form-nav">
+            <ul class="form-info">
+              <li class="filter-group">
+                <button
+                  type="button"
+                  class="filter-item"
+                  id="status-filter-btn"
+                  aria-expanded="false"
+                >
+                  상태 전체 <span class="arrow">▾</span>
+                </button>
+                <div class="filter-panel" id="status-filter-panel" hidden>
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="status"
+                      value="보호중"
+                      checked
+                    />
+                    보호중</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="status"
+                      value="긴급"
+                      checked
+                    />
+                    긴급</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="status"
+                      value="종료"
+                      checked
+                    />
+                    입양완료</label
+                  >
+                  <div class="filter-panel-actions">
+                    <button type="button" class="filter-apply-btn">적용</button>
+                  </div>
+                </div>
+              </li>
+              <li><button type="reset" class="reset-btn">초기화</button></li>
+            </ul>
+          </div>
+        </form>
+      </div>
+
+      <div class="info-space">
+        <span>전체 0건의 유기동물이 보호중 입니다.</span>
+        <div class="info-action">
+          <button type="button" id="liked-filter-btn">♡찜한 동물만</button>
+          <button type="button">최신 등록순</button>
+        </div>
+      </div>
+
+      <!-- 동물 카드 리스트 영역 -->
+      <section>
+        <div class="card-container">
+          <ul class="search-list">
+            <li>
+              <span class="badge badge-blue">보호중</span>
+              <a href="#">
+                <img
+                  src="./images/todaycard_1.svg"
+                  alt="보호 중인 동물 이미지"
+                />
+              </a>
+              <button type="button" class="like-btn" aria-label="찜하기">
+                ♡
+              </button>
+            </li>
+            <li>
+              <span class="badge badge-red">긴급</span>
+              <a href="#">
+                <img
+                  src="./images/todaycard_2.svg"
+                  alt="긴급 보호 동물 이미지"
+                />
+              </a>
+              <button type="button" class="like-btn" aria-label="찜하기">
+                ♡
+              </button>
+            </li>
+            <li>
+              <span class="badge badge-green">입양완료</span>
+              <a href="#">
+                <img
+                  src="./images/todaycard_3.svg"
+                  alt="입양 완료된 동물 이미지"
+                />
+              </a>
+              <button type="button" class="like-btn" aria-label="찜하기">
+                ♡
+              </button>
+            </li>
+            <li>
+              <span class="badge badge-blue">보호중</span>
+              <a href="#">
+                <img
+                  src="./images/todaycard_1.svg"
+                  alt="보호 중인 동물 이미지"
+                />
+              </a>
+              <button type="button" class="like-btn" aria-label="찜하기">
+                ♡
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="btn-container">
+          <button type="button" class="more-btn">더보기</button>
+        </div>
+      </section>
+
+      <!-- 소식 영역 -->
+      <article>
+        <h2>소식</h2>
+        <div class="news-container">
+          <ul class="news-list">
+            <li>
+              <a href="#">
+                <img src="" alt="소식 이미지 1" />
+                <h3>심상 결혼반 · 정책 안내함</h3>
+              </a>
+              <button type="button">자세히보기</button>
+            </li>
+            <li>
+              <a href="#">
+                <img src="" alt="소식 이미지 2" />
+                <h3>이달의 아기 강아지</h3>
+              </a>
+              <button type="button">자세히보기</button>
+            </li>
+            <li>
+              <a href="#">
+                <img src="" alt="소식 이미지 3" />
+                <h3>새 봄을 맞은 아이들</h3>
+              </a>
+              <button type="button">자세히보기</button>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 가이드 영역 -->
+      <section>
+        <h2>입양가이드 & 팁</h2>
+        <div class="guide-container">
+          <ul class="guide-list">
+            <li>
+              <a href="#">입양 전 체크리스트</a>
+              <span class="guide-tag">많이 찾아요</span>
+            </li>
+            <li>
+              <a href="#">입양 문의</a>
+              <span class="guide-tag">궁금해요</span>
+            </li>
+            <li>
+              <a href="#">사료 선택 유형</a>
+              <span class="guide-tag">인기 태그</span>
+            </li>
+            <li>
+              <a href="#">입양 지원</a>
+              <span class="guide-tag">신청 방법</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    <!--푸터 영역-->
+    <footer class="footer-wrapper">
+      <div class="footer-inner">
+        <!-- 푸터 상단 -->
+        <div class="footer-left">
+          <div class="footer-logo">
+            <a href="#"
+              ><img src="images/footer_1.svg" alt="포인핸드 로고"
+            /></a>
+          </div>
+          <ul class="sns-links">
+            <li>
+              <a href="#"><img src="images/symbol_1.svg" alt="인스타그램" /></a>
+            </li>
+            <li>
+              <a href="#"><img src="images/symbol_2.svg" alt="네이버" /></a>
+            </li>
+            <li>
+              <a href="#"><img src="images/symbol_3.svg" alt="카카오톡" /></a>
+            </li>
+            <li>
+              <a href="#"><img src="images/symbol_4.svg" alt="유튜브" /></a>
+            </li>
+            <li>
+              <a href="#"><img src="images/symbol_5.svg" alt="구글스토어" /></a>
+            </li>
+            <li>
+              <a href="#"><img src="images/symbol_6.svg" alt="애플스토어" /></a>
+            </li>
+          </ul>
+        </div>
+        <!-- 푸터 중단 -->
+        <div class="footer-middle">
+          <nav class="footer-nav">
+            <ul class="nav-list">
+              <li>
+                <strong>회사</strong>
+                <ul class="sub-nav">
+                  <li><a href="#">소개</a></li>
+                  <li><a href="#">공지사항</a></li>
+                  <li><a href="#">후원</a></li>
+                </ul>
+              </li>
+              <li>
+                <strong>서비스</strong>
+                <ul class="sub-nav">
+                  <li><a href="#">홈</a></li>
+                  <li><a href="#">보호소</a></li>
+                  <li><a href="#">실종/제보</a></li>
+                  <li><a href="#">스토리</a></li>
+                  <li><a href="#">유기동물 통계</a></li>
+                  <li><a href="#">혜택</a></li>
+                </ul>
+              </li>
+              <li>
+                <strong>문의</strong>
+                <ul class="sub-nav">
+                  <li><a href="#">자주하는 질문</a></li>
+                  <li><a href="#">보호소 관리 시스템 도입 문의</a></li>
+                  <li><a href="#">협업 문의</a></li>
+                  <li><a href="#">후원 문의</a></li>
+                </ul>
+              </li>
+              <li>
+                <strong>협력</strong>
+                <ul class="sub-nav">
+                  <li><a href="#">협력 지자체</a></li>
+                  <li><a href="#">입양 캠페인</a></li>
+                  <li><a href="#">포인 기부</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <!-- 푸터 하단 -->
+      <div class="footer-bottom">
+        <h3>주식회사 포인핸드</h3>
+        <p>&copy; Pawinhand all rights reserved.</p>
+      </div>
+    </footer>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/login-state.js"></script>
+  </body>
 </html>

@@ -1,102 +1,175 @@
-/* CSS 전체초기화 */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; 
+/* ==========================================
+   상단 메인 컨테이너 
+   ========================================== */
+/*상세 페이지 메인 전체 컨테이너*/
+.shelter-detail {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
 }
-
-/* 목록 스타일 제거 */
-ul, ol {
+/* 상단 정보 (이미지 + 데이터) */
+.animal-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /*grid로 잡고 컨테이너공간을 1:1비율로 잡음(이미지 왼쪽 info 오른쪽)*/
+  gap: 40px;
+  margin-bottom: 40px;
+}
+.gallery-wrapper img {
+  width: 100%;
+  border-radius: 12px;
+  aspect-ratio: 1/1; /*이미지 가로세로 정사각형 1:1*/
+  object-fit: cover; /*가로세로 영역을 빈틈없이 채움(짤림 방지)*/
+}
+.detail-desc-text {
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.detail-desc-text:hover {
+  color: #ff9900;
+  cursor: pointer;
+}
+.summary-info h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+.summary-info dl {
+  display: grid;
+  grid-template-columns: 80px 1fr; /*첫번째 열은 80px로 고정하고, 두번째 열은 남은공간 1fr(100%) 차지*/
+  gap: 16px;
+}
+.summary-info dt {
+  color: #888;
+  font-size: 0.9rem;
+}
+.detail-info {
+  font-weight: 200;
+  font-size: 14px;
+  margin-top: 20px;
+}
+.info-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+article {
+  background: #fff;
+  padding: 24px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+}
+h2 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #ff9900;
+}
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.health-status ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+/* ==========================================
+  이미지 갤러리 영역
+   ========================================== */
+.thumb-list {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.thumb-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 0.6;
+  border: 2px solid transparent;
+}
+.thumb-img:hover {
+  opacity: 0.9;
+}
+.thumb-img.active {
+  opacity: 1;
+  border-color: #ff9900;
+}
+/* ==========================================
+   입양 절차 
+   ========================================== */
+.adoption-process ol {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
   list-style: none;
 }
-
-/* 링크 스타일 제거 */
-a {
-  text-decoration: none;
-  color: inherit; /* 부모의 색상을 따라감 */
+.adoption-process li {
+  font-size: 0.9rem;
+  position: relative;
 }
-
-/* 전체 폰트 가져오기*/
-body {
- font-family:'Pretendard', sans-serif; /* 피그마에서 확인한 폰트 적용 */
+/* ==========================================
+   댓글 영역
+   ========================================== */
+.comments-section {
+  margin-top: 40px;
+  border-top: 2px solid #eee;
+  padding-top: 20px;
 }
-
-/*헤더 작업*/
-.main_logo {
-  display: block; /* 레이아웃 자유롭게 배치하기 위해*/
+.comment-item {
+  padding: 15px 0;
 }
-
-.main_logo img {
-  width: 150px; /* 데스크톱 기준*/
-  display: block;
-  height: auto;
+textarea {
+  width: 100%;
+  height: 100px;
+  margin-top: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 10px;
 }
-
-.nav_item {
-  display: inline-block;
-  transition: all 0.3s ease; /* 호버 효과가 부드럽게 나타나게 함 */
-}
-
-.nav_item:hover {
-  opacity: 0.8;
-  color: #FF5900;
-}
-
-/*메인 전체 콘테이너 배치*/
-.main_container {
-  max-width: 1200px;
-  margin: 0 auto;       /* 가운데 정렬 */
-  display: flex;        /* 로고와 nav를 가로로 배치 */
-  justify-content: space-between; /* 로고는 왼쪽, 메뉴는 오른쪽 끝으로 */
-  align-items: center;  /* 세로 기준 가운데 정렬 */
-  padding: 8px 18px;
-}
-
-/* 메뉴 가로 나열 */
-.main_nav {
-  display: flex;
-  gap: 30px; /* 메뉴 사이 간격 */
-}
-
-
-/* 2. 메인 컨테이너 */
-.shelter-detail { max-width: 800px; margin: 40px auto; padding: 0 20px; }
-
-/* 상단 정보 (이미지 + 데이터) */
-.animal-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-.gallery-wrapper img { width: 100%; border-radius: 12px; aspect-ratio: 1/1; object-fit: cover; }
-.summary-info h1 { font-size: 1.8rem; margin-bottom: 20px; }
-.summary-info dl { display: grid; grid-template-columns: 80px 1fr; gap: 15px; }
-.summary-info dt { color: #888; font-size: 0.9rem; }
-
-/* 상세 정보 섹션 */
-.info-details { display: flex; flex-direction: column; gap: 24px; }
-article { background: #fff; padding: 24px; border: 1px solid #eee; border-radius: 12px; }
-h2 { font-size: 1.2rem; margin-bottom: 15px; color: #ff7d36; }
-
-.data-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-.health-status ul { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-
-/* 입양 절차 타임라인 */
-.adoption-process ol { display: flex; justify-content: space-between; padding: 0 10px; list-style: none; }
-.adoption-process li { font-size: 0.9rem; position: relative; }
-
-/* 댓글 섹션 */
-.comments-section { margin-top: 40px; border-top: 2px solid #eee; padding-top: 20px; }
-.comment-item { padding: 15px 0; }
-textarea { width: 100%; height: 100px; margin-top: 15px; border-radius: 8px; border: 1px solid #ddd; padding: 10px; }
-
 /* 액션 버튼 */
-.action-buttons { display: flex; gap: 10px; margin-top: 30px; }
-.action-buttons button { flex: 1; padding: 15px; border: none; border-radius: 8px; background: #ff7d36; color: white; font-weight: bold; cursor: pointer; }
-
-
-
-
-
-
-/* 모바일 대응 */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+.action-buttons button {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background: #ff9900;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+/* 댓글 등록 버튼*/
+.comment-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+#comment-submit-btn {
+  margin-top: 10px;
+  padding: 10px 24px;
+  background: #ff9900;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* 모바일 대응 (조건: 786px일때)*/
 @media (max-width: 768px) {
-    .animal-hero { grid-template-columns: 1fr; }
-    .health-status ul { grid-template-columns: repeat(2, 1fr); }
+  /*상단 메인 정보 그리드 컬럼이 1열로 배치*/
+  .animal-hero {
+    grid-template-columns: 1fr;
+  }
+  /*건강정보에 ul태그들은 2열로 100%비율로 배치*/
+  .health-status ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

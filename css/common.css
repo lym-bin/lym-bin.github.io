@@ -3,7 +3,7 @@
  * @Author: [임상빈]
  * @Organization: [MBC컴퓨터 아카데미 수원점]
  * @Copyright: 2026 [임상빈]. All rights reserved.
- * @Version: 1.0.0
+ * @Version: 1.1.0
 
 * [이미지 저작권 안내]
  * 본 사이트는 개인 역량 평가를 위한 구직/포트폴리오 용도로 제작되었습니다.
@@ -13,18 +13,17 @@
  */
 
 /* ==========================================================
-
                        CSS 공통(global) 초기화
-
     ==========================================================
  */
 
 *,
-*::before,
+*::before, /*전체선택자만 주면 box-sizing 상속이 안됨 브라우저에 앞(before), 뒤(after)로 (*::*)가상선택자주고 초기화 */
 *::after {
-  margin: 0;
+  margin: 0; /*브라우저 기본 여백 제거*/
   padding: 0;
   box-sizing: border-box; /*padding이나 border를 아무리 줘도 전체 박스 width 유지*/
+  font-family: inherit; /* input, button 등에도 똑같이 상속되도록 */
 }
 /* 목록 스타일(기호,번호) 제거 */
 ul,
@@ -44,9 +43,9 @@ a {
 body {
   font-family: "Pretendard", sans-serif; /* 피그마폰트 적용 */
 }
-/*===========================================================*/
-
-/*헤더 공통 작업*/
+/* ==========================================
+   헤더 공통 작업 컨테이너
+   ========================================== */
 .main-header {
   margin-bottom: 20px;
 }
@@ -64,9 +63,11 @@ body {
 }
 .nav-item:hover {
   opacity: 0.8;
-  color: #ff5900;
+  color: #ff9900;
 }
-/*메인 전체 콘테이너 배치*/
+/* ==========================================
+   메인 전체 컨테이너 배치
+   ========================================== */
 .main-container {
   max-width: 1200px;
   margin: 0 auto; /* 가운데 정렬 */
@@ -81,20 +82,27 @@ body {
   display: flex;
   gap: 30px; /* 메뉴 사이 간격 */
 }
-/* 푸터 css*/
-/* 기본 레이아웃 구성 */
+/* ==========================================
+   푸터 레이아웃
+   ========================================== */
 .footer-wrapper {
   width: 100%;
-  padding: 50px 0;
-  border-top: 1px solid #ddd;
+  padding: 24px 0;
+  background-color: #f9f9f9;
+}
+.footer-logo img {
+  width: 150px;
+  display: block;
+  height: auto;
 }
 .footer-inner {
   display: flex;
   justify-content: space-between; /* 왼쪽 로고와 오른쪽 메뉴 간격 최대로 벌림 */
-  align-items: flex-start; /*컨테이너에 시작줄(왼쪽)에서 정렬*/
-  max-width: 100%;
-  margin: 0 auto; /*가운데 정렬*/
-  padding: 0 50px;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 20px 0;
+  border-top: 1px solid darkgray;
 }
 .footer-left {
   display: flex;
@@ -104,14 +112,14 @@ body {
 /* SNS 아이콘 가로 정렬 */
 .sns-links {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   margin-top: 20px;
   padding: 0;
 }
 /* 내비게이션 영역 (가로 배치) */
 .nav-list {
   display: flex;
-  gap: 60px; /* 메뉴 그룹 간의 간격 */
+  gap: 40px; /* 메뉴 그룹 간의 간격 */
 }
 .sub-nav {
   padding: 0;
@@ -123,15 +131,54 @@ body {
 .sub-nav a {
   color: #333;
   font-size: 16px;
+  white-space: nowrap;
 }
 /* 하단 영역 */
 .footer-bottom {
-  max-width: 100%;
+  max-width: 1200px;
   width: 100%;
-  padding: 20px 50px 0;
-  border-top: 2px solid #eee;
+  margin: 15px auto 0 auto;
+  padding: 12px 20px 0;
+  border-top: 1px solid darkgray;
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: #888;
+  color: #999;
+}
+/* ==========================================
+   메인 페이지 반응형 (1024px or 769px)
+   헤더 푸터 공통
+   ========================================== */
+/*테블릿 화면 (너비 1024 이하일때)*/
+@media screen and (max-width: 1024px) {
+  .main-container {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 15px;
+    align-items: center;
+  }
+  .main-nav {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .main-logo img {
+    width: 140px;
+  }
+}
+/*모바일 화면 (너비 768 이하 일떄)*/
+@media screen and (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 15px;
+    font-size: 14px;
+  }
+  .sub-nav a {
+    flex-direction: column;
+    font-size: 12px;
+  }
 }

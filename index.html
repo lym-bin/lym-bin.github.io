@@ -1,8 +1,9 @@
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Pretendard&display=swap" rel="stylesheet"/>
+    <link href="images/dog-solid-full.png" type="image/png" rel="icon" />
     <link href="./css/main.css" rel="stylesheet"/>
     <link href="./css/common.css" rel="stylesheet"/>
     <title>포인핸드</title>
@@ -17,20 +18,21 @@
 <!-- 메인영역 nav-->
         <nav>
             <ul class="main-nav">
-            <li><a href="#" class="nav-item">홈</a></li>
-            <li><a href="detail.html" class="nav-item">보호소</a></li>
+            <li><a href="index.html" class="nav-item">홈</a></li>
+            <li><a href="shelter.html" class="nav-item">보호소</a></li>
             <li><a href="search.html" class="nav-item">동물검색</a></li>
-            <li><a href="login.html" class="nav-item">로그인</a></li>
+            <li><a href="login.html" class="nav-item" id="nav-login">로그인</a></li>
             </ul>
         </nav>
         </div>
     </header>
 <!-- 메인 section(기존 통계를 상단에 배치했으나 수정)-->
-    <section class="banner-container">
-      <div class="banner-img-wrap">
-        <a href="#"><img src="" alt="이미지 추가예정"></a>
-      </div>
-    </section>
+     <section class="banner-container">
+      <!-- <div class="banner-img-wrap">
+        <a href="#"><img src="images/banner_v8.jpg" alt="이미지 추가예정"></a>
+      </div> -->
+      <!-- 이미지가 짤려서 나와서 일단 background-image로 조절-->
+    </section> 
 <!-- 퀵 메뉴-->
      <section class="quick-menu">
         <h2 class="quick-title">퀵 메뉴</h2>
@@ -169,15 +171,13 @@
             </li>
         </ul>
         </div>
-
 <!--카드 리스트 나열 그리드-->
-<!--일단 더미데이터 박아놓고 js로 돌려놈 TO-BE 공공데이터 API 불러와서 리스트 뿌림-->
-        <div class="today-cardgrid" >
+        <div class="today-cardgrid">
             <ul class="card-list" id="today-dummy">
+<!--js로 뿌려줄 li리스트(더미)TO-BE API로 가져옴-->              
             </ul>
         </div>
       </section>
-      
 <!-- 베스트 입양후기 -->
       <section class="best-animal">
         <div class="best-header">
@@ -186,22 +186,8 @@
         </div>
 <!--카드 리스트 나열 그리드-->
         <div class="best-cardgrid">
-            <ul class="best-cardlist">
-                <li>
-                    <a href=""><img src="images/best_1.svg" alt="">
-                    <span>완벽 적응한 베이비 OO</span>
-                </a>
-                </li>
-                <li>
-                    <a href=""><img src="images/best_2.svg" alt="">
-                    <span>완벽 적응한 베이비 OO</span>
-                </a>
-                </li>
-                <li>
-                    <a href=""><img src="images/best_3.svg" alt="">
-                    <span>완벽 적응한 베이비 OO</span>
-                </a>
-                </li>          
+            <ul class="best-cardlist" id="best-dummy">
+<!--js로 뿌려줄 li리스트(더미)-->
             </ul>
         </div>
       </section>
@@ -216,72 +202,67 @@
         <div class="news-slider">
             <ul class="news-list">
                 <li>
-                    <a href="#"><img src="" alt="이미지 추가예정"></a>
-                </li>
-                 <li>
-                    <a href="#"><img src="" alt="이미지 추가예정"></a>
-                </li>
-                <li>
-                    <a href="#"><img src="" alt="이미지 추가예정"></a>
+                    <a href="#"><img src="images/banner_v9.jpg" alt=""></a>
                 </li>
             </ul>
         </div>
       </article>
       </section>
 <!-- 실종/제보 타이틀-->
-      <section class="missing-report">
-        <div class="miss-header">
-            <h2 class="miss-title">실종/제보 동물</h2>
-            <button type="button" data-category="news" class="btn-more">더보기 ></button>
-        </div>
-      </section>
-<!-- 실종/제보 리스트 -->
-      <article>
-        <ul class="miss-list">
-            <li>
-                <a href="#"><img src="" alt=""></a>
-                <span>이미지 추가예정</span>
-            </li>
-            <li>
-                <a href="#"><img src="" alt=""></a>
-                <span>이미지 추가예정</span>
-            </li>
-            <li>
-                <a href="#"><img src="" alt=""></a>
-                <span>이미지 추가예정</span>
-            </li>
-        </ul>
-      </article>
-      </main>
-<!--유기동물 통계 영역-->
-<!--하단에 고정시킬 섹션-->
-<section class="stats-section">
-  <div class="stats-header">
-<!--js로 오늘 날짜 바꿔치기할 id-->
-    <h2 id="stats-date">유기동물 통계</h2>
+<section class="missing-report">
+  <div class="miss-header">
+      <h2 class="miss-title">실종/제보 동물</h2>
+      <button type="button" data-category="missing" class="btn-more">더보기 ></button>
   </div>
-<!--오른쪽 영역: 각종 수치를 담는 영역-->
-  <div class="stats-container">
-    <div class="stat-box totCnt">
-      <span class="label">구조</span>
-      <!-- JS가 API에서 받아온 숫자로 바꿔줄 공간 -->
-      <span class="value" id="totCnt">0</span>
-      <span class="unit">마리</span>
-    </div>
-    <div class="stat-box adoptRate">
-      <span class="label">입양률</span>
-      <!-- JS가 API에서 받아온 숫자로 바꿔줄 공간 -->
-      <span class="value" id="adoptRate">0</span>
-      <span class="unit">%</span>
-    </div>
-    <div class="stat-box euthanasiaRate">
-      <span class="label">안락사율</span>
-      <!-- JS가 API에서 받아온 숫자로 바꿔줄 공간 -->
-      <span class="value" id="euthanasiaRate">0</span>
-      <span class="unit">%</span>
-    </div>
+<!-- 카드 리스트 나열 그리드 구조 추가 -->
+  <div class="miss-cardgrid">
+      <ul class="miss-list" id="miss-dummy">
+          <!-- js로 렌더링 -->
+      </ul>
   </div>
 </section>
+<!-- 기부 챌린지 -->
+<section class="donation-challenge">
+  <div class="donation-header">
+    <h2 class="donation-title">기부 챌린지</h2>
+    <button type="button" data-category="donation" class="btn-more">더보기 ></button>
+  </div>
+  <div class="donation-list" id="donation-dummy">
+    <!-- js로 렌더링 -->
+  </div>
+</section>
+      </main>
+<!--유기동물 통계영역-->
+<!--스크롤 고정-->
+    <section class="stats-section">
+        <div class="stats-header">
+<!--js에서 당일 숫자로 변경-->
+            <h2 id="stats-date">유기동물 통계</h2>
+        </div>
+<!--수치 영역-->
+    <div class="stats-container">
+<!--구조된 동물-->
+        <div class="stats-box totCnt">
+            <span class="label">구조</span>
+<!--js에서 API를 가져와서 뿌려주는 영역-->
+            <span class="value" id="totCnt">0</span>
+            <span class="unit">마리</span>
+        </div>
+<!--입양률-->
+    <div class="stats-box adoptRate">
+        <span class="label">입양률</span>
+        <span class="value" id="adoptRate">0</span>
+        <span class="unit">%</span>
+    </div>
+<!--안락사율-->
+    <div class="stats-box euthanasiaRate">
+        <span class="label">안락사율</span>
+        <span class="value" id="euthanasiaRate">0</span>
+        <span class="unit">%</span>
+    </div>
+    </div>
+    </section>
+<!--푸터 영역-->
       <footer class="footer-wrapper">
     <div class="footer-inner">
 <!-- 푸터 상단 -->
@@ -291,7 +272,7 @@
     </div>
       <ul class="sns-links">
         <li><a href="#"><img src="images/symbol_1.svg" alt="인스타그램"></a></li>
-        <li><a href="#"><img src="images/symbol_2.svg" a~lt="네이버"></a></li>
+        <li><a href="#"><img src="images/symbol_2.svg" alt="네이버"></a></li>
         <li><a href="#"><img src="images/symbol_3.svg" alt="카카오톡"></a></li>
         <li><a href="#"><img src="images/symbol_4.svg" alt="유튜브"></a></li>
         <li><a href="#"><img src="images/symbol_5.svg" alt="구글스토어"></a></li>
@@ -348,9 +329,11 @@
     <p>&copy; Pawinhand all rights reserved.</p>
   </div>
 </footer>
-
 <script src="js/config.js"></script>
 <script src="js/api.js"></script>
 <script src="js/main.js"></script>
+<script src="js/missing.js"></script>
+<script src="js/login.js"></script>
+<script src="js/login-state.js"></script>
 </body>
 </html>

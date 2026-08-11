@@ -1,22 +1,3 @@
-/* CSS 전체초기화 */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; 
-}
-
-/* 목록 스타일 제거 */
-ul, ol {
-  list-style: none;
-}
-
-/* 링크 스타일 제거 */
-a {
-  text-decoration: none;
-  color: inherit; /* 부모의 색상을 따라감 */
-}
-
-/* 전체 폰트 가져오기*/
 body {
   display: flex;
   flex-direction: column;
@@ -24,7 +5,6 @@ body {
   padding: 40px 20px;
   background-color: #f9f9f9;
 }
-
 
 /* 로그인 박스 컨테이너 */
 .login-container {
@@ -51,12 +31,11 @@ input[type="password"] {
   box-sizing: border-box; /* 패딩이 전체 너비에 포함되게 함 */
 }
 
-
 /* 로그인 버튼*/
 .login-btn {
   width: 100%;
   padding: 15px;
-  background-color: #ff9900; 
+  background-color: #ff9900;
   color: white;
   border: none;
   font-weight: bold;
@@ -67,7 +46,6 @@ input[type="password"] {
 .login-btn:hover {
   background-color: #e68a00; /* 마우스 올렸을 때 색상 변화 */
 }
-
 
 /* 옵션 영역 (로그인 유지 등) */
 .login-options {
@@ -97,11 +75,11 @@ input[type="password"] {
   border-top: 1px solid #e0e0e0; /* 옅은 회색 선 */
 
   /* 위쪽 간격 조절 (로그인 폼과의 거리) */
-  margin-top: 30px; 
-  
+  margin-top: 30px;
+
   /* 안쪽 여백 조절 (선과 버튼 사이의 거리) */
   padding-top: 30px;
-  
+
   /* 버튼 정렬 */
   display: flex;
   flex-direction: column;
@@ -112,7 +90,7 @@ input[type="password"] {
 .btn-naver {
   width: 100%;
   padding: 15px;
-  background-color: #03C75A; 
+  background-color: #03c75a;
   color: white;
   border: none;
   font-weight: bold;
@@ -121,13 +99,13 @@ input[type="password"] {
 }
 
 .btn-naver:hover {
-  background-color: #03b652; 
+  background-color: #03b652;
 }
 
 .btn-kakao {
   width: 100%;
   padding: 15px;
-  background-color: #FAE100; 
+  background-color: #fae100;
   color: white;
   border: none;
   font-weight: bold;
@@ -142,7 +120,7 @@ input[type="password"] {
 .btn-pawinhand {
   width: 100%;
   padding: 15px;
-  background-color: #ff9900; 
+  background-color: #ff9900;
   color: white;
   border: none;
   font-weight: bold;
@@ -159,7 +137,6 @@ input[type="password"] {
   display: block; /* img는 기본적으로 inline(여백)이 생김 block을 썻을 시 미세한 기본 여백이 사라짐*/
   margin: 0 auto 30px;
 }
-
 
 .promotion-area {
   width: 100%;
