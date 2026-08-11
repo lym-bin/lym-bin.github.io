@@ -36,7 +36,7 @@ Markdown
 - **Environment**: Git, GitHub
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla JS, ES6+)
 - **Styling**: CSS Custom Properties, Flexbox, Grid
-- **API**: 공공데이터포털 유기동물 조회 Open API
+- **API**: 공공데이터포털 유기동물 조회 Open API, 카카오 지도API(geocoding)
 
 ## 배포 링크
 - **상태**: 추후 배포 예정 (현재 로컬 환경 실행)
