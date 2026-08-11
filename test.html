@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      ul,
+      ol {
+        list-style: none;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .header-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px 40px;
+        text-align: center;
+        border-bottom: 1px solid darkgray;
+      }
+
+      .main-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px 40px;
+      }
+
+      .flex-container {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid darkgray;
+        margin-bottom: 20px;
+      }
+
+      .left-info {
+        white-space: pre-wrap;
+      }
+
+      .sevice-title {
+        margin-bottom: 20px;
+      }
+      .img-right img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      .style-flex {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        border-bottom: 1px solid darkgray;
+      }
+
+      .flex-section {
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .flex-section li {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .flex-section img {
+        width: 100%;
+        object-fit: cover;
+        background-color: red;
+      }
+
+      .port-title {
+        margin-bottom: 20px;
+      }
+
+      .port-grid {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        border-bottom: 1px solid darkgray;
+      }
+
+      .grid-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .grid-list li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .grid-list img {
+        object-fit: cover;
+        width: 100%;
+      }
+
+      .table,
+      th,
+      td {
+        border: 1px solid darkgray;
+        text-align: center;
+      }
+
+      .footer-flex {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        border-top: 1px solid darkgray;
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+      }
+
+      .flex-footer {
+        display: flex;
+        gap: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header-container">
+      <div class="header-title">
+        <h1>마이 HTML 최종 연습 프로젝트</h1>
+      </div>
+    </header>
+
+    <main class="main-container">
+      <section class="flex-container">
+        <div class="left-info">
+          <h2>소개</h2>
+          <h3>안녕하세요! 환영합니다!</h3>
+          <p>
+            프로젝트로 구성한 000입니다. 시맨틱태그로 작성해서 만들었습니다.
+          </p>
+          <p>
+            학습 목표는 HTML 구조가 요소 요소 들어가있고 h2태그,h3태그 p태그를
+            이용해서 소개를 작성합니당
+          </p>
+        </div>
+
+        <div class="img-right">
+          <img src="images/card-1.svg" alt="이미지 추가예정" />
+        </div>
+      </section>
+
+      <section class="style-flex">
+        <div class="sevice-title">
+          <h2>서비스 목록</h2>
+        </div>
+
+        <ul class="flex-section">
+          <li>
+            <img src="images/4번.svg" alt="이미지" />
+            <p>HTML 기초</p>
+            <span>HTML 기초는 매우 중요합니다</span>
+            <button>자세히 보기</button>
+          </li>
+
+          <li>
+            <img src="images/5번.svg" alt="이미지" />
+            <p>HTML 구조</p>
+            <span>HTML 요소는 각각의 의미가 있습니다.</span>
+            <button>자세히 보기</button>
+          </li>
+
+          <li>
+            <img src="images/6번.svg" alt="이미지" />
+            <p>HTML 연습</p>
+            <span>HTML을 연습을 해야 CSS로 넘어갈 수 있습니다.</span>
+            <button>자세히 보기</button>
+          </li>
+        </ul>
+      </section>
+
+      <section class="port-grid">
+        <div class="port-title">
+          <h2>포트 폴리오</h2>
+        </div>
+
+        <ul class="grid-list">
+          <li>
+            <img src="images/quick_1.svg" alt="이미지 추가예정" />
+            <p>프로젝트 A</p>
+            <p>랄랄라라랄라라라라라라라라</p>
+          </li>
+          <li>
+            <img src="images/quick_2.svg" alt="이미지 추가예정" />
+            <p>프로젝트 B</p>
+            <p>랄랄라라랄라라라라라라라라</p>
+          </li>
+          <li>
+            <img src="images/quick_3.svg" alt="이미지 추가예정" />
+            <p>프로젝트 C</p>
+            <p>랄랄라라랄라라라라라라라라</p>
+          </li>
+          <li>
+            <img src="images/quick_4.svg" alt="이미지 추가예정" />
+            <p>프로젝트 D</p>
+            <p>랄랄라라랄라라라라라라라라</p>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>연락처</h2>
+        <form action="">
+          <label for="">name </label><br />
+          <input type="text" placeholder="Name" size="60" /><br />
+          <label for="">Email</label><br />
+          <input type="text" size="60" placeholder="Object" /><br />
+          <label for="">Message</label><br />
+          <textarea name="" id="" rows="7" cols="60"></textarea><br />
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+
+      <section>
+        <h2>학습 진행도</h2>
+        <table>
+          <tr>
+            <th>No.</th>
+            <th>학습 내용</th>
+            <th>완료 여부</th>
+            <th>비고</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>HTML 기초</td>
+            <td>완</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>HTML 요소</td>
+            <td>완</td>
+            <td>글씨안보여요</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>HTML 구조 시맨틱 태그</td>
+            <td>완</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>HTML 연습</td>
+            <td>미완</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>프로그래밍 HTML</td>
+            <td>예정</td>
+            <td></td>
+          </tr>
+        </table>
+      </section>
+    </main>
+
+    <footer class="footer-flex">
+      <div class="footer-copy">
+        <p>2023 HTML 최종 연습 프로젝트. All Rights Reserved</p>
+      </div>
+
+      <div class="nav-container">
+        <ul class="flex-footer">
+          <li>홈</li>
+          <li>서비스</li>
+          <li>프롤로그</li>
+          <li>연락처</li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>
