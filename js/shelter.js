@@ -437,11 +437,11 @@ function renderShelterMap() {
   // 이미 만들어진 지도면 재생성 없이 크기/중심만 재조정
   if (mapInitialized) {
     // hidden 속성이 막 풀린 직후라 브라우저가 실제 화면 크기를
-    // 반영안할 때 setTimeout으로 늦춰줌
+    // 반영안할 때 setTimeout으로 늦춰줌(TO-BE 배포서버에서 보호소 지도가 반응이 늦어서 150ms로 늘림)
     setTimeout(() => {
       map.relayout();
       // 지도를 가운데로 세팅해서 위도: 36.5도, 경도: 127.8(대략적인 중심부)로 맞춰줌
-      map.setCenter(new kakao.maps.LatLng(36.5, 127.8));
+      map.setCenter(new kakao.maps.LatLng(36.5, 127.8), 150);
     }, 0);
     return;
   }
