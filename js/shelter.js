@@ -429,15 +429,15 @@ document.querySelectorAll(".protect-tab").forEach((tab) => {
 
 // -------------------------------------------------------------
 // [13] 카카오맵으로 보호소 위치 표시하는 함수
-// ----------------------------------------------------------------------
+// -------------------------------------------------------------
 function renderShelterMap() {
   const mapContainer = document.getElementById("shelter-map");
   if (!mapContainer) return;
 
-  // 1. 카카오 객체가 아직 로드되지 않았을 때의 안전 가드
-  if (typeof kakao === "undefined" || !kakao.maps) {
+  // 1. 카카오 객체가 아직 로드되지 않았을 때 (여기가 핵심 방어선입니다!)
+  if (typeof kakao === "undefined" || !kakao.maps || !kakao.maps.services) {
     console.warn("카카오 지도 SDK 로딩 대기 중...");
-    setTimeout(renderShelterMap, 300); // 0.3초 후 재시도
+    setTimeout(renderShelterMap, 200); // 0.2초 후 다시 시도
     return;
   }
 
