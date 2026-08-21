@@ -429,110 +429,103 @@ document.querySelectorAll(".protect-tab").forEach((tab) => {
 
 // -------------------------------------------------------------
 // [13] 카카오맵으로 보호소 위치 표시하는 함수
-// -------------------------------------------------------------
+// ----------------------------------------------------------------------
 function renderShelterMap() {
   const mapContainer = document.getElementById("shelter-map");
   if (!mapContainer) return;
 
-  // 이미 만들어진 지도면 재생성 없이 크기/중심만 재조정
-  if (mapInitialized) {
-    // hidden 속성이 막 풀린 직후라 브라우저가 실제 화면 크기를
-    // 반영안할 때 setTimeout으로 늦춰줌(TO-BE 배포서버에서 보호소 지도가 반응이 늦어서 150ms로 늘림)
-    setTimeout(() => {
-      map.relayout();
-      // 지도를 가운데로 세팅해서 위도: 36.5도, 경도: 127.8(대략적인 중심부)로 맞춰줌
-      map.setCenter(new kakao.maps.LatLng(36.5, 127.8), 150);
-    }, 0);
+  // 1. 카카오 객체가 아직 로드되지 않았을 때의 안전 가드
+  if (typeof kakao === "undefined" || !kakao.maps) {
+    console.warn("카카오 지도 SDK 로딩 대기 중...");
+    setTimeout(renderShelterMap, 300); // 0.3초 후 재시도
     return;
   }
 
-  // --- 1. 보호소 주소 중복 제거 ---
-  const uniqueShelters = []; // 지도에 마커를 찍을 때 중복이 생길 수 있으므로 배열형태로 만들어 중복 제거를 해줌
-
-  allProtectData.forEach((item) => {
-    // 주소가 없다면 return
-    if (!item.careAddr) return;
-    // uniqueShelters 박스 안에서 현재 아이템의 주소와 똑같은 주소를 가진 보호소가 있는지 찾기
-    // .find()는 조건에 맞는 걸 찾으면 그 객체를 통으로 뱉고 못찾으면 undefined
-    const foundShelter = uniqueShelters.find(
-      (shelter) => shelter.addr === item.careAddr,
-    );
-
-    // 만약 찾지 못했다면(undefined라면) 상자에 push
-    if (!foundShelter) {
-      uniqueShelters.push({
-        name: item.careNm,
-        addr: item.careAddr,
-        tel: item.careTel,
-      });
-    }
-  });
-
-  if (uniqueShelters.length === 0) {
-    mapContainer.innerHTML =
-      "<p style='text-align:center; padding:40px; color:#888;'>표시할 보호소 데이터가 없습니다.</p>";
-    return;
-  }
-
-  // --- 2. 지도 초기화 ---
-  // 초기 진입 시 대한민국 중심 좌표세팅
-  // 실제 마커들이 찍히면 마커가 보이도록 재조정
-  map = new kakao.maps.Map(mapContainer, {
-    center: new kakao.maps.LatLng(36.5, 127.8),
-    level: 12,
-  });
-  mapInitialized = true;
-
-  // --- 3. 주소 → 좌표 변환 후 마커 찍기 ---
-  const geocoder = new kakao.maps.services.Geocoder(); // 주소를 좌표로 바꿔주는 도구
-  const bounds = new kakao.maps.LatLngBounds(); // 모든 마커를 포함하는 사각 범위를 계산해줄 객체
-  let currentInfowindow = null; // 현재 화면에 열려있는 윈포윈도우(말풍선)만 기억
-  let completedCount = 0; // kakao gidcoding 요청이 몇 개나 끝났는지 세는 카운터
-
-  uniqueShelters.forEach((shelter) => {
-    // addressSearch는 비동기(콜백)방식, 여러 개를 동시에 요청해도
-    // 응답이 도착하는 순서가 보장되지 않는다.
-    geocoder.addressSearch(shelter.addr, (result, status) => {
-      completedCount++; // 성공/실패 상관없이 "처리 완료"로 카운트
-
-      // status가 OK일 때만 실제로 좌표 변환에 성공한 것
-      if (status === kakao.maps.services.Status.OK) {
-        const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        const marker = new kakao.maps.Marker({ map, position: coords });
-
-        bounds.extend(coords); // 이 좌표를 "모든 마커가 보이는 범위" 계산에 포함 시킴
-
-        // 마커 클릭 시 뜨는 말풍선(보호소 이름 + 전화번호)
-        const infowindow = new kakao.maps.InfoWindow({
-          content: `<div style="padding:8px; font-size:13px; white-space:nowrap;">
-                    <strong>${shelter.name}</strong><br/>
-                    ${shelter.tel || "전화번호 정보 없음"}
-                  </div>`,
-        });
-
-        // 마커 클릭 이벤트: 토글 방식으로 열고 닫기
-        kakao.maps.event.addListener(marker, "click", () => {
-          if (currentInfowindow === infowindow) {
-            // 같은 마커를 다시 클릭 -> 닫기
-            infowindow.close();
-            currentInfowindow = null;
-          } else {
-            if (currentInfowindow) currentInfowindow.close();
-            infowindow.open(map, marker);
-            currentInfowindow = infowindow;
-          }
-        });
-      }
-
-      // 카카오 API에 요청해서 답이 돌아온 횟수와 전체 보호소 갯수가 같다면
-      if (completedCount === uniqueShelters.length) {
-        // 다시 검사: 마커들이 담긴 주머니(bounds)가 텅 비어있지 않다면.
-        // !bounds : false => true
-        if (!bounds.isEmpty()) {
-          // true이므로 실행
-          map.setBounds(bounds);
+  // 2. 카카오 SDK 로드 완료 보장 래퍼
+  kakao.maps.load(function () {
+    // 이미 만들어진 지도면 재생성 없이 크기/중심만 재조정
+    if (mapInitialized) {
+      setTimeout(() => {
+        if (map) {
+          map.relayout();
+          map.setCenter(new kakao.maps.LatLng(36.5, 127.8));
         }
+      }, 150);
+      return;
+    }
+
+    // --- 3. 보호소 주소 중복 제거 ---
+    const uniqueShelters = [];
+
+    allProtectData.forEach((item) => {
+      if (!item.careAddr) return;
+      const foundShelter = uniqueShelters.find(
+        (shelter) => shelter.addr === item.careAddr,
+      );
+
+      if (!foundShelter) {
+        uniqueShelters.push({
+          name: item.careNm,
+          addr: item.careAddr,
+          tel: item.careTel,
+        });
       }
+    });
+
+    if (uniqueShelters.length === 0) {
+      mapContainer.innerHTML =
+        "<p style='text-align:center; padding:40px; color:#888;'>표시할 보호소 데이터가 없습니다.</p>";
+      return;
+    }
+
+    // --- 4. 지도 초기화 ---
+    map = new kakao.maps.Map(mapContainer, {
+      center: new kakao.maps.LatLng(36.5, 127.8),
+      level: 12,
+    });
+    mapInitialized = true;
+
+    // --- 5. 주소 → 좌표 변환 후 마커 찍기 ---
+    const geocoder = new kakao.maps.services.Geocoder();
+    const bounds = new kakao.maps.LatLngBounds();
+    let currentInfowindow = null;
+    let completedCount = 0;
+
+    uniqueShelters.forEach((shelter) => {
+      geocoder.addressSearch(shelter.addr, (result, status) => {
+        completedCount++;
+
+        if (status === kakao.maps.services.Status.OK) {
+          const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          const marker = new kakao.maps.Marker({ map, position: coords });
+
+          bounds.extend(coords);
+
+          const infowindow = new kakao.maps.InfoWindow({
+            content: `<div style="padding:8px; font-size:13px; white-space:nowrap;">
+                      <strong>${shelter.name}</strong><br/>
+                      ${shelter.tel || "전화번호 정보 없음"}
+                    </div>`,
+          });
+
+          kakao.maps.event.addListener(marker, "click", () => {
+            if (currentInfowindow === infowindow) {
+              infowindow.close();
+              currentInfowindow = null;
+            } else {
+              if (currentInfowindow) currentInfowindow.close();
+              infowindow.open(map, marker);
+              currentInfowindow = infowindow;
+            }
+          });
+        }
+
+        if (completedCount === uniqueShelters.length) {
+          if (!bounds.isEmpty()) {
+            map.setBounds(bounds);
+          }
+        }
+      });
     });
   });
 }
