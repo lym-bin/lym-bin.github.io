@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // 기존 레이아웃인 5열 레이아웃을 위해 최대 5개까지만 잘라서 배치
+    // 기존 레이아웃인 4열 레이아웃을 위해 최대 4개까지만 잘라서 배치
     const limitedData = data.slice(0, 4);
 
     limitedData.forEach((animal) => {
@@ -133,10 +133,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         animal.sexCd === "M" ? "수컷" : animal.sexCd === "F" ? "암컷" : "미상";
       const age = animal.age || "나이 미상";
       const img = animal.popfile1 || animal.popfile2;
-
+      const desertionNo = animal.desertionNo || "";
       const cardHTML = `
         <li>
-          <a href="">
+          <a href="detail.html?num=${desertionNo}">
             <img src="${img}" alt="animal">
             <span>품종: ${kind}</span>
             <span>성별: ${sex}</span>
