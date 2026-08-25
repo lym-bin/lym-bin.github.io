@@ -3,50 +3,38 @@
    ========================================== */
 .banner-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 70px auto; /* 섹션 간격 넓게 수정 */
   border: 1px solid #eee;
   border-radius: 20px;
   padding: 38px; /* 내부 여백 */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* 약간의 그림자 효과 */
-  margin-bottom: 40px;
-  overflow: hidden; /*모서리가 둥글어질 때 이미지가 밖으로 삐져나가지 않도록 숨김 처리*/
+  overflow: hidden; /* 모서리가 둥글어질 때 이미지가 밖으로 삐져나가지 않도록 숨김 처리 */
   background-image: url("../images/banner_v10.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /*고정 height 대신 aspect-ratio를 사용하면, 브라우저 가로 폭이 줄어들 때 
-    세로 높이도 이미지 비율에 맞춰 자동으로 같이 줄어들기 때문에 절대 찌그러지지 않음*/
+  /* 고정 height 대신 aspect-ratio를 사용하면, 브라우저 가로 폭이 줄어들 때 
+    세로 높이도 이미지 비율에 맞춰 자동으로 같이 줄어들기 때문에 절대 찌그러지지 않음 */
   aspect-ratio: 3.2 / 1;
 }
-/* .banner-img-wrap {
-  width: 100%;
-  height: 250px;
-  position: relative;
-}
-.banner-img-wrap img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-} */
 /* ==========================================
    퀵 메뉴바
    ========================================== */
 .quick-menu {
   max-width: 1200px;
-  padding: 38px 20px; /* 전체 섹션 여백 */
-  margin: 0 auto;
+  padding: 0 20px;
+  margin: 0 auto 70px auto; /* 섹션 여백 확보 */
 }
 .quick-title {
   font-size: 20px; /* 제목 크기 */
   font-weight: 700; /* 제목 굵기 */
   color: #333333; /* 색상 */
-  margin-bottom: 20px; /* 제목과 메뉴 리스트 사이 간격 */
+  margin-bottom: 25px; /* 제목과 메뉴 리스트 사이 간격 */
   text-align: left;
 }
 .quick-list {
   display: flex;
-  padding: 38px 20px;
+  padding: 20px 0;
   justify-content: center;
 }
 .quick-menu img {
@@ -57,13 +45,13 @@
   transition: filter 0.3s ease;
 }
 .quick-list a {
-  display: flex; /*a태그안에 있는 아이콘들도 flex로 구조 잡아주기*/
+  display: flex; /* a태그 안에 있는 아이콘들도 flex로 구조 잡아주기 */
   flex-direction: column;
   align-items: center;
   text-align: center;
   color: #333333;
   transition: transform 0.5s ease; /* 살짝 커지는 효과 */
-  width: 100px; /* 고정 너비 주기*/
+  width: 100px; /* 고정 너비 주기 */
 }
 .quick-list a span {
   margin-top: 14px; /* 아이콘과 텍스트 사이 간격 */
@@ -78,26 +66,26 @@
 /* ==========================================
    오늘의 추천동물
    ========================================== */
+.today-animal {
+  max-width: 1200px;
+  margin: 0 auto 70px auto; /* 섹션 간격 넓게 수정 */
+  padding: 0 20px;
+  text-align: left;
+}
 .today-title {
   font-size: 20px; /* 제목 크기 */
   font-weight: 700; /* 제목 굵기 */
   color: #333333; /* 색상 */
-  margin-bottom: 20px; /* 제목과 메뉴 리스트 사이 간격 */
-  text-align: left;
-}
-.today-animal {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 38px 20px;
+  margin-bottom: 30px; /* 제목과 메뉴 리스트 사이 간격 */
   text-align: left;
 }
 .today-header {
   display: flex;
   justify-content: space-between; /* 제목과 버튼(더보기)를 양쪽 끝으로 밀어냄 */
   align-items: baseline; /* 제목과 버튼의 하단 라인을 맞춤 */
-  margin-bottom: 20px; /* 리스트와 간격 */
+  margin-bottom: 25px; /* 리스트와 간격 */
 }
-/*더보기 버튼*/
+/* 더보기 버튼 */
 .btn-more {
   background: none;
   border: 1px solid #ddd;
@@ -115,7 +103,7 @@
    ========================================== */
 .today-list {
   display: flex;
-  justify-content: left; /*무조건 왼쪽부터 정렬*/
+  justify-content: left; /* 무조건 왼쪽부터 정렬 */
   gap: 3px;
   padding: 0;
 }
@@ -128,22 +116,27 @@
   transition: transform 0.2s;
   width: 100px;
 }
-/*시 군 도 텍스트 가평군......*/
+/* 시 군 도 텍스트 가평군...... */
 .today-list a span {
   margin-top: 6px;
   line-height: 1.2;
-  word-break: keep-all; /*줄 맞춤*/
+  word-break: keep-all; /* 줄 맞춤 */
   font-size: 14px;
 }
-/* 시 군 도 슬라이드 효과*/
+/* 시 군 도 슬라이드 효과 */
 .today-swiper {
   width: 100%;
   overflow: hidden; /* 밖으로 나가는 건 숨김 */
+  margin-bottom: 40px;
 }
 .today-list {
+  display: flex;
+  justify-content: left;
+  gap: 3px;
+  padding: 0;
   animation: slide 20s linear infinite; /* 20초 동안 무한 반복 */
 }
-/* @keyframes 속성 : 어떤 모양으로 변화시키는지 설계도 역할 뒤에는(slide) 변수명*/
+/* @keyframes 속성 : 어떤 모양으로 변화시키는지 설계도 역할 뒤에는(slide) 변수명 */
 @keyframes slide {
   0% {
     transform: translateX(0);
@@ -169,6 +162,7 @@
   border-radius: 15px; /* 모서리 둥글게 */
   overflow: hidden;
   transition: transform 0.3s; /* 마우스 올렸을 때 애니메이션 */
+  background: #fff;
 }
 .card-list li:hover {
   transform: translateY(-5px); /* 마우스 올리면 살짝 위로 이동 */
@@ -183,7 +177,7 @@
   color: #333;
 }
 .card-list li img {
-  width: 100%; /*세트로 사용 가로는 부모 너비에 맞춤*/
+  width: 100%; /* 세트로 사용 가로는 부모 너비에 맞춤 */
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: 12px;
@@ -204,24 +198,23 @@
    ========================================== */
 .best-animal {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 38px 20px;
+  margin: 0 auto 70px auto; /* 섹션 간격 넓게 수정 */
+  padding: 0 20px;
   text-align: left;
 }
 .best-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 .best-title {
   font-size: 20px; /* 제목 크기 */
   font-weight: 700; /* 제목 굵기 */
   color: #333333; /* 색상 */
-  margin-bottom: 20px; /* 제목과 메뉴 리스트 사이 간격 */
   text-align: left;
 }
-/* 베스트 입양후기 카드 리스트 그리드*/
+/* 베스트 입양후기 카드 리스트 그리드 */
 .best-cardlist {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -252,10 +245,9 @@
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 10px;
-  transition: content 0.3s ease;
 }
 .best-cardlist li:hover img {
-  filter: brightness(90%); /*살짝 어둡게*/
+  filter: brightness(90%); /* 살짝 어둡게 */
 }
 .best-cardlist li span {
   font-size: 16px;
@@ -270,31 +262,22 @@
    ========================================== */
 .ph-news {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 38px 20px;
+  margin: 0 auto 70px auto; /* 섹션 간격 넓게 수정 */
+  padding: 0 20px;
   text-align: left;
 }
 .news-title {
   font-size: 20px; /* 제목 크기 */
   font-weight: 700; /* 제목 굵기 */
   color: #333333; /* 색상 */
-  margin-bottom: 20px; /* 제목과 메뉴 리스트 사이 간격 */
   text-align: left;
 }
 .news-header {
   display: flex;
-  flex-wrap: nowrap;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 20px;
 }
-/* 사진 리스트 슬라이드 css*/
-/* .news-list {
-  display: flex;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-} */
 .news-slider {
   width: 100%;
   max-width: 1200px;
@@ -306,7 +289,7 @@
   width: 100%;
   height: auto;
   display: block;
-  /*img 하단에 원본이미지 파란줄이있어서 강제로 잘라냄*/
+  /* img 하단에 원본이미지 파란줄이 있어서 강제로 잘라냄 */
   clip-path: inset(0 0 3px 0);
 }
 /* ==========================================
@@ -314,15 +297,14 @@
    ========================================== */
 .missing-report {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 38px 20px;
+  margin: 0 auto 70px auto; /* 섹션 간격 넓게 수정 */
+  padding: 0 20px;
   text-align: left;
 }
 .miss-title {
   font-size: 20px; /* 제목 크기 */
   font-weight: 700; /* 제목 굵기 */
   color: #333333; /* 색상 */
-  margin-bottom: 20px; /* 제목과 메뉴 리스트 사이 간격 */
   text-align: left;
 }
 .miss-header {
@@ -340,9 +322,9 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 15px;
   padding: 0;
-  margin-top: 20px;
+  margin-top: 0;
 }
-/* 개별 카드 디자인  */
+/* 개별 카드 디자인 */
 .miss-list li {
   background: #fff;
   border: 1px solid #eee;
@@ -360,23 +342,7 @@
   padding: 11px;
   text-align: center;
   color: #333;
-  text-decoration: none;
   cursor: default;
-}
-/* 이미지 크기 및 비율 통일 */
-.miss-list li img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 10px;
-}
-/* 텍스트 스타일 통일 */
-.miss-list li span {
-  font-size: 16px;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #000;
 }
 /* 이미지를 감싸는 영역 */
 .miss-img-wrap {
@@ -404,7 +370,7 @@
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0.6); /* 기본 반투명 배경 */
 }
-/* 실종 / 제보에 따라 뱃지 색상을 다르게*/
+/* 실종 / 제보에 따라 뱃지 색상을 다르게 */
 .miss-img-wrap .missing-badge {
   background-color: #ff5252; /* 실종: 붉은계열 */
 }
@@ -417,10 +383,9 @@
 .donation-challenge {
   max-width: 1200px;
   width: 100%;
-  margin: 0 auto;
-  padding: 38px 20px;
+  margin: 0 auto 90px auto; /* 마지막 섹션은 통계 바 위에 걸치지 않도록 더 넉넉하게 */
+  padding: 0 20px;
   background-color: #ffffff;
-  border-radius: 20px;
 }
 .donation-header {
   display: flex;
@@ -432,7 +397,6 @@
   font-size: 20px; /* 제목 크기 */
   font-weight: 700; /* 제목 굵기 */
   color: #333333; /* 색상 */
-  margin-bottom: 20px; /* 제목과 메뉴 리스트 사이 간격 */
   text-align: left;
 }
 .donation-list {
@@ -498,7 +462,7 @@
   background: #ffffff;
   border-top: 1px solid #e5e5e5;
   width: 100%;
-  position: fixed; /*스크롤 해도 하단 고정*/
+  position: fixed; /* 스크롤 해도 하단 고정 */
   bottom: 0;
   left: 0;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); /* 상단 은은한 그림자 */
@@ -513,7 +477,7 @@
   font-weight: 700;
   color: #333333;
   margin: 0;
-  white-space: nowrap; /*줄 바꿈*/
+  white-space: nowrap; /* 줄 바꿈 방지 */
 }
 .stats-container {
   display: flex;
@@ -547,10 +511,14 @@
 .stats-box.euthanasiaRate .value {
   color: #fd7e14; /* Orange */
 }
+/* 하단 고정 통계바 때문에 본문이 가려지거나 찌그러지는 현상 방지 */
+body {
+  padding-bottom: 120px;
+}
 /* ==========================================
    메인 페이지 반응형 (1024px or 769px)
    ========================================== */
-/*테블릿 화면 (너비 1024 이하일때)*/
+/* 태블릿 화면 (너비 1024 이하일때) */
 @media screen and (max-width: 1024px) {
   .main-container {
     flex-direction: column;
@@ -558,19 +526,8 @@
     padding: 12px 15px;
     align-items: center;
   }
-  .main-nav {
-    display: flex;
-    gap: 15px;
-    font-size: 14px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 10px;
-  }
-  .main-logo img {
-    width: 140px;
-  }
 }
-/*모바일 화면 (너비 768 이하 일떄)*/
+/* 모바일 화면 (너비 768 이하 일떄) */
 @media screen and (max-width: 768px) {
   .card-list,
   .best-cardlist,
@@ -582,34 +539,22 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
-  .footer-inner {
-    flex-direction: column;
-    gap: 30px;
-    padding: 0 15px;
-    font-size: 14px;
-  }
-  .sub-nav a {
-    flex-direction: column;
-    font-size: 12px;
-  }
-  /*통계 바 전체 레이아웃*/
+  /* 통계 바 전체 레이아웃 */
   .stats-section {
     padding: 10px 15px;
     flex-direction: column;
     align-items: center;
     gap: 4px;
   }
-  /*date 텍스트 줄 바꿈 방지 폰트 사이즈 조절*/
+  /* date 텍스트 줄 바꿈 방지 폰트 사이즈 조절 */
   #stats-date {
     font-size: 14px;
-    white-space: nowrap; /*줄바꿈 방지*/
+    white-space: nowrap; /* 줄바꿈 방지 */
   }
-  /*통계 데이터 항목들 간격 및 텍스트 조정*/
+  /* 통계 데이터 항목들 간격 및 텍스트 조정 */
   .stats-box {
     font-size: 12px;
     gap: 3px;
-    align-items: baseline;
-    white-space: nowrap;
   }
   .stats-box .value {
     font-size: 16px; /* 수치 강조 크기 조절 */
@@ -617,8 +562,4 @@
   .donation-list {
     grid-template-columns: repeat(2, 1fr);
   }
-}
-/* 하단 고정 통계바 때문에 본문이 가려지거나 찌그러지는 현상 방지 */
-body {
-  padding-bottom: 100px;
 }

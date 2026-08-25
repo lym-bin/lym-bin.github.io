@@ -434,14 +434,13 @@ function renderShelterMap() {
   const mapContainer = document.getElementById("shelter-map");
   if (!mapContainer) return;
 
-  // 1. 카카오 객체가 아직 로드되지 않았을 때 (여기가 핵심 방어선입니다!)
+  // 1. 카카오 객체가 아직 로드되지 않았을 때
   if (typeof kakao === "undefined" || !kakao.maps || !kakao.maps.services) {
-    console.warn("카카오 지도 SDK 로딩 대기 중...");
     setTimeout(renderShelterMap, 200); // 0.2초 후 다시 시도
     return;
   }
 
-  // 2. 카카오 SDK 로드 완료 보장 래퍼
+  // 2. 카카오 SDK 로드
   kakao.maps.load(function () {
     // 이미 만들어진 지도면 재생성 없이 크기/중심만 재조정
     if (mapInitialized) {

@@ -126,26 +126,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 기존 레이아웃인 4열 레이아웃을 위해 최대 4개까지만 잘라서 배치
     const limitedData = data.slice(0, 4);
 
-    limitedData.forEach((animal) => {
-      // 유기동물 조회 API가 보내주는 실제 데이터 속성명 매핑
-      const kind = animal.kindNm || animal.kindCd || "품종 정보 없음";
-      const sex =
-        animal.sexCd === "M" ? "수컷" : animal.sexCd === "F" ? "암컷" : "미상";
-      const age = animal.age || "나이 미상";
-      const img = animal.popfile1 || animal.popfile2;
-      const desertionNo = animal.desertionNo || "";
-      const cardHTML = `
+    listContainer.innerHTML = limitedData
+      .map((animal) => {
+        const kind = animal.kindNm || animal.kindCd || "품종 정보 없음";
+        const sex =
+          animal.sexCd === "M"
+            ? "수컷"
+            : animal.sexCd === "F"
+              ? "암컷"
+              : "미상";
+        const age = animal.age || "나이 미상";
+        const img = animal.popfile1 || animal.popfile2;
+        const desertionNo = animal.desertionNo || "";
+
+        return `
         <li>
-          <a href="detail.html?num=${desertionNo}">
-            <img src="${img}" alt="animal">
-            <span>품종: ${kind}</span>
-            <span>성별: ${sex}</span>
-            <span>나이: ${age}</span>
-          </a>
+        <a href="detail.html?num=${desertionNo}">
+        <img src="${img}" alt="animal">
+        <span>품종: ${kind}</span>
+        <span>성별: ${sex}</span>
+        <span>나이: ${age}</span>
+        </a>
         </li>
       `;
-      listContainer.innerHTML += cardHTML;
-    });
+      })
+      .join("");
   }
 
   //  1. 페이지 처음 켜졌을 때 '전국 유기동물 목록' 불러오기
@@ -218,18 +223,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   ];
 
   if (adopReview) {
-    let html = "";
-    adopDummy.forEach((review) => {
-      html += `
-        <li>
-          <a href="">
-            <img src="${review.popfile}" alt="${review.info}" data-after="${review.popfile}" data-before="${review.beforefile}"/>
-            <span>${review.info}</span>
-          </a>
-        </li>
-      `;
-    });
-    adopReview.innerHTML = html;
+    adopReview.innerHTML = adopDummy
+      .map(
+        (review) => `
+      <li>
+      <a href="">
+        <img src="${review.popfile}" alt="${review.info}" data-after="${review.popfile}" data-before="${review.beforefile}"/> 
+        <span>${review.info}</span>
+      </a>
+      </li>
+      `,
+      )
+      .join("");
 
     // 마우스 호버 이벤트 설정
     const cards = document.querySelectorAll("#best-dummy li");
