@@ -234,12 +234,16 @@ button {
    ========================================== */
 .news-container h2,
 .guide-container h2 {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+}
+.news-title {
+  margin-bottom: 20px;
 }
 .news-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 24px;
+  margin-bottom: 24px;
 }
 .news-list li {
   display: flex;
@@ -254,8 +258,8 @@ button {
 }
 /* 소식 카드 제목 */
 .news-list li h3 {
-  margin-top: 10px;
-  font-size: 15px;
+  margin-top: 24px;
+  font-size: 16px;
 }
 .news-list button {
   margin-top: 12px;
@@ -275,6 +279,10 @@ button {
   border: 1px solid #eee;
   border-radius: 8px;
   overflow: hidden;
+  margin-bottom: 24px;
+}
+.guide-title {
+  margin-bottom: 20px;
 }
 .guide-list li {
   display: flex;

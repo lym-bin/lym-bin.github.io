@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // 기존 레이아웃인 5열 레이아웃을 위해 최대 5개까지만 잘라서 배치
-    const limitedData = data.slice(0, 5);
+    const limitedData = data.slice(0, 4);
 
     limitedData.forEach((animal) => {
       // 유기동물 조회 API가 보내주는 실제 데이터 속성명 매핑

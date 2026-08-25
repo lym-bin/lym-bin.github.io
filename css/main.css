@@ -6,11 +6,11 @@
   margin: 0 auto;
   border: 1px solid #eee;
   border-radius: 20px;
-  padding: 28px; /* 내부 여백 */
+  padding: 38px; /* 내부 여백 */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* 약간의 그림자 효과 */
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   overflow: hidden; /*모서리가 둥글어질 때 이미지가 밖으로 삐져나가지 않도록 숨김 처리*/
-  background-image: url("../images/banner_v8.jpg");
+  background-image: url("../images/banner_v10.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -45,11 +45,16 @@
   text-align: left;
 }
 .quick-list {
-  display: grid; /*li부모인 ul에 flex로 구조 잡아주기(grid로 수정)*/
-  grid-template-columns: repeat(6, 1fr);
-  gap: 15px; /* 항목 사이의 여백을 넉넉하게 */
-  padding: 0;
-  justify-items: center;
+  display: flex;
+  padding: 38px 20px;
+  justify-content: center;
+}
+.quick-menu img {
+  filter: grayscale(100%);
+}
+.quick-menu img:hover {
+  filter: grayscale(0%);
+  transition: filter 0.3s ease;
 }
 .quick-list a {
   display: flex; /*a태그안에 있는 아이콘들도 flex로 구조 잡아주기*/
@@ -57,17 +62,18 @@
   align-items: center;
   text-align: center;
   color: #333333;
-  transition: transform 0.2s; /* 살짝 커지는 효과 */
+  transition: transform 0.5s ease; /* 살짝 커지는 효과 */
   width: 100px; /* 고정 너비 주기*/
 }
 .quick-list a span {
-  margin-top: 6px; /* 아이콘과 텍스트 사이 간격 */
-  line-height: 1.2; /* 줄간격 조정 */
+  margin-top: 14px; /* 아이콘과 텍스트 사이 간격 */
+  line-height: 1.3; /* 줄간격 조정 */
   word-break: keep-all; /* 글자가 너무 길면 자동으로 끊기지 않게 방지 */
   font-size: 14px;
 }
 .quick-list a:hover {
-  transform: translateY(-5px); /* 마우스를 올리면 위로 살짝 이동 */
+  transform: translateY(-6px); /* 마우스를 올리면 위로 살짝 이동 */
+  transition: transform 0.5s ease-out;
 }
 /* ==========================================
    오늘의 추천동물
@@ -151,7 +157,7 @@
    ========================================== */
 .card-list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 15px; /* 카드 사이의 간격 */
   padding: 0;
   margin-top: 20px;
@@ -572,7 +578,9 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .quick-list {
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
   .footer-inner {
     flex-direction: column;

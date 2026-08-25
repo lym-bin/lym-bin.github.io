@@ -47,7 +47,7 @@ body {
    헤더 공통 작업 컨테이너
    ========================================== */
 .main-header {
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 .main-logo {
   display: block; /* 레이아웃 자유롭게 배치하기 위해*/
@@ -74,7 +74,7 @@ body {
   display: flex; /* 로고와 nav를 가로로 배치 */
   justify-content: space-between; /* 로고는 왼쪽, 메뉴는 오른쪽 끝으로 */
   align-items: center; /* 세로 기준 가운데 정렬 */
-  padding: 8px 18px;
+  padding: 6px 16px;
   margin-top: 20px;
 }
 /* 메뉴 가로 나열 */
@@ -87,7 +87,7 @@ body {
    ========================================== */
 .footer-wrapper {
   width: 100%;
-  padding: 24px 0;
+  padding: 38px 20px;
   background-color: #f9f9f9;
 }
 .footer-logo img {
