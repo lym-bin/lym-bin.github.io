@@ -135,13 +135,13 @@ document.addEventListener("DOMContentLoaded", async () => {
               ? "암컷"
               : "미상";
         const age = animal.age || "나이 미상";
-        const img = animal.popfile1 || animal.popfile2;
+        const img = animal.popfile1 || animal.popfile2 || "";
         const desertionNo = animal.desertionNo || "";
 
         return `
         <li>
         <a href="detail.html?num=${desertionNo}">
-        <img src="${img}" alt="animal">
+        <img src="${img}" alt="${kind}" loading="lazy" onerror="imgError(this)">
         <span>품종: ${kind}</span>
         <span>성별: ${sex}</span>
         <span>나이: ${age}</span>
@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         (review) => `
       <li>
       <a href="">
-        <img src="${review.popfile}" alt="${review.info}" data-after="${review.popfile}" data-before="${review.beforefile}"/> 
+        <img src="${review.popfile}" alt="${review.info}" data-after="${review.popfile}" data-before="${review.beforefile}" onerror="imgError(this)"/>
         <span>${review.info}</span>
       </a>
       </li>
@@ -325,7 +325,7 @@ if (donationContainer) {
       );
       return `
     <div class="donation-card">
-      <img src="${item.image}" alt="${item.title}" />
+      <img src="${item.image}" alt="${item.title}" onerror="imgError(this)" />
       <div class="donation-info">
         <h3>${item.title}</h3>
         <p>${item.desc}</p>

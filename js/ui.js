@@ -31,3 +31,16 @@ function showStateMessage(container, message, type = "empty") {
       : "state-message";
   container.innerHTML = `<li class="${cls}" role="status">${message}</li>`;
 }
+
+// 이미지 로드 실패 시 대체할 회색 플레이스홀더 (별도 파일 불필요, data URI)
+const PLACEHOLDER_IMG =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='100%25' height='100%25' fill='%23eeeeee'/%3E%3Ctext x='50%25' y='50%25' fill='%23aaaaaa' font-family='sans-serif' font-size='22' text-anchor='middle' dominant-baseline='middle'%3E이미지 준비 중%3C/text%3E%3C/svg%3E";
+
+/**
+ * <img> 로드 실패 콜백. 템플릿에 onerror="imgError(this)" 로 연결.
+ * @param {HTMLImageElement} el
+ */
+function imgError(el) {
+  el.onerror = null; // 플레이스홀더도 실패할 경우 무한 루프 방지
+  el.src = PLACEHOLDER_IMG;
+}

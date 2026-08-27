@@ -352,8 +352,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <li>
         <span class="badge ${getBadgeClass(item.state)}">${item.state}</span>
         <a href="detail.html?num=${encodeURIComponent(item.num)}">
-          <img src="${item.image}" alt="${item.species}" loading="lazy"
-               onerror="this.onerror=null; this.src='./images/todaycard_1.svg';" />
+          <img src="${item.image}" alt="${item.species}" loading="lazy" onerror="imgError(this)" />
         </a>
         <button type="button" class="like-btn ${isLiked ? "liked" : ""}" data-num="${item.num}" aria-label="찜하기">${isLiked ? "♥" : "♡"}</button>
       </li>

@@ -31,7 +31,7 @@ if (regionContainer) {
       (item) => `
     <li>
       <a href="detail.html" class="region-click-btn" data-region="${item.name}">
-        <img src="${item.image}" alt="${item.name}" loading="lazy"/>
+        <img src="${item.image}" alt="${item.name}" loading="lazy" onerror="imgError(this)"/>
         <span>${item.name}</span>
       </a>
     </li>
@@ -148,7 +148,7 @@ function renderProtectsCards(data) {
       return `
       <li>
         <a href="detail.html?num=${encodeURIComponent(item.num)}">
-          <img src="${item.image}" alt="${item.species}" loading="lazy"/>
+          <img src="${item.image}" alt="${item.species}" loading="lazy" onerror="imgError(this)"/>
           <div class="card-info">
             <div class="badge-group">
               <span class="badge state">${item.state}</span>

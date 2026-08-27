@@ -75,8 +75,9 @@ function renderAnimalDetail(item) {
 
   // 화면에 img태그가 존재하고 사진목록에 사진이 1개 이상이면 true
   // &&: and연산자(그리고) 좌우가 true여야지 true
-  if (imgEl && images.length > 0) {
-    imgEl.src = images[0];
+  if (imgEl) {
+    imgEl.onerror = () => imgError(imgEl); // 로드 실패 시 플레이스홀더
+    imgEl.src = images.length > 0 ? images[0] : PLACEHOLDER_IMG;
   }
   if (thumbList) {
     // 썸네일 목록을 담을 HTML 상자가 화면에 존재하고
@@ -92,7 +93,7 @@ function renderAnimalDetail(item) {
             // 동적으로 li 배열을 만듬
             `
       <li>
-      <img src="${src}" alt="썸네일 ${idx + 1}" class="thumb-img ${idx === 0 ? "active" : ""}" data-src="${src}"/>
+      <img src="${src}" alt="썸네일 ${idx + 1}" class="thumb-img ${idx === 0 ? "active" : ""}" data-src="${src}" onerror="imgError(this)"/>
       </li>`,
         )
         // 배열들을 콤마 없이 하나의 html로 붙임
