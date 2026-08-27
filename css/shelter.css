@@ -179,21 +179,29 @@
   padding: 0 20px;
 }
 .protect-boho {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
   padding: 0;
   margin-bottom: 30px;
 }
 .protect-boho li a {
   display: flex;
   gap: 20px;
+  height: 100%; /* 그리드 셀 높이를 채워 카드 높이 정렬 */
   background-color: #ffffff;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 15px;
   color: inherit;
   align-items: flex-start;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.protect-boho li a:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-soft);
 }
 .protect-boho img {
   width: 120px;
@@ -270,6 +278,9 @@
 @media screen and (max-width: 1024px) {
   .list-design {
     grid-template-columns: repeat(3, 1fr); /*5열 -> 3열*/
+  }
+  .protect-boho {
+    grid-template-columns: 1fr; /*2열 -> 1열*/
   }
   .filter-modal-content {
     max-width: 90%; /* 모달이 화면 밖으로 빠져 나가지 않게함*/
