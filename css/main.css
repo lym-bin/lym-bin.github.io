@@ -1,4 +1,19 @@
 /* ==========================================
+   섹션 제목 공통 (타이포 스케일 적용)
+   ========================================== */
+.quick-title,
+.today-title,
+.best-title,
+.news-title,
+.miss-title,
+.donation-title {
+  font-size: var(--font-h2);
+  font-weight: 700;
+  color: var(--color-text-strong);
+  text-align: left;
+}
+
+/* ==========================================
    상단 배너
    ========================================== */
 /* 배너: 사진(좌) + 텍스트 패널(우) 분리 구조.
@@ -65,11 +80,7 @@
   margin: 0 auto 70px auto; /* 섹션 여백 확보 */
 }
 .quick-title {
-  font-size: 20px; /* 제목 크기 */
-  font-weight: 700; /* 제목 굵기 */
-  color: #333333; /* 색상 */
-  margin-bottom: 25px; /* 제목과 메뉴 리스트 사이 간격 */
-  text-align: left;
+  margin-bottom: 25px;
 }
 .quick-list {
   display: flex;
@@ -112,11 +123,7 @@
   text-align: left;
 }
 .today-title {
-  font-size: 20px; /* 제목 크기 */
-  font-weight: 700; /* 제목 굵기 */
-  color: #333333; /* 색상 */
-  margin-bottom: 30px; /* 제목과 메뉴 리스트 사이 간격 */
-  text-align: left;
+  margin-bottom: 30px;
 }
 .today-header {
   display: flex;
@@ -247,12 +254,6 @@
   align-items: baseline;
   margin-bottom: 25px;
 }
-.best-title {
-  font-size: 20px; /* 제목 크기 */
-  font-weight: 700; /* 제목 굵기 */
-  color: #333333; /* 색상 */
-  text-align: left;
-}
 /* 베스트 입양후기 카드 리스트 그리드 */
 .best-cardlist {
   display: grid;
@@ -305,12 +306,6 @@
   padding: 0 20px;
   text-align: left;
 }
-.news-title {
-  font-size: 20px; /* 제목 크기 */
-  font-weight: 700; /* 제목 굵기 */
-  color: #333333; /* 색상 */
-  text-align: left;
-}
 .news-header {
   display: flex;
   justify-content: space-between;
@@ -338,12 +333,6 @@
   max-width: 1200px;
   margin: 0 auto 70px auto; /* 섹션 간격 넓게 수정 */
   padding: 0 20px;
-  text-align: left;
-}
-.miss-title {
-  font-size: 20px; /* 제목 크기 */
-  font-weight: 700; /* 제목 굵기 */
-  color: #333333; /* 색상 */
   text-align: left;
 }
 .miss-header {
@@ -431,12 +420,6 @@
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 20px;
-}
-.donation-title {
-  font-size: 20px; /* 제목 크기 */
-  font-weight: 700; /* 제목 굵기 */
-  color: #333333; /* 색상 */
-  text-align: left;
 }
 .donation-list {
   display: grid;

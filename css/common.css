@@ -44,6 +44,21 @@
   --color-state-urgent: #e74c3c; /* 긴급 */
   --color-state-done: #27ae60; /* 종료/입양완료 */
 
+  /* 타이포 스케일 */
+  --font-h1: 1.75rem; /* 28px */
+  --font-h2: 1.375rem; /* 22px */
+  --font-h3: 1.125rem; /* 18px */
+  --font-body: 1rem; /* 16px */
+  --font-sm: 0.875rem; /* 14px */
+  --font-xs: 0.75rem; /* 12px */
+
+  /* 간격 스케일 */
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 20px;
+  --space-lg: 40px;
+  --space-xl: 70px;
+
   /* 레이아웃 */
   --container-max: 1200px;
   --radius-sm: 6px;
@@ -295,7 +310,7 @@ body {
 
 /* 섹션 제목 공통 */
 .section-title {
-  font-size: 22px;
+  font-size: var(--font-h2);
   font-weight: 700;
   color: var(--color-text-strong);
   margin-bottom: 16px;
