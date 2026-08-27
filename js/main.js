@@ -118,8 +118,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 데이터가 아에 없을 때의 방어코드
     if (!data || data.length === 0) {
-      listContainer.innerHTML =
-        "<li>해당 지역에 등록된 동물 데이터가 없습니다.</li>";
+      showStateMessage(listContainer, "해당 지역에 등록된 동물 데이터가 없습니다.");
       return;
     }
 
@@ -155,7 +154,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   //  1. 페이지 처음 켜졌을 때 '전국 유기동물 목록' 불러오기
   // (함수 이름은 api.js에 정의한 이름으로 맞추기)
-  let allAnimalData = await fetchAnimalsList();
+  showSkeleton(listContainer, 4); // API 응답 대기 중 스켈레톤 표시
+  const allAnimalData = await fetchAnimalsList();
   //  데이터가 있다면 첫 번째 동물의 모든 속성 이름과 값을 확인
   // if (allAnimalData && allAnimalData.length > 0) {
   //   console.log(

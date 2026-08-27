@@ -3,7 +3,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 10px 20px;
-  border-top: 1px solid darkgray;
+  border-top: 1px solid var(--color-border);
 }
 .protect-con {
   display: flex;
@@ -51,7 +51,7 @@
   gap: 15px;
 }
 .modal-header {
-  border-bottom: 1px solid darkgray;
+  border-bottom: 1px solid var(--color-border);
   margin-top: 20px;
 }
 .date-inputs {
@@ -79,7 +79,7 @@
 .filter-modal-content button[type="submit"] {
   width: 100%;
   padding: 12px;
-  background-color: #ff9900;
+  background-color: var(--color-primary);
   color: #fff;
   border: none;
   border-radius: 6px;

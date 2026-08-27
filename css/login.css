@@ -3,7 +3,7 @@ body {
   flex-direction: column;
   align-items: center; /* 가로 중앙 정렬*/
   padding: 40px 20px;
-  background-color: #f9f9f9;
+  background-color: var(--color-bg-soft);
 }
 
 /* 로그인 박스 컨테이너 */
@@ -35,7 +35,7 @@ input[type="password"] {
 .login-btn {
   width: 100%;
   padding: 15px;
-  background-color: #ff9900;
+  background-color: var(--color-primary);
   color: white;
   border: none;
   font-weight: bold;
@@ -120,7 +120,7 @@ input[type="password"] {
 .btn-pawinhand {
   width: 100%;
   padding: 15px;
-  background-color: #ff9900;
+  background-color: var(--color-primary);
   color: white;
   border: none;
   font-weight: bold;

@@ -25,7 +25,7 @@
   font-weight: 500;
 }
 .detail-desc-text:hover {
-  color: #ff9900;
+  color: var(--color-primary);
   cursor: pointer;
 }
 .summary-info h1 {
@@ -60,7 +60,7 @@ article {
 h2 {
   font-size: 1.2rem;
   margin-bottom: 15px;
-  color: #ff9900;
+  color: var(--color-primary);
 }
 .data-grid {
   display: grid;
@@ -96,7 +96,7 @@ h2 {
 }
 .thumb-img.active {
   opacity: 1;
-  border-color: #ff9900;
+  border-color: var(--color-primary);
 }
 /* ==========================================
    입양 절차 
@@ -141,7 +141,7 @@ textarea {
   padding: 15px;
   border: none;
   border-radius: 8px;
-  background: #ff9900;
+  background: var(--color-primary);
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -155,7 +155,7 @@ textarea {
 #comment-submit-btn {
   margin-top: 10px;
   padding: 10px 24px;
-  background: #ff9900;
+  background: var(--color-primary);
   color: #fff;
   border: none;
   border-radius: 6px;
