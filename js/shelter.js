@@ -1,7 +1,7 @@
 // ==========================================
 // shelter.js — 보호소 페이지 전체 로직
 //  실행순서 (순서대로):
-//  1. 상단 지역 카드(더미) 렌더링 + 클릭 필터
+//  1. 오늘의 추천 입양 동물 렌더링 (API 데이터에서 추림)
 //  2. 보호동물 카드 목록 렌더링 (API 데이터)
 //  3. 필터 모달(지역/축종/상태/성별/기간) 처리
 //  4. 더보기 페이지네이션
@@ -9,30 +9,33 @@
 //  6. 카카오맵으로 보호소 위치 표시
 // ==========================================
 
-// ==========================================
-// [1] 상단 지역 카드 (더미 데이터)
-//===========================================
+// =================================================
+// [1] 추천 입양 동물 렌더링
+// - 별도 "추천" API가 없어서, 받아온 전체 데이터에서 사진이 있는 최신 공고를 추린다.
+// - count: 보호동물 탭에서는 5마리, 추천 탭에서는 더 많이 노출
+// =================================================
+const recommendContainer = document.querySelector(".list-design");
 
-// 실제 api에 "인기지역"? 같은 개념이 없어서 기본적으로 서울지역 하드코딩
-// 이미지들 제작해서 순서대로 하드코딩할 예정(TO-BE)
-const regionData = [
-  { name: "서울특별시 동대문구", image: "images/todaycard_1.svg" },
-  { name: "서울특별시 영등포구", image: "images/todaycard_2.svg" },
-  { name: "서울특별시 마포구", image: "images/todaycard_3.svg" },
-  { name: "서울특별시 노원구", image: "images/todaycard_1.svg" },
-  { name: "강원특별자치도 강릉시", image: "images/todaycard_2.svg" },
-];
+function renderRecommend(count) {
+  if (!recommendContainer) return;
 
-const regionContainer = document.querySelector(".list-design");
-if (regionContainer) {
-  // img 템플릿에 loading="lazy" 추가 초기로딩 가볍게
-  regionContainer.innerHTML = regionData
+  const picks = allProtectData
+    .filter((item) => item.image) // 사진 없는 공고 제외
+    .slice(0, count);
+
+  if (picks.length === 0) {
+    showStateMessage(recommendContainer, "추천할 동물 데이터가 없습니다.");
+    return;
+  }
+
+  recommendContainer.innerHTML = picks
     .map(
       (item) => `
     <li>
-      <a href="detail.html" class="region-click-btn" data-region="${item.name}">
-        <img src="${item.image}" alt="${item.name}" loading="lazy" onerror="imgError(this)"/>
-        <span>${item.name}</span>
+      <a href="detail.html?num=${encodeURIComponent(item.num)}">
+        <img src="${item.image}" alt="${item.species}" loading="lazy" onerror="imgError(this)"/>
+        <span class="rec-species">${item.species}</span>
+        <span class="rec-loc">${item.loc}</span>
       </a>
     </li>
   `,
@@ -73,34 +76,6 @@ const startDateInput =
 const endDateInput =
   document.querySelector("input[name='endDate']") ||
   document.querySelector(".filter-event input[type='date']:nth-of-type(2)");
-
-// =================================================
-// [4] 상단 지역 카드 클릭 => 그 지역으로 바로 필터링
-// =================================================
-document.querySelectorAll(".region-click-btn").forEach((card) => {
-  card.addEventListener("click", (e) => {
-    e.preventDefault(); // <a> 태그의 기본 이동 (detail.html로 이동) 막기
-    const regionName = card.dataset.region; // [1]에 동적으로 생성한 li태그에 data-region 속성값 읽기
-
-    // textContent: html태그 무시하고 오직 글자만 취급
-    // innerText: 사용자가 실제로 보이는 텍스트만 가져오거나 변경
-    // innerHtml: 텍스트뿐만아니라 html태그까지 포함해서 넣거나 바꿈
-
-    // 화면에 tagRegion(지역 이름표시 태그)가 존재하면
-    // 그 안의 text를 클릭한 지역명으로 교체
-    if (tagRegion) tagRegion.textContent = regionName;
-
-    // api에서 가져온 전체동물데이터에서 filter(조건에 맞는 값만) 거쳐서
-    // item 조건에 맞게 loc(지역정보)가 존재하고 regionName(지역이름)이 포함된다면 코드 진행
-    currentFilteredData = allProtectData.filter(
-      (item) => item.loc && item.loc.includes(regionName),
-    );
-
-    displayLimit = 12;
-    // 바뀐 데이터를 기준으로 렌더링(재배치)
-    renderProtectsCards(currentFilteredData);
-  });
-});
 
 // =================================================
 // [5] 카드 렌더링 함수(* 핵심 - 여러곳에서 재사용)
@@ -350,7 +325,8 @@ document.addEventListener("click", (e) => {
 // -------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", async () => {
   // api.js에서 정의된 함수 공공데이터 보호동물 조회
-  showSkeleton(container, 12); // API 응답 대기 중 스켈레톤 표시
+  showSkeleton(recommendContainer, 5); // 추천 영역 스켈레톤
+  showSkeleton(container, 12); // 전체 목록 스켈레톤
   const apiItems = await fetchProtectData();
   if (apiItems && apiItems.length > 0) {
     // API 원본 필드명과 매핑준비(desertionNo(공고번호), happenDt(구조 발견일?발생일)등)
@@ -375,6 +351,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     displayLimit = 12;
 
     renderProtectsCards(currentFilteredData);
+    renderRecommend(5); // 상단 "오늘의 추천 입양 동물" 5마리
   } else {
     // API 응답이 비어있거나 할 떄 에러 방어
     showStateMessage(
@@ -392,8 +369,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 // [12] 상단 탭 전환 (보호동물 / 보호소 찾기 / 추천 입양 동물)
 // -------------------------------------------------------------
 const mapSection = document.getElementById("map-section"); // 지도 영역
-const mainSection = document.querySelector(".main-section"); // 상단 지역 카드 영역
-const bohoSection = document.querySelector(".boho-section"); // 보호동물 카드 목록 영역
+const mainSection = document.querySelector(".main-section"); // 추천 입양 동물 영역
+const bohoSection = document.querySelector(".boho-section"); // 전체 보호동물 목록 영역
+const filterWrap = document.querySelector(".filter-wrap"); // 전체 목록용 필터 pill 영역
 
 // 전역 변수 선언(함수 안에서 선언하면 매번 리셋되기 때문에 함수 밖에서 전역 선언해줌)
 let mapInitialized = false; // 최초 진입시엔 false (지도를 이미 한번 만들었는지 확인) 중복 방지
@@ -411,21 +389,29 @@ document.querySelectorAll(".protect-tab").forEach((tab) => {
     // 클릭한 tab에만 다시 active기능을줌
     tab.classList.add("active");
 
-    const selected = tab.dataset.tab; // protect || find || recommand
+    const selected = tab.dataset.tab; // protect || find || recommend
 
-    // 보호소 찾기를 selected하면
     if (selected === "find") {
-      // "보호소 찾기" 탭: 카드 목록을 숨기고 지도를 보여줌
+      // "보호소 찾기": 목록/추천 숨기고 지도만
       if (mainSection) mainSection.style.display = "none";
+      if (filterWrap) filterWrap.style.display = "none";
       if (bohoSection) bohoSection.style.display = "none";
       if (mapSection) mapSection.hidden = false;
-      // 화면 렌더링
       renderShelterMap();
-      // 그 외: 지도를 숨기고 카드목록을 다시 보여 줌
-    } else {
+    } else if (selected === "recommend") {
+      // "추천 입양 동물": 추천 카드만 크게, 전체 목록/필터는 숨김
       if (mainSection) mainSection.style.display = "";
+      if (filterWrap) filterWrap.style.display = "none";
+      if (bohoSection) bohoSection.style.display = "none";
+      if (mapSection) mapSection.hidden = true;
+      renderRecommend(15); // 추천 탭에서는 더 많이 노출
+    } else {
+      // "보호동물": 추천 5마리 + 필터 + 전체 목록 모두 표시
+      if (mainSection) mainSection.style.display = "";
+      if (filterWrap) filterWrap.style.display = "";
       if (bohoSection) bohoSection.style.display = "";
       if (mapSection) mapSection.hidden = true;
+      renderRecommend(5);
     }
   });
 });

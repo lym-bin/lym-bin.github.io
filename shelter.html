@@ -151,7 +151,20 @@
           </form>
         </div>
       </div>
-      <!-- 기본 필터-->
+      <!-- 보호소 찾기 지도 영역 (기본은 숨김) -->
+      <section class="map-section" id="map-section" hidden>
+        <div id="shelter-map"></div>
+      </section>
+      <!-- 오늘의 추천 입양 동물 (API에서 추린 카드) -->
+      <section class="main-section">
+        <h2 class="section-title">오늘의 추천 입양 동물</h2>
+        <div class="protect-list">
+          <ul class="list-design">
+            <!-- JS 렌더링 -->
+          </ul>
+        </div>
+      </section>
+      <!-- 기본 필터 (아래 전체 목록에 적용)-->
       <div class="filter-wrap">
         <ul class="btn-filter">
           <li>
@@ -164,22 +177,11 @@
           <li><button class="tag-species">모든 동물</button></li>
         </ul>
       </div>
-      <!-- 보호소 찾기 지도 영역 (기본은 숨김) -->
-      <section class="map-section" id="map-section" hidden>
-        <div id="shelter-map"></div>
-      </section>
-      <!-- 이미지 섹션 영역-->
-      <section class="main-section">
-        <div class="protect-list">
-          <ul class="list-design">
-            <!-- JS 더미데이터-->
-          </ul>
-        </div>
-      </section>
 
       <section class="boho-section">
+        <h2 class="section-title">전체 보호동물</h2>
         <ul class="protect-boho">
-          <!-- JS 더미데이터-->
+          <!-- JS 렌더링 -->
         </ul>
         <div class="btn-cen">
           <button class="btn-more">더보기</button>

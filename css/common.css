@@ -288,6 +288,14 @@ body {
   background: rgba(231, 76, 60, 0.95);
 }
 
+/* 섹션 제목 공통 */
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text-strong);
+  margin-bottom: 16px;
+}
+
 /* 페이지 전체 에러 상태 (상세 페이지 등) */
 .page-error {
   min-height: 50vh;
