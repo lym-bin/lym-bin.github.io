@@ -2,25 +2,39 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 10px 20px;
-  border-top: 1px solid var(--color-border);
+  padding: 8px 20px 0;
 }
 .protect-con {
   display: flex;
 }
+/* 탭 스트립: 하단 경계선 위에 탭들이 얹히는 형태 */
 .protect-item {
   display: flex;
-  gap: 20px;
+  gap: 4px;
   font-size: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   list-style: none;
   padding: 0;
+  border-bottom: 1px solid var(--color-border-light);
 }
-.protect-item a:hover {
-  text-decoration: underline;
+.protect-tab {
+  display: block;
+  padding: 12px 16px;
+  color: var(--color-text-sub);
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px; /* 컨테이너 경계선과 겹쳐 밑줄이 자연스럽게 붙도록 */
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
-.protect-item a {
-  color: #333;
+.protect-tab:hover {
+  color: var(--color-text);
+}
+.protect-tab.active {
+  color: var(--color-primary);
+  font-weight: 700;
+  border-bottom-color: var(--color-primary);
 }
 /*필터 모달 css*/
 .filter-event {
