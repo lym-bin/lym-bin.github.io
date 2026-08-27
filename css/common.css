@@ -125,6 +125,11 @@ body {
   opacity: 0.8;
   color: var(--color-primary);
 }
+/* 현재 페이지 표시 (ui.js에서 클래스 부여) */
+.nav-item.is-current {
+  color: var(--color-primary);
+  font-weight: 700;
+}
 /* ==========================================
    메인 전체 컨테이너 배치
    ========================================== */

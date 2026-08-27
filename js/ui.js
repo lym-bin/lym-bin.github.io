@@ -45,6 +45,17 @@ function imgError(el) {
   el.src = PLACEHOLDER_IMG;
 }
 
+// 현재 보고 있는 페이지에 해당하는 헤더 nav 링크를 강조 표시
+(function markCurrentNav() {
+  const current = location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".main-nav .nav-item").forEach((link) => {
+    if (link.getAttribute("href") === current) {
+      link.classList.add("is-current");
+      link.setAttribute("aria-current", "page");
+    }
+  });
+})();
+
 // 화면 상단에 잠깐 떴다 사라지는 토스트 알림 (alert 대체)
 let _toastTimer = null;
 function showToast(message, type = "info") {
