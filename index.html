@@ -240,34 +240,34 @@
   </div>
 </section>
       </main>
-<!--유기동물 통계영역-->
+<!--유기동물 처리 현황-->
     <section class="stats-section">
         <div class="stats-header">
-<!--js에서 당일 숫자로 변경-->
-            <h2 id="stats-date">유기동물 통계</h2>
+<!--js에서 당일 날짜로 변경-->
+            <h2 class="section-title" id="stats-date">유기동물 처리 현황</h2>
+            <p class="stats-sub">공공데이터포털 유기동물 조회 · 최근 3개월 전국 누적</p>
         </div>
-<!--수치 영역-->
-    <div class="stats-container">
-<!--구조된 동물-->
-        <div class="stats-box totCnt">
-            <span class="label">구조</span>
-<!--js에서 API를 가져와서 뿌려주는 영역-->
-            <span class="value" id="totCnt">0</span>
-            <span class="unit">마리</span>
+<!--핵심 수치 타일 (js에서 API 값 주입)-->
+        <div class="stats-tiles">
+            <div class="stats-tile stat-care">
+                <span class="stats-tile-label">보호중</span>
+                <span class="stats-tile-value"><strong id="statCare">0</strong><em>마리</em></span>
+            </div>
+            <div class="stats-tile stat-adopt">
+                <span class="stats-tile-label">입양</span>
+                <span class="stats-tile-value"><strong id="statAdopt">0</strong><em>마리</em></span>
+            </div>
+            <div class="stats-tile stat-eol">
+                <span class="stats-tile-label">안락사</span>
+                <span class="stats-tile-value"><strong id="statEol">0</strong><em>마리</em></span>
+            </div>
         </div>
-<!--입양률-->
-    <div class="stats-box adoptRate">
-        <span class="label">입양률</span>
-        <span class="value" id="adoptRate">0</span>
-        <span class="unit">%</span>
-    </div>
-<!--안락사율-->
-    <div class="stats-box euthanasiaRate">
-        <span class="label">안락사율</span>
-        <span class="value" id="euthanasiaRate">0</span>
-        <span class="unit">%</span>
-    </div>
-    </div>
+<!--보호 종료 결과 스택 바 (js에서 세그먼트/범례 렌더)-->
+        <div class="stats-breakdown">
+            <p class="stats-breakdown-title">보호 종료 결과 구성</p>
+            <div class="stats-bar" id="statsBar" role="img" aria-label="보호 종료 결과 비율"></div>
+            <ul class="stats-legend" id="statsLegend"></ul>
+        </div>
     </section>
 <!--푸터 영역-->
       <footer class="footer-wrapper">

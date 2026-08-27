@@ -495,59 +495,111 @@
   color: var(--color-primary);
 }
 /* ==========================================
-   유기동물 통계 영역 (본문 하단 일반 섹션)
+   유기동물 처리 현황 (본문 하단 미니 대시보드)
    ========================================== */
 .stats-section {
   max-width: 1200px;
   margin: 0 auto 70px auto;
-  padding: 24px 28px;
+  padding: 28px;
   border: 1px solid var(--color-border-light);
   border-radius: 16px;
   background: var(--color-bg-soft);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
+}
+.stats-header {
+  margin-bottom: 20px;
 }
 #stats-date {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 0;
-  white-space: nowrap;
+  margin-bottom: 4px;
 }
-.stats-container {
-  display: flex;
-  gap: 40px;
+.stats-sub {
+  font-size: 13px;
+  color: var(--color-text-sub);
 }
-.stats-box {
+/* 핵심 수치 타일 3개 */
+.stats-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.stats-tile {
   display: flex;
+  flex-direction: column;
   gap: 6px;
-  font-size: 16px;
+  padding: 18px 20px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-light);
+  border-top: 3px solid var(--tile-color, var(--color-border));
+  border-radius: 12px;
 }
-.stats-box .label {
+.stats-tile-label {
+  font-size: 13px;
   font-weight: 600;
-  color: #666666;
+  color: var(--color-text-sub);
 }
-.stats-box .value {
-  font-size: 18px;
+.stats-tile-value strong {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--tile-color, var(--color-text-strong));
+}
+.stats-tile-value em {
+  margin-left: 4px;
+  font-style: normal;
+  font-size: 13px;
+  color: var(--color-text-sub);
+}
+.stat-care {
+  --tile-color: #28a745;
+}
+.stat-adopt {
+  --tile-color: #007bff;
+}
+.stat-eol {
+  --tile-color: #fd7e14;
+}
+/* 보호 종료 결과 스택 바 */
+.stats-breakdown-title {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-sub);
+}
+.stats-bar {
+  display: flex;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #e9e9e9;
+}
+.stats-bar .seg {
+  height: 100%;
+  min-width: 2px;
+  transition: width 0.8s ease;
+}
+.stats-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 12px;
+  padding: 0;
+  list-style: none;
+}
+.stats-legend li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-text-sub);
+}
+.stats-legend .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.stats-legend strong {
+  color: var(--color-text);
   font-weight: 700;
-}
-.stats-box .unit {
-  color: #888888;
-}
-/* 1. 구조 - 초록색 */
-.stats-box.totCnt .value {
-  color: #28a745; /* Green */
-}
-/* 2. 입양률 - 파란색 */
-.stats-box.adoptRate .value {
-  color: #007bff; /* Blue */
-}
-/* 3. 안락사율 - 주황색 */
-.stats-box.euthanasiaRate .value {
-  color: #fd7e14; /* Orange */
 }
 /* ==========================================
    메인 페이지 반응형 (1024px or 769px)
@@ -599,19 +651,21 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
-  /* 통계 영역: 세로로 정렬 */
+  /* 통계 영역: 타일 세로로 쌓기 */
   .stats-section {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
     padding: 20px;
   }
-  .stats-container {
-    gap: 20px;
-    flex-wrap: wrap;
+  .stats-tiles {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
-  #stats-date {
-    font-size: 16px;
+  .stats-tile {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .stats-tile-value strong {
+    font-size: 24px;
   }
   .donation-list {
     grid-template-columns: repeat(2, 1fr);

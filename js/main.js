@@ -38,8 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const statsDateEl = document.getElementById("stats-date");
   // stats-date라는 아이디를 가진 html태그가 안전하게 존재한다면
   if (statsDateEl) {
-    // 찾은 html태그의 텍스트 내용을 00.00.00 유기동물 통계로 변경
-    statsDateEl.textContent = `${yy}.${mm}.${dd} 유기동물 통계`;
+    statsDateEl.textContent = `${yy}.${mm}.${dd} 유기동물 처리 현황`;
   }
 
   // -------------------------------------------------------------
@@ -49,55 +48,58 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 외부 API 파일에 선언된 통계 조회 함수를 비동기(await)로 호출하여 데이터를 기다림
   const statsData = await fetchAnimalStats();
 
-  // 데이터가 존재하고 비어있지 않은지 검사하는 방어 코드
-  // statsData가 실제로 존재하고 개수가 0보다 클 때만(즉 깡통데이터면 false)
   if (statsData && statsData.length > 0) {
-    // 데이터중 첫 데이터를 가져와라
-    const latestData = statsData[0];
-    const totCntEl = document.getElementById("totCnt");
-    const adoptRateEl = document.getElementById("adoptRate");
-    const euthanasiaRateEl = document.getElementById("euthanasiaRate");
+    // chart1 = 처리상태별 "마리 수" (보호중 / 자연사 / 입양 / 기증 / 반환 / 안락사)
+    // 주의: tot 값은 비율(%)이 아니라 마리 수. 예전엔 %로 잘못 표기했음.
+    const chart1 = statsData.filter((item) => item.se === "chart1");
+    const countOf = (name) => {
+      const hit = chart1.find((item) => item.prcsNm === name);
+      return hit ? Number(hit.tot) || 0 : 0;
+    };
 
-    // 구조율을 보여줄 태그가 존재할 때
-    if (totCntEl) {
-      // latestData(외부 api데이터)가 정상적으로 들어와있으면 그 값을 쓰고
+    const care = countOf("보호중");
+    const adopt = countOf("입양");
+    const ret = countOf("반환");
+    const donate = countOf("기증");
+    const natural = countOf("자연사");
+    const eol = countOf("안락사");
 
-      // 만약 값이 없거나 비어있으면 (null, undefined)에러가 날 것같으면
-      // 기본값인 0을 써라
-      // ??(null 병합 연산자)은 데이터가 없으면 에러 안 나게 기본값(0이나 빈 글자)으로 대체해 주는 아주 똑똑한 방어 도구
-      const rawTot = Number(latestData.tot ?? 0);
-      // 구조된 마리 데이터를 .toLocaleString(js에서 제공하는 숫자에 3자리마다 콤마를 찍어줌)
-      // ex) 10000 > 10,000 형식으로 totCnt안에 넣어줌
-      totCntEl.textContent = rawTot.toLocaleString();
-    }
+    // --- 핵심 수치 타일 ---
+    const setNum = (id, n) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = n.toLocaleString();
+    };
+    setNum("statCare", care);
+    setNum("statAdopt", adopt);
+    setNum("statEol", eol);
 
-    // 입양율 통계 배열 안에서 "입양" 또는 "adopt" 라는 속성을 가진 항목 찾기
-    const adoptItem = statsData.find(
-      // 이 작업은 필터링 item라는 각각의 아이템에서 prcsNm이라는 이름이 입양이거나
-      // || (or) 구분값(se)이 adopt인거만 골라내라
-      (item) => item.prcsNm === "입양" || item.se === "adopt",
-    );
-    // 안락사율 통계 배열 안에서 "안락사" 또는 "euthanasia" 라는 속성을 가진 항목 찾기
-    const euthanasiaItem = statsData.find(
-      (item) => item.prcsNm === "안락사" || item.se === "euthanasia",
-    );
+    // --- 보호 종료 결과 스택 바 (보호중 제외, 종료 5개 항목 비율) ---
+    const segments = [
+      { name: "입양", value: adopt, color: "#007bff" },
+      { name: "반환", value: ret, color: "#17a2b8" },
+      { name: "기증", value: donate, color: "#6f42c1" },
+      { name: "자연사", value: natural, color: "#868e96" },
+      { name: "안락사", value: eol, color: "#fd7e14" },
+    ];
+    const endedTotal = segments.reduce((sum, s) => sum + s.value, 0);
+    const barEl = document.getElementById("statsBar");
+    const legendEl = document.getElementById("statsLegend");
 
-    // * 중요한 삼항연산자
-    //[조건] ? [참(true)일 때 실행할 것] : [거짓(false)일 때 실행할 것]
-    // ? : 조건이 맞니?(물어봄), : 아니면 이걸 해라(나누는 역할)
+    if (barEl && legendEl && endedTotal > 0) {
+      barEl.innerHTML = segments
+        .filter((s) => s.value > 0)
+        .map(
+          (s) =>
+            `<span class="seg" style="width:${((s.value / endedTotal) * 100).toFixed(2)}%;background:${s.color}" title="${s.name} ${s.value.toLocaleString()}마리"></span>`,
+        )
+        .join("");
 
-    // adoptItem(입양 데이터가 존재하는가?) true면 실행
-    if (adoptRateEl) {
-      adoptRateEl.textContent = adoptItem
-        ? (adoptItem.tot ?? "0")
-        : // ? adoptItem.tot ?? "0" 참 일때: 존재한다면 그 안의 값을 쓰고 없으면 "0을"써라
-          //거짓 일때: 존재하지 않는다면 전체데이터에서 입양률을 가져오고 , 그것도 없으면 "0을"써라
-          (latestData.adoptRate ?? "0");
-    }
-    if (euthanasiaRateEl) {
-      euthanasiaRateEl.textContent = euthanasiaItem
-        ? (euthanasiaItem.tot ?? "0")
-        : (latestData.euthanasiaRate ?? "0");
+      legendEl.innerHTML = segments
+        .map((s) => {
+          const pct = ((s.value / endedTotal) * 100).toFixed(1);
+          return `<li><span class="dot" style="background:${s.color}"></span>${s.name} <strong>${pct}%</strong></li>`;
+        })
+        .join("");
     }
   }
 

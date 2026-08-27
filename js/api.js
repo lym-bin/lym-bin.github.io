@@ -28,7 +28,8 @@ async function fetchAnimalStats() {
   start.setMonth(start.getMonth() - 3);
   const bgnde = format(start);
 
-  const url = `${STATS_API_URL}?serviceKey=${encodeURIComponent(API_KEY)}&bgnde=${bgnde}&endde=${endde}&_type=json`;
+  // numOfRows 기본값(10)이면 chart1 6개 항목이 잘려서 넉넉히 50
+  const url = `${STATS_API_URL}?serviceKey=${encodeURIComponent(API_KEY)}&bgnde=${bgnde}&endde=${endde}&numOfRows=50&_type=json`;
 
   try {
     const response = await fetch(url);
