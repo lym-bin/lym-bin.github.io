@@ -131,19 +131,7 @@
   align-items: baseline; /* 제목과 버튼의 하단 라인을 맞춤 */
   margin-bottom: 25px; /* 리스트와 간격 */
 }
-/* 더보기 버튼 */
-.btn-more {
-  background: none;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  padding: 5px 15px;
-  cursor: pointer;
-  font-size: 14px;
-}
-.btn-more:hover {
-  background: #f5f5f5;
-  opacity: 0.95;
-}
+/* 더보기 버튼 스타일은 공통 .btn .btn--ghost 로 통일 (common.css) */
 /* ==========================================
    시군도 영역 설정
    ========================================== */

@@ -1,8 +1,4 @@
-/*button*/
-button {
-  cursor: pointer;
-}
-/* .sr-only 는 common.css 에서 공통 정의 */
+/* .sr-only, 버튼(.btn*) 은 common.css 에서 공통 정의 */
 
 /* ==========================================
    전체 레이아웃 컨테이너
@@ -39,18 +35,6 @@ button {
   border-radius: 6px;
 }
 
-.search-btn {
-  padding: 0 24px;
-  height: 48px;
-  border: none;
-  border-radius: 5px;
-  background-color: var(--color-primary);
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
 /* ==========================================
    필터 및 초기화 영역
    ========================================== */
@@ -62,27 +46,13 @@ button {
   gap: 10px;
   flex-wrap: wrap;
 }
-.filter-item {
-  padding: 8px 14px;
-  border: 1px solid var(--color-border);
-  border-radius: 20px;
-  background: var(--color-bg-soft);
-  font-size: 14px;
-  cursor: pointer;
-}
 /* 필터 버튼 옆 드롭다운 화살표 */
 .arrow {
   font-size: 10px;
   margin-left: 4px;
 }
 .reset-btn {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 14px;
-  color: var(--color-primary);
-  margin-left: auto;
-  margin-top: 9px;
+  margin-left: auto; /* 오른쪽 끝으로 밀기 */
 }
 /*필터 그룹*/
 .filter-group {
@@ -117,14 +87,6 @@ button {
   display: flex;
   justify-content: flex-end;
 }
-.filter-apply-btn {
-  padding: 6px 14px;
-  background: var(--color-primary);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 13px;
-}
 /* ==========================================
    결과 개수 / 정렬 영역
    ========================================== */
@@ -137,13 +99,6 @@ button {
   margin: 15px 0;
   font-size: 14px;
   color: #666;
-}
-.info-space button {
-  border: 1px solid #ddd;
-  background: #fff;
-  padding: 6px 12px;
-  border-radius: 4px;
-  white-space: nowrap;
 }
 .info-action {
   display: flex;
@@ -236,23 +191,21 @@ button {
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
   font-size: 14px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* 더보기 버튼 */
+/* 더보기 버튼 (스타일은 공통 .btn .btn--ghost) */
 .btn-container {
   display: flex;
   justify-content: center;
-  margin: 30px 0;
-  margin-top: 20px;
+  margin: 24px 0;
 }
 .more-btn {
-  padding: 12px 40px;
-  border: 1px solid #ccc;
-  background: #fff;
-  border-radius: 4px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 /* ==========================================
@@ -289,11 +242,6 @@ button {
 }
 .news-list button {
   margin-top: 12px;
-  padding: 10px;
-  border: 1px solid var(--color-primary);
-  background: #fff;
-  color: var(--color-primary);
-  border-radius: 4px;
 }
 
 /* ==========================================

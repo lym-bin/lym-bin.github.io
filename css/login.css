@@ -38,20 +38,9 @@ input[type="password"] {
   font-size: 13px;
 }
 
-/* 로그인 버튼*/
+/* 로그인 버튼 스타일은 공통 .btn .btn--primary .btn--lg .btn--block */
 .login-btn {
-  width: 100%;
-  padding: 15px;
-  background-color: var(--color-primary);
-  color: white;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.login-btn:hover {
-  background-color: #e68a00; /* 마우스 올렸을 때 색상 변화 */
+  margin-top: 4px;
 }
 
 /* 옵션 영역 (로그인 유지 등) */

@@ -199,7 +199,7 @@ textarea {
   border: 1px solid #ddd;
   padding: 10px;
 }
-/* 액션 버튼 */
+/* 액션 버튼 (스타일은 공통 .btn .btn--primary, 배치만) */
 .action-buttons {
   display: flex;
   gap: 10px;
@@ -207,15 +207,10 @@ textarea {
 }
 .action-buttons button {
   flex: 1;
-  padding: 15px;
-  border: none;
-  border-radius: 8px;
-  background: var(--color-primary);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
-/* 댓글 등록 버튼*/
+/* 댓글 등록 버튼 */
 .comment-input-wrapper {
   display: flex;
   flex-direction: column;
@@ -223,13 +218,6 @@ textarea {
 }
 #comment-submit-btn {
   margin-top: 10px;
-  padding: 10px 24px;
-  background: var(--color-primary);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
 }
 /* 모바일 대응 (조건: 786px일때)*/
 @media (max-width: 768px) {

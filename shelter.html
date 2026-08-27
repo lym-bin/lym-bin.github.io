@@ -59,7 +59,7 @@
           <form action="">
             <div class="modal-header">
               <h3>검색조건 설정</h3>
-              <button type="button" class="close-btn">X</button>
+              <button type="button" class="btn btn--text close-btn" aria-label="닫기">✕</button>
             </div>
 
             <!-- 기간 설정 -->
@@ -146,7 +146,7 @@
                 <input type="checkbox" id="only-protect" name="onlyProtect" />
                 <label for="only-protect">보호중인 동물만 검색</label>
               </div>
-              <button type="submit" class="submit-btn">검색하기</button>
+              <button type="submit" class="btn btn--primary btn--block submit-btn">검색하기</button>
             </div>
           </form>
         </div>
@@ -168,13 +168,13 @@
       <div class="filter-wrap">
         <ul class="btn-filter">
           <li>
-            <button class="filter-btn" id="main-filter" type="button">
+            <button class="btn btn--chip filter-btn" id="main-filter" type="button">
               필터
             </button>
           </li>
-          <li><button class="tag-period">최근 3개월</button></li>
-          <li><button class="tag-region">모든 지역</button></li>
-          <li><button class="tag-species">모든 동물</button></li>
+          <li><button class="btn btn--chip tag-period">최근 3개월</button></li>
+          <li><button class="btn btn--chip tag-region">모든 지역</button></li>
+          <li><button class="btn btn--chip tag-species">모든 동물</button></li>
         </ul>
       </div>
 
@@ -184,7 +184,7 @@
           <!-- JS 렌더링 -->
         </ul>
         <div class="btn-cen">
-          <button class="btn-more">더보기</button>
+          <button class="btn btn--ghost btn--sm btn--pill btn-more">더보기</button>
         </div>
       </section>
     </main>
