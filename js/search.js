@@ -193,6 +193,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 섞이도록 해서 정렬 기능이 실제로 눈에 띄게 동작하도록 만듬.
   const { bgnde, endde } = getDateRange(3);
   console.log("조회 기간:", bgnde, "~", endde);
+  showSkeleton(searchListContainer, 12); // API 응답 대기 중 스켈레톤 표시
   const apiItems = await fetchProtectData({ bgnde, endde });
 
   if (apiItems && apiItems.length > 0) {
@@ -214,9 +215,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     filterAndRender();
     // console.log("allSearchData length:", allSearchData.length);
   } else {
-    if (searchListContainer) {
-      searchListContainer.innerHTML = `<p style="text-align: center; padding: 40px; color: #888; width: 100%;">불러올 데이터가 없습니다.</p>`;
-    }
+    showStateMessage(
+      searchListContainer,
+      "데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
+      "error",
+    );
   }
 
   // -------------------------------------------------------------
@@ -241,7 +244,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // -------------------------------------------------------------
   // [12] 더보기 버튼 클릭 → 12개씩 추가로 노출
   // -------------------------------------------------------------
-  moreBtn.addEventListener("click", () => {
+  moreBtn?.addEventListener("click", () => {
     displayLimit += 12;
     // console.log(
     //   "클릭! displayLimit:",
@@ -312,7 +315,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!searchListContainer) return;
 
     if (data.length === 0) {
-      searchListContainer.innerHTML = `<p style="text-align: center; padding: 40px; color: #888; width: 100%;">검색 결과가 없습니다.</p>`;
+      showStateMessage(searchListContainer, "조건에 맞는 검색 결과가 없습니다.");
       if (moreBtn) moreBtn.style.display = "none";
       return;
     }
@@ -349,7 +352,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       <li>
         <span class="badge ${getBadgeClass(item.state)}">${item.state}</span>
         <a href="detail.html?num=${encodeURIComponent(item.num)}">
-          <img src="${item.image}" alt="${item.species} loading="lazy" 이미지" />
+          <img src="${item.image}" alt="${item.species}" loading="lazy"
+               onerror="this.onerror=null; this.src='./images/todaycard_1.svg';" />
         </a>
         <button type="button" class="like-btn ${isLiked ? "liked" : ""}" data-num="${item.num}" aria-label="찜하기">${isLiked ? "♥" : "♡"}</button>
       </li>

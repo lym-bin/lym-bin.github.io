@@ -52,7 +52,7 @@ let displayLimit = 12; // 한 번에 화면에 노출할 카드 개수 (더보�
 // [3] DOM 요소 미리 찾아두기
 // =================================================
 const container = document.querySelector(".protect-boho"); // 카드 목록이 그려질 <ul>
-const moreBtn = document.querySelector(".more-btn"); // 더보기 버튼
+const moreBtn = document.querySelector(".btn-more"); // 더보기 버튼 (shelter.html 마크업과 일치)
 const filterBtn = document.querySelector(".filter-btn"); // "필터"버튼 (모달 열기)
 const modal = document.querySelector(".filter-event"); // 필터 모달 전체 영역
 const closeBtn = document.querySelector(".close-btn"); // 모달 닫기(X) 버튼
@@ -123,7 +123,7 @@ function renderProtectsCards(data) {
   // 컨테이너안에 "검색결과가 없습니다"를 넣고
   // 결과가 없으니깐 더보기 버튼도 아래로 숨김
   if (data.length === 0) {
-    container.innerHTML = `<p style="text-align: center; padding: 20px; color: #888;">검색 결과가 없습니다.</p>`;
+    showStateMessage(container, "조건에 맞는 보호동물이 없습니다.");
     if (moreBtn) moreBtn.style.display = "none";
     return;
   }
@@ -350,6 +350,7 @@ document.addEventListener("click", (e) => {
 // -------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", async () => {
   // api.js에서 정의된 함수 공공데이터 보호동물 조회
+  showSkeleton(container, 12); // API 응답 대기 중 스켈레톤 표시
   const apiItems = await fetchProtectData();
   if (apiItems && apiItems.length > 0) {
     // API 원본 필드명과 매핑준비(desertionNo(공고번호), happenDt(구조 발견일?발생일)등)
@@ -376,9 +377,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderProtectsCards(currentFilteredData);
   } else {
     // API 응답이 비어있거나 할 떄 에러 방어
-    if (container) {
-      container.innerHTML = `<p style="text-align: center; padding: 20px; color: #888;">불러올 데이터가 없습니다.</p>`;
-    }
+    showStateMessage(
+      container,
+      "데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
+      "error",
+    );
     if (moreBtn) {
       moreBtn.style.display = "none";
     }
@@ -430,17 +433,29 @@ document.querySelectorAll(".protect-tab").forEach((tab) => {
 // -------------------------------------------------------------
 // [13] 카카오맵으로 보호소 위치 표시하는 함수
 // -------------------------------------------------------------
+let mapRetryCount = 0; // SDK 로드 대기 재시도 횟수 (무한 대기 방지)
+
 function renderShelterMap() {
   const mapContainer = document.getElementById("shelter-map");
   if (!mapContainer) return;
 
-  // 1. 카카오 객체가 아직 로드되지 않았을 때
-  if (typeof kakao === "undefined" || !kakao.maps || !kakao.maps.services) {
+  // 1. 카카오 SDK 스크립트 자체가 아직 안 붙었을 때만 재시도
+  //    (autoload=false 이므로 kakao.maps.services / kakao.maps.Map 은
+  //     아래 kakao.maps.load() 콜백 안에서야 사용 가능. 여기서 검사하면 무한 루프)
+  if (typeof kakao === "undefined" || !kakao.maps || !kakao.maps.load) {
+    if (mapRetryCount >= 25) {
+      // 약 5초 대기해도 안 되면 SDK 로드 실패로 간주 (도메인 미등록/네트워크 등)
+      mapContainer.innerHTML =
+        "<p style='text-align:center; padding:40px; color:#888;'>지도를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</p>";
+      return;
+    }
+    mapRetryCount++;
     setTimeout(renderShelterMap, 200); // 0.2초 후 다시 시도
     return;
   }
+  mapRetryCount = 0;
 
-  // 2. 카카오 SDK 로드
+  // 2. 카카오 SDK 로드 (이 콜백 안부터 services / Map 사용 가능)
   kakao.maps.load(function () {
     // 이미 만들어진 지도면 재생성 없이 크기/중심만 재조정
     if (mapInitialized) {
