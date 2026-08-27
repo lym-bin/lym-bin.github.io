@@ -1,21 +1,60 @@
 /* ==========================================
    상단 배너
    ========================================== */
+/* 배너: 사진(좌) + 텍스트 패널(우) 분리 구조.
+   기존엔 문구가 이미지에 박혀 있어 모바일에서 잘렸음 → 실제 HTML 텍스트로 분리 */
 .banner-container {
+  display: flex;
   max-width: 1200px;
-  margin: 0 auto 70px auto; /* 섹션 간격 넓게 수정 */
-  border: 1px solid #eee;
+  margin: 0 auto 70px auto;
   border-radius: 20px;
-  padding: 38px; /* 내부 여백 */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* 약간의 그림자 효과 */
-  overflow: hidden; /* 모서리가 둥글어질 때 이미지가 밖으로 삐져나가지 않도록 숨김 처리 */
-  background-image: url("../images/banner_v10.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  /* 고정 height 대신 aspect-ratio를 사용하면, 브라우저 가로 폭이 줄어들 때 
-    세로 높이도 이미지 비율에 맞춰 자동으로 같이 줄어들기 때문에 절대 찌그러지지 않음 */
-  aspect-ratio: 3.2 / 1;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+/* aspect-ratio 를 원본 크롭 비율(920:600)과 맞춰서 background-size:cover 여도
+   상하가 잘리지 않고 꽉 차게 함. 배너 높이는 이 사진 높이를 따라감 */
+.banner-photo {
+  flex: 1 1 58%;
+  aspect-ratio: 920 / 600;
+  background: url("../images/banner-left.jpg") center / cover no-repeat;
+}
+.banner-content {
+  flex: 1 1 42%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 40px 36px;
+  background-color: #736a25; /* banner_v10 올리브 톤 (흰 글씨 대비 확보용으로 살짝 어둡게) */
+  color: #fff;
+}
+.banner-eyebrow {
+  font-size: 15px;
+  opacity: 0.9;
+}
+.banner-title {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.banner-desc {
+  font-size: 16px;
+  opacity: 0.95;
+}
+.banner-cta {
+  margin-top: 8px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: #fff;
+  color: #5f5820;
+  font-weight: 700;
+  font-size: 14px;
+  transition: opacity 0.2s ease;
+}
+.banner-cta:hover {
+  opacity: 0.9;
 }
 /* ==========================================
    퀵 메뉴바
@@ -527,12 +566,38 @@ body {
     align-items: center;
   }
 }
+/* 태블릿 이하: 배너 문구 크기 축소 */
+@media screen and (max-width: 1024px) {
+  .banner-title {
+    font-size: 26px;
+  }
+  .banner-content {
+    padding: 32px;
+  }
+}
 /* 모바일 화면 (너비 768 이하 일떄) */
 @media screen and (max-width: 768px) {
   .card-list,
   .best-cardlist,
   .miss-list {
     grid-template-columns: repeat(2, 1fr);
+  }
+  /* 배너: 사진 위 / 텍스트 아래로 세로 배치 */
+  .banner-container {
+    flex-direction: column;
+    min-height: 0;
+  }
+  .banner-photo {
+    flex: none;
+    min-height: 170px;
+  }
+  .banner-content {
+    flex: none;
+    padding: 26px 20px;
+    gap: 8px;
+  }
+  .banner-title {
+    font-size: 22px;
   }
   .quick-list {
     display: grid;
