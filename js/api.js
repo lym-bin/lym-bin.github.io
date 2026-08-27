@@ -121,8 +121,3 @@ async function fetchProtectData(filters = {}) {
     return [];
   }
 }
-
-/**
- * [5] 유기동물 보호소 데이터 조회 함수
- * - 단건 조회하기(X 유기동물 API가 단건조회가 안됨).
- */
