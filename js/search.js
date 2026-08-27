@@ -307,7 +307,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // -------------------------------------------------------------
   function renderSearchCards(data) {
     if (countSpan) {
-      countSpan.textContent = `전체 ${data.length}건의 유기동물이 보호중 입니다.`;
+      countSpan.textContent = `전체 ${data.length.toLocaleString()}건의 유기동물 공고`;
     }
 
     if (!searchListContainer) return;
@@ -342,15 +342,27 @@ document.addEventListener("DOMContentLoaded", async () => {
       return "badge-blue";
     }
 
+    // "20260827" → "26.08.27" 로 표시용 변환
+    const formatDate = (d) =>
+      d && d.length === 8
+        ? `${d.slice(2, 4)}.${d.slice(4, 6)}.${d.slice(6, 8)}`
+        : "";
+
     searchListContainer.innerHTML = slicedData
-      // img 템플릿에 loading="lazy" 추가 초기로딩 가볍게
       .map((item) => {
         const isLiked = getLikedList().includes(item.num);
+        const meta = [item.loc, formatDate(item.noticeDate)]
+          .filter(Boolean)
+          .join(" · ");
         return `
       <li>
         <span class="badge ${getBadgeClass(item.state)}">${item.state}</span>
         <a href="detail.html?num=${encodeURIComponent(item.num)}">
           <img src="${item.image}" alt="${item.species}" loading="lazy" onerror="imgError(this)" />
+          <div class="card-body">
+            <p class="card-species">${item.species}</p>
+            <p class="card-meta">${meta}</p>
+          </div>
         </a>
         <button type="button" class="like-btn ${isLiked ? "liked" : ""}" data-num="${item.num}" aria-label="찜하기">${isLiked ? "♥" : "♡"}</button>
       </li>

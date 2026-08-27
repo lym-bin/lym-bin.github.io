@@ -132,6 +132,8 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
   margin: 15px 0;
   font-size: 14px;
   color: #666;
@@ -141,6 +143,7 @@ button {
   background: #fff;
   padding: 6px 12px;
   border-radius: 4px;
+  white-space: nowrap;
 }
 .info-action {
   display: flex;
@@ -158,14 +161,47 @@ button {
 }
 .search-list li {
   position: relative; /* 뱃지, 하트버튼 절대위치 기준점 */
-  border-radius: 8px;
+  border: 1px solid var(--color-border-light);
+  border-radius: 12px;
   overflow: hidden;
-  background: #eee;
+  background: var(--color-bg);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.search-list li:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-soft);
+}
+.search-list li a {
+  display: block;
+  color: inherit;
 }
 .search-list li a img {
   width: 100%;
   aspect-ratio: 1 / 1; /* 정사각형 카드 이미지 */
   object-fit: cover;
+  display: block;
+}
+/* 이미지 아래 정보 영역 */
+.card-body {
+  padding: 12px 12px 14px;
+}
+.card-species {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-text-sub);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 카드 좌상단 상태 뱃지 (보호중/긴급/입양완료) */
@@ -188,16 +224,17 @@ button {
   background: var(--color-state-done); /* 입양완료 */
 }
 
-/* 카드 우하단 하트(찜하기) 버튼 */
+/* 카드 우상단 하트(찜하기) 버튼 */
 .like-btn {
   position: absolute;
-  bottom: 8px;
+  top: 8px;
   right: 8px;
   width: 28px;
   height: 28px;
   border: none;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
   font-size: 14px;
   display: flex;
   align-items: center;
