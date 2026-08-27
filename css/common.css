@@ -337,8 +337,26 @@ body {
     padding: 0 15px;
     font-size: 14px;
   }
+  /* 4단 메뉴가 한 줄에 안 들어가서 가로 스크롤이 생기던 문제 → 2열로 접기 */
+  .footer-nav {
+    width: 100%;
+  }
+  .nav-list {
+    flex-wrap: wrap;
+    gap: 24px 32px;
+  }
+  .nav-list > li {
+    flex: 1 1 40%;
+    min-width: 0;
+  }
   .sub-nav a {
     flex-direction: column;
     font-size: 12px;
   }
+}
+
+/* 어떤 경우에도 가로 스크롤은 막는다 (안전장치) */
+html,
+body {
+  overflow-x: hidden;
 }
