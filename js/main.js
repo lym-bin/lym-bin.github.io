@@ -13,9 +13,6 @@
  * ======================================================================
  */
 
-// 자바스크립트 파일이 브라우저에 정상적으로 연결되었는지 확인하는 로그
-console.log("main.js 파일이 정상적으로 로드되었습니다!");
-
 /**
  *  [핵심 용어: DOMContentLoaded 이벤트]
  * - 웹 브라우저가 HTML 뼈대를 전부 읽고 그릴 준비가 끝났을 때 안전하게 코드를 실행시켜 주는 이벤트.
@@ -24,7 +21,6 @@ console.log("main.js 파일이 정상적으로 로드되었습니다!");
 
 // 웹 페이지의 HTML(DOM)이 모두 로드 완료되면 실행
 document.addEventListener("DOMContentLoaded", async () => {
-  console.log("DOM 로드 완료!");
 
   // -------------------------------------------------------------
   // [1단계] 화면 왼쪽에 오늘 날짜 유기동물 통계 텍스트 설정
@@ -186,11 +182,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (filteredData.length > 0) {
         renderAnimals(filteredData);
       } else {
-        // html 시군도 각각 화면도출이 안되는 데이터가 있거나 적으면
-        // alert로 사용자에게 안내함(포트폴리오 감점될까바....방어).
-        alert(
-          `현재 '${selectedRegion}' 지역에 등록된 실시간 공고가 없어 전체 추천 목록을 출력합니다.`,
-        );
+        // 해당 지역 실시간 공고가 없으면 토스트로 안내 후 전체 목록 표시
+        showToast(`'${selectedRegion}' 지역 공고가 없어 전체 목록을 표시합니다.`);
         renderAnimals(allAnimalData);
       }
     });
@@ -272,16 +265,16 @@ document.querySelectorAll(".btn-more").forEach((btn) => {
         window.location.href = "search.html";
         break;
       case "best": // 베스트 입양후기 → 아직 별도 페이지 없음
-        alert("입양후기 페이지는 준비 중입니다.");
+        showToast("입양후기 페이지는 준비 중입니다.");
         break;
       case "news": // 포인핸드 소식 → 마찬가지
-        alert("소식 페이지는 준비 중입니다.");
+        showToast("소식 페이지는 준비 중입니다.");
         break;
       case "missing": // 실종/제보 → 마찬가지
-        alert("실종/제보 페이지는 준비 중입니다.");
+        showToast("실종/제보 페이지는 준비 중입니다.");
         break;
       case "donation": //기부 챌린지
-        alert("기부 챌린지 페이지는 준비 중입니다.");
+        showToast("기부 챌린지 페이지는 준비 중입니다.");
         break;
       default:
         window.location.href = "shelter.html";

@@ -19,9 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 공고번호 파라미터가 없다면 잘못된 접근이므로 if문으로 타켓이 없다면 실행X
   if (!targetNum) {
-    alert("잘못된 접근입니다. 공고번호가 없습니다.");
-    // false일시 되돌림
-    history.back();
+    showDetailError("잘못된 접근입니다. 공고번호가 없습니다.");
     return;
   }
   // [2] 전체 목록 조회(api.js의 fetchProtectData 사용)
@@ -34,8 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // === (값과 자료형이 완벽하게 같은지), ==(양쪽의 값이 같은지 자료형이 달라도 형변환해서 같다고 할 떄가 있어서 잘 안씀), =(값을 변수에 대입할 떄 사용)
   // length: 배열에선 갯수, 문자열이라면 길이
   if (!apiItems || apiItems.length === 0) {
-    alert("데이터를 불러오지 못했습니다.");
-    history.back();
+    showDetailError("데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.");
     return;
   }
 
@@ -50,13 +47,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 타켓에 일치하지 않거나 데이터가 없다면 되돌리기
   if (!currentAnimal) {
-    alert("해당하는 유기동물 정보를 찾을 수 없습니다.");
-    history.back();
+    showDetailError("해당하는 유기동물 정보를 찾을 수 없습니다.");
     return;
   }
   // [4] 찾은 데이터를 화면에 뿌려주기
   renderAnimalDetail(currentAnimal);
 });
+
+// 상세 페이지 진입 자체가 실패한 경우, 본문을 에러 안내로 교체
+function showDetailError(message) {
+  const wrap = document.querySelector(".shelter-detail") || document.body;
+  wrap.innerHTML = `
+    <div class="page-error" role="alert">
+      <p>${message}</p>
+      <a href="search.html">동물 검색으로 돌아가기</a>
+    </div>`;
+}
 
 // ==============================================
 // 상세 정보(이미지 갤러리 info)를 실제 HTML 요소에 채워 넣는 함수
@@ -160,14 +166,14 @@ function renderAnimalDetail(item) {
   const viewAppBtn = document.querySelector(".btn-view-app");
   if (viewAppBtn) {
     viewAppBtn.addEventListener("click", () => {
-      alert("앱에서 보기 기능은 준비 중입니다.\n웹에서 계속 이용해주세요!");
+      showToast("앱에서 보기 기능은 준비 중입니다.");
     });
   }
   const btnAdoptApp = document.querySelector(".btn-adopt-app");
   if (btnAdoptApp) {
     btnAdoptApp.addEventListener("click", () => {
-      alert(
-        `앱에서 입양신청 기능은 준비 중입니다.\n문의: ${item.careTel || "보호센터로 직접 연락 부탁드립니다."}`,
+      showToast(
+        `입양신청 기능 준비 중 · 문의: ${item.careTel || "보호센터로 직접 연락"}`,
       );
     });
   }
@@ -223,7 +229,8 @@ function setupComments(animalNum) {
   commentSubmitBtn.addEventListener("click", () => {
     const text = commentInput.value.trim();
     if (text === "") {
-      alert("댓글 내용을 입력해주세요.");
+      showToast("댓글 내용을 입력해주세요.", "error");
+      commentInput.focus();
       return;
     }
 

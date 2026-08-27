@@ -44,3 +44,22 @@ function imgError(el) {
   el.onerror = null; // 플레이스홀더도 실패할 경우 무한 루프 방지
   el.src = PLACEHOLDER_IMG;
 }
+
+// 화면 상단에 잠깐 떴다 사라지는 토스트 알림 (alert 대체)
+let _toastTimer = null;
+function showToast(message, type = "info") {
+  let box = document.querySelector(".toast");
+  if (!box) {
+    box = document.createElement("div");
+    box.className = "toast";
+    box.setAttribute("role", "status");
+    document.body.appendChild(box);
+  }
+  box.textContent = message;
+  box.classList.toggle("toast--error", type === "error");
+  // 재트리거 시 애니메이션이 다시 돌도록 리플로우 강제
+  void box.offsetWidth;
+  box.classList.add("toast--show");
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => box.classList.remove("toast--show"), 2500);
+}

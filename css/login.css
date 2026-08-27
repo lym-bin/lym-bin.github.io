@@ -31,6 +31,13 @@ input[type="password"] {
   box-sizing: border-box; /* 패딩이 전체 너비에 포함되게 함 */
 }
 
+/* 입력창 아래 검증 오류 문구 */
+.form-error {
+  margin: -8px 0 12px;
+  color: var(--color-state-urgent);
+  font-size: 13px;
+}
+
 /* 로그인 버튼*/
 .login-btn {
   width: 100%;

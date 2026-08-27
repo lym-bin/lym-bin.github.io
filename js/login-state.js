@@ -26,8 +26,10 @@ if (savedUsername !== null && loginNav) {
     // 로컬스토리지에 저장 되었던 사용자 아이디 삭제
     localStorage.removeItem("username");
 
-    alert("로그아웃 되었습니다");
-    // 페이지 새로고침 할시 리로드해서 다시 로그인 할 수 있게 만듬
-    window.location.reload();
+    // 로그아웃 토스트를 잠깐 보여준 뒤 리로드 (헤더가 다시 '로그인'으로 돌아감)
+    showToast("로그아웃되었습니다.");
+    setTimeout(() => {
+      window.location.reload();
+    }, 800);
   });
 }

@@ -36,7 +36,6 @@ async function fetchAnimalStats() {
       throw new Error(`HTTP 에러 발생! 상태 코드: ${response.status}`);
     }
     const data = await response.json();
-    console.log("원본 응답 데이터:", data);
     return data?.response?.body?.items?.item || [];
   } catch (error) {
     console.error("API 요청 실패:", error);
@@ -58,7 +57,6 @@ async function fetchAnimalsList() {
       throw new Error(`HTTP 에러 발생! 상태 코드: ${response.status}`);
     }
     const data = await response.json();
-    console.log("유기동물 목록 원본 데이터:", data);
 
     // 공공데이터 응답 구조에 따라 경로 확인 필요 (보통 response.body.items.item)
     return data?.response?.body?.items?.item || [];
@@ -101,7 +99,6 @@ async function fetchProtectData(filters = {}) {
     }
 
     const data = await response.json();
-    console.log("유기동물 API 원본 응답 데이터:", data);
 
     // 4. 공공 API 응답 구조 안전하게 파싱 (items.item 또는 배열 체크)
     const body = data?.response?.body;

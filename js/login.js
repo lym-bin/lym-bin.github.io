@@ -26,28 +26,24 @@ if (loginForm) {
     const userId = idInput.value.trim();
     const userPw = pwInput.value.trim();
 
-    // [검증하기 1] 아이디 검사
-    // 아이디 폼이 공백이면 아래 코드 실행
+    // 이전 제출에서 남은 검증 메시지 제거
+    clearFormErrors();
+
+    // [검증하기 1] 아이디 검사 (공백이면 입력창 아래에 오류 문구 표시 후 중단)
     if (userId === "") {
-      // alert 실행
-      alert("아이디를 입력해주세요.");
-      // 사용자가 바로 이어서 입력할 수 있도록 focus 처리
-      idInput.focus();
-      // return은 "문제가 생겼으니 여기서 당장 작업을 끝내(Return) 의미 다음 코드 실행 안됨
+      showFieldError(idInput, "아이디를 입력해주세요.");
       return;
     }
 
     // [검증하기 2] 비밀번호 검사
     if (userPw === "") {
-      alert("비밀번호를 입력해주세요.");
-      pwInput.focus();
+      showFieldError(pwInput, "비밀번호를 입력해주세요.");
       return;
     }
 
     // [검증하기 3] 비밀번호 8자리 이상 체크
     if (userPw.length < 8) {
-      alert("비밀번호는 8자리 이상이어야 합니다.");
-      pwInput.focus();
+      showFieldError(pwInput, "비밀번호는 8자리 이상이어야 합니다.");
       return;
     }
 
@@ -58,13 +54,26 @@ if (loginForm) {
     // 실제 서버 인증 없이, 아이디만 브라우저에 저장해서 "로그인 된" 상태 유지(흄내?)
     // 초기엔 비밀번호 저장했지만 보안상 비밀번호는 저장 안함
     // ==========================================
-    // console.log("로그인 시도 데이터:", { userId, userPw });
-    // 3. 로컬스토리지에 저장
     localStorage.setItem(USERNAME_KEY, userId);
 
-    alert(`${userId}님, 로그인 성공!`);
-
-    // [4]. 메인 페이지로 이동
-    window.location.href = "index.html";
+    // 성공 토스트를 잠깐 보여준 뒤 메인 페이지로 이동
+    showToast(`${userId}님, 로그인되었습니다.`);
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 800);
   });
+}
+
+// 입력창 바로 아래에 오류 문구를 넣고 포커스를 옮긴다.
+function showFieldError(input, message) {
+  const p = document.createElement("p");
+  p.className = "form-error";
+  p.textContent = message;
+  input.insertAdjacentElement("afterend", p);
+  input.focus();
+}
+
+// 화면에 떠 있는 모든 오류 문구 제거
+function clearFormErrors() {
+  document.querySelectorAll(".form-error").forEach((el) => el.remove());
 }

@@ -192,12 +192,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 그 기간의 데이터를 충분히 커버하게 하고, 등록일(happenDt)이 다양하게
   // 섞이도록 해서 정렬 기능이 실제로 눈에 띄게 동작하도록 만듬.
   const { bgnde, endde } = getDateRange(3);
-  console.log("조회 기간:", bgnde, "~", endde);
   showSkeleton(searchListContainer, 12); // API 응답 대기 중 스켈레톤 표시
   const apiItems = await fetchProtectData({ bgnde, endde });
 
   if (apiItems && apiItems.length > 0) {
-    console.log("apiItems[0]:", apiItems[0]);
     allSearchData = apiItems.map((item, index) => ({
       id: index + 1,
       state: item.processState || "보호중",

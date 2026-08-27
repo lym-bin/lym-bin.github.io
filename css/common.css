@@ -259,6 +259,52 @@ body {
     animation: none;
   }
 }
+
+/* 토스트 알림 (alert 대체) */
+.toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  z-index: 2000;
+  max-width: 90vw;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  background: rgba(17, 17, 17, 0.9);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -12px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+.toast--show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.toast--error {
+  background: rgba(231, 76, 60, 0.95);
+}
+
+/* 페이지 전체 에러 상태 (상세 페이지 등) */
+.page-error {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-text-sub);
+}
+.page-error a {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
 /* ==========================================
    메인 페이지 반응형 (1024px or 769px)
    헤더 푸터 공통
