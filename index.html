@@ -41,39 +41,45 @@
         <a class="banner-cta" href="search.html">입양 공고 보기</a>
       </div>
     </section>
-<!-- 퀵 메뉴-->
+<!-- 퀵 메뉴 (사이트 내 주요 기능 바로가기) -->
      <section class="quick-menu">
-        <h2 class="quick-title">퀵 메뉴</h2>
+        <h2 class="quick-title">바로가기</h2>
         <ul class="quick-list">
             <li>
-        <a href="https://pawinhand.kr/intro" target="_blank"><img src="images/quick_1.svg" alt="">
-            <span>포인핸드 기부</span>
-        </a>
-            </li>
-               <li>
-        <a href="#"><img src="images/quick_2.svg" alt="">
-            <span>입양 캠페인</span>
-        </a>
+              <a href="search.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <span>동물 검색</span>
+              </a>
             </li>
             <li>
-        <a href="#"><img src="images/quick_3.svg" alt="">
-            <span>포인 기부</span>
-        </a>  
+              <a href="shelter.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                <span>보호소 찾기</span>
+              </a>
             </li>
             <li>
-        <a href="#"><img src="images/quick_4.svg" alt="">
-            <span>지원 혜택</span>
-        </a>        
+              <a href="#missing">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16l-2-2z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
+                <span>실종·제보</span>
+              </a>
             </li>
             <li>
-        <a href="#"><img src="images/quick_5.svg" alt="">
-            <span>포인핸드 스토어</span>
-        </a>        
+              <a href="#best">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-4 4V5z"/><path d="M12 8l1.2 1.2a1.7 1.7 0 0 1 0 2.4L12 13l-1.2-1.4a1.7 1.7 0 0 1 0-2.4z"/></svg>
+                <span>입양 후기</span>
+              </a>
             </li>
             <li>
-        <a href="#"><img src="images/quick_6.svg" alt="">
-            <span>포인핸드 후원</span>
-        </a>        
+              <a href="#donation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>
+                <span>기부 챌린지</span>
+              </a>
+            </li>
+            <li>
+              <a href="#stats">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="20" x2="20" y2="20"/><line x1="7" y1="20" x2="7" y2="13"/><line x1="12" y1="20" x2="12" y2="7"/><line x1="17" y1="20" x2="17" y2="15"/></svg>
+                <span>유기동물 통계</span>
+              </a>
             </li>
         </ul>
      </section>
@@ -187,7 +193,7 @@
         </div>
       </section>
 <!-- 베스트 입양후기 -->
-      <section class="best-animal">
+      <section class="best-animal" id="best">
         <div class="best-header">
             <h2 class="best-title">베스트 입양후기</h2>
             <button type="button" data-category="best" class="btn btn--ghost btn--sm btn--pill btn-more">더보기</button>
@@ -217,7 +223,7 @@
       </article>
       </section>
 <!-- 실종/제보 타이틀-->
-<section class="missing-report">
+<section class="missing-report" id="missing">
   <div class="miss-header">
       <h2 class="miss-title">실종/제보 동물</h2>
       <button type="button" data-category="missing" class="btn btn--ghost btn--sm btn--pill btn-more">더보기</button>
@@ -230,7 +236,7 @@
   </div>
 </section>
 <!-- 기부 챌린지 -->
-<section class="donation-challenge">
+<section class="donation-challenge" id="donation">
   <div class="donation-header">
     <h2 class="donation-title">기부 챌린지</h2>
     <button type="button" data-category="donation" class="btn btn--ghost btn--sm btn--pill btn-more">더보기</button>
@@ -241,7 +247,7 @@
 </section>
       </main>
 <!--유기동물 처리 현황-->
-    <section class="stats-section">
+    <section class="stats-section" id="stats">
         <div class="stats-header">
 <!--js에서 당일 날짜로 변경-->
             <h2 class="section-title" id="stats-date">유기동물 처리 현황</h2>

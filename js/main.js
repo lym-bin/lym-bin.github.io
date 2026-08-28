@@ -120,8 +120,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // 기존 레이아웃인 4열 레이아웃을 위해 최대 4개까지만 잘라서 배치
-    const limitedData = data.slice(0, 4);
+    // 상단 지역칩과 열을 맞춰 5개(5열)만 노출
+    const limitedData = data.slice(0, 5);
 
     listContainer.innerHTML = limitedData
       .map((animal) => {
@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   //  1. 페이지 처음 켜졌을 때 '전국 유기동물 목록' 불러오기
   // (함수 이름은 api.js에 정의한 이름으로 맞추기)
-  showSkeleton(listContainer, 4); // API 응답 대기 중 스켈레톤 표시
+  showSkeleton(listContainer, 5); // API 응답 대기 중 스켈레톤 표시
   const allAnimalData = await fetchAnimalsList();
   //  데이터가 있다면 첫 번째 동물의 모든 속성 이름과 값을 확인
   // if (allAnimalData && allAnimalData.length > 0) {
