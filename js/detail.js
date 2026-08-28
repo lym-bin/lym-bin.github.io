@@ -200,30 +200,36 @@ function setupComments(animalNum) {
     }
   }
 
+  // 예시로 항상 노출하는 씨앗 댓글 (댓글이 어떻게 보이는지 보여주는 용도)
+  const seedComment = {
+    name: "fm_cookie♡",
+    date: "2026-05-28 21:11:20",
+    text: "안녕 아가 완전 곰돌이 같이 생겼구나!",
+  };
+
   function renderComments() {
-    const allComments = getAllComments();
-    const myComments = allComments[animalNum] || [];
+    const myComments = getAllComments()[animalNum] || [];
 
     if (commentCountEl) {
       commentCountEl.textContent = `${myComments.length + 1}개의 댓글`;
     }
 
-    const userCommentsHtml = myComments
+    const rows = [
+      seedComment,
+      ...myComments.map((c) => ({ name: "방문자", date: c.date, text: c.text })),
+    ];
+
+    commentList.innerHTML = rows
       .map(
-        (comment) => `
+        (c) => `
       <div class="comment-item">
-        <span class="user-name">방문자</span>
-        <span class="date">${comment.date}</span>
-        <p>${comment.text}</p>
+        <span class="user-name">${c.name}</span>
+        <span class="date">${c.date}</span>
+        <p>${c.text}</p>
       </div>
     `,
       )
       .join("");
-
-    // commentList(.comment-list)만 갈아끼우니 textarea/버튼은 그대로 남아있음
-    const dummyComment = commentList.querySelector(".comment-item");
-    commentList.innerHTML =
-      (dummyComment ? dummyComment.outerHTML : "") + userCommentsHtml;
   }
 
   commentSubmitBtn.addEventListener("click", () => {

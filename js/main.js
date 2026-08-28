@@ -306,31 +306,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // -------------------------------------------------------------
-// [5단계] "더보기" 버튼 클릭 시 관련 페이지로 이동
+// [5단계] "오늘의 추천동물 더보기" → 동물검색 페이지로 이동
+// (소식 더보기는 news.html 링크, 나머지 섹션은 별도 목록 페이지가 없어 버튼 제거)
 // -------------------------------------------------------------
-document.querySelectorAll(".btn-more").forEach((btn) => {
+document.querySelectorAll('.btn-more[data-category="today"]').forEach((btn) => {
   btn.addEventListener("click", () => {
-    const category = btn.dataset.category;
-
-    switch (category) {
-      case "today": // 오늘의 추천동물 → 동물검색 페이지로
-        window.location.href = "search.html";
-        break;
-      case "best": // 베스트 입양후기 → 아직 별도 페이지 없음
-        showToast("입양후기 페이지는 준비 중입니다.");
-        break;
-      case "news": // 포인핸드 소식 → 마찬가지
-        showToast("소식 페이지는 준비 중입니다.");
-        break;
-      case "missing": // 실종/제보 → 마찬가지
-        showToast("실종/제보 페이지는 준비 중입니다.");
-        break;
-      case "donation": //기부 챌린지
-        showToast("기부 챌린지 페이지는 준비 중입니다.");
-        break;
-      default:
-        window.location.href = "shelter.html";
-    }
+    window.location.href = "search.html";
   });
 });
 // -------------------------------------------------------------
