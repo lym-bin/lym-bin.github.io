@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const statsDateEl = document.getElementById("stats-date");
   // stats-date라는 아이디를 가진 html태그가 안전하게 존재한다면
   if (statsDateEl) {
-    statsDateEl.textContent = `${yy}.${mm}.${dd} 유기동물 처리 현황`;
+    statsDateEl.textContent = `${yy}.${mm}.${dd} 유기동물 현황`;
   }
 
   // -------------------------------------------------------------
