@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>소식 | 포인핸드</title>
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <link href="images/dog-solid-full.png" type="image/png" rel="icon" />
+    <link href="./css/common.css" rel="stylesheet" />
+    <link href="./css/news.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="main-container">
+        <a href="index.html" class="main-logo">
+          <img src="images/v1_4.png" alt="포인핸드 메인로고" />
+        </a>
+        <nav>
+          <ul class="main-nav">
+            <li><a href="index.html" class="nav-item">홈</a></li>
+            <li><a href="shelter.html" class="nav-item">보호소</a></li>
+            <li><a href="search.html" class="nav-item">동물검색</a></li>
+            <li>
+              <a href="login.html" class="nav-item" id="nav-login">로그인</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="news-page">
+      <h1 class="section-title">포인핸드 소식</h1>
+      <p class="news-page-sub">
+        포인핸드의 입양 캠페인과 이벤트 소식을 전해드립니다.
+      </p>
+
+      <ul class="news-post-list">
+        <li class="news-post">
+          <div class="news-post-media">
+            <img src="images/kakao_thumb.jpeg" alt="마음 자국 굿즈" />
+          </div>
+          <div class="news-post-body">
+            <div class="news-post-text">
+              <span class="news-post-date">2026.08.20</span>
+              <p class="news-post-desc">
+                반려동물과의 추억을 담은 굿즈로 유기동물 후원에 함께해요. 판매
+                수익금 전액은 보호소 운영비로 사용됩니다.
+              </p>
+            </div>
+            <a class="btn btn--primary btn--sm" href="login.html"
+              >캠페인 참여하기</a
+            >
+          </div>
+        </li>
+
+        <li class="news-post">
+          <div class="news-post-media">
+            <img src="images/Ph-news-banner.png" alt="새로운 가족을 소개합니다" />
+          </div>
+          <div class="news-post-body">
+            <div class="news-post-text">
+              <span class="news-post-date">2026.08.10</span>
+              <p class="news-post-desc">
+                무더운 여름, 보호소가 가장 붐비는 시기입니다. 평생을 함께할 기적
+                같은 인연을 지금 만나보세요.
+              </p>
+            </div>
+            <a class="btn btn--primary btn--sm" href="search.html"
+              >공고 보러 가기</a
+            >
+          </div>
+        </li>
+
+        <li class="news-post">
+          <div class="news-post-media">
+            <img
+              src="images/Ph-news-banner2.png"
+              alt="당신의 따뜻한 손길을 기다립니다"
+            />
+          </div>
+          <div class="news-post-body">
+            <div class="news-post-text">
+              <span class="news-post-date">2026.07.28</span>
+              <p class="news-post-desc">
+                매달 작은 후원이 한 생명의 하루를 바꿉니다. 정기 후원으로 꾸준한
+                도움을 전해주세요.
+              </p>
+            </div>
+            <a class="btn btn--primary btn--sm" href="login.html"
+              >후원 신청하기</a
+            >
+          </div>
+        </li>
+      </ul>
+    </main>
+
+    <footer class="footer-wrapper">
+      <div class="footer-bottom">
+        <h3>주식회사 포인핸드</h3>
+        <p>&copy; Pawinhand all rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/ui.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/login-state.js"></script>
+  </body>
+</html>

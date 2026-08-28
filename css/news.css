@@ -1,0 +1,63 @@
+/* ==========================================
+   소식(news) 페이지
+   ========================================== */
+.news-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+.news-page-sub {
+  margin-bottom: 32px;
+  color: var(--color-text-sub);
+}
+.news-post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 0;
+}
+.news-post {
+  overflow: hidden;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+}
+/* 캠페인 이미지: 원본(포스터) 그대로, 소프트 배경 위 가운데 */
+.news-post-media {
+  background: var(--color-bg-soft);
+  text-align: center;
+  line-height: 0;
+}
+.news-post-media img {
+  max-width: 100%;
+  max-height: 400px;
+  display: inline-block;
+}
+.news-post-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 18px 24px;
+}
+.news-post-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.news-post-date {
+  font-size: var(--font-xs);
+  color: var(--color-text-muted);
+}
+.news-post-desc {
+  font-size: var(--font-sm);
+  color: var(--color-text-sub);
+  line-height: 1.6;
+}
+@media (max-width: 768px) {
+  .news-post-body {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

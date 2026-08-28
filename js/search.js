@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       id: index + 1,
       state: item.processState || "보호중",
       num: item.desertionNo, // 공고 번호 (상세 페이지로 이동 + 찜하기 식별자로 사용)
-      image: item.popfile1 || "./images/todaycard_1.svg",
+      image: item.popfile1 || "", // 기존 더미 이미지있던 버그 삭제
       rawKind: item.kindFullNm || item.kindCd || "", // 게[믹스견] 원본 형태(검색용)
       species: item.kindFullNm
         ? item.kindFullNm.replace(/\[.*?\]\s*/g, "")
@@ -313,7 +313,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!searchListContainer) return;
 
     if (data.length === 0) {
-      showStateMessage(searchListContainer, "조건에 맞는 검색 결과가 없습니다.");
+      showStateMessage(
+        searchListContainer,
+        "조건에 맞는 검색 결과가 없습니다.",
+      );
       if (moreBtn) moreBtn.style.display = "none";
       return;
     }

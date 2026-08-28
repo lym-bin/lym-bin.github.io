@@ -4,8 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>동물 검색 | 포인핸드</title>
-    <link rel="stylesheet" as="style" crossorigin
-      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
     <link href="images/dog-solid-full.png" type="image/png" rel="icon" />
     <link href="./css/common.css" rel="stylesheet" />
     <link href="./css/search.css" rel="stylesheet" />
@@ -43,7 +47,9 @@
               class="form-design"
               placeholder="품종,지역,특징을 검색해 보세요."
             />
-            <button type="submit" class="btn btn--primary btn--lg search-btn">검색</button>
+            <button type="submit" class="btn btn--primary btn--lg search-btn">
+              검색
+            </button>
           </div>
 
           <!-- 필터 및 초기화 영역 -->
@@ -87,11 +93,20 @@
                     입양완료</label
                   >
                   <div class="filter-panel-actions">
-                    <button type="button" class="btn btn--primary btn--sm filter-apply-btn">적용</button>
+                    <button
+                      type="button"
+                      class="btn btn--primary btn--sm filter-apply-btn"
+                    >
+                      적용
+                    </button>
                   </div>
                 </div>
               </li>
-              <li><button type="reset" class="btn btn--text reset-btn">초기화</button></li>
+              <li>
+                <button type="reset" class="btn btn--text reset-btn">
+                  초기화
+                </button>
+              </li>
             </ul>
           </div>
         </form>
@@ -100,8 +115,16 @@
       <div class="info-space">
         <span>전체 0건의 유기동물이 보호중 입니다.</span>
         <div class="info-action">
-          <button type="button" class="btn btn--ghost btn--sm" id="liked-filter-btn">♡찜한 동물만</button>
-          <button type="button" class="btn btn--ghost btn--sm">최신 등록순</button>
+          <button
+            type="button"
+            class="btn btn--ghost btn--sm"
+            id="liked-filter-btn"
+          >
+            ♡찜한 동물만
+          </button>
+          <button type="button" class="btn btn--ghost btn--sm">
+            최신 등록순
+          </button>
         </div>
       </div>
 
@@ -109,89 +132,57 @@
       <section>
         <div class="card-container">
           <ul class="search-list">
-            <li>
-              <span class="badge badge-blue">보호중</span>
-              <a href="#">
-                <img
-                  src="./images/todaycard_1.svg"
-                  alt="보호 중인 동물 이미지"
-                />
-              </a>
-              <button type="button" class="like-btn" aria-label="찜하기">
-                ♡
-              </button>
-            </li>
-            <li>
-              <span class="badge badge-red">긴급</span>
-              <a href="#">
-                <img
-                  src="./images/todaycard_2.svg"
-                  alt="긴급 보호 동물 이미지"
-                />
-              </a>
-              <button type="button" class="like-btn" aria-label="찜하기">
-                ♡
-              </button>
-            </li>
-            <li>
-              <span class="badge badge-green">입양완료</span>
-              <a href="#">
-                <img
-                  src="./images/todaycard_3.svg"
-                  alt="입양 완료된 동물 이미지"
-                />
-              </a>
-              <button type="button" class="like-btn" aria-label="찜하기">
-                ♡
-              </button>
-            </li>
-            <li>
-              <span class="badge badge-blue">보호중</span>
-              <a href="#">
-                <img
-                  src="./images/todaycard_1.svg"
-                  alt="보호 중인 동물 이미지"
-                />
-              </a>
-              <button type="button" class="like-btn" aria-label="찜하기">
-                ♡
-              </button>
-            </li>
+            <!-- JS 렌더링-->
           </ul>
         </div>
         <div class="btn-container">
-          <button type="button" class="btn btn--ghost btn--sm btn--pill more-btn">더보기</button>
+          <button
+            type="button"
+            class="btn btn--ghost btn--sm btn--pill more-btn"
+          >
+            더보기
+          </button>
         </div>
       </section>
 
-      <!-- 소식 영역 -->
-      <article>
-        <h2 class="news-title">소식</h2>
-        <div class="news-container">
-          <ul class="news-list">
-            <li>
-              <a href="#">
-                <img src="images/kakao_thumb.jpeg" alt="소식 이미지 1" />
-                <h3>굿즈 이벤트</h3>
-              </a>
-              <button type="button" class="btn btn--ghost btn--sm btn--block">자세히보기</button>
-            </li>
-            <li>
-              <a href="#">
-                <img src="images/Ph-news-banner.png" alt="소식 이미지 2" />
-                <h3>입양 이벤트</h3>
-              </a>
-              <button type="button" class="btn btn--ghost btn--sm btn--block">자세히보기</button>
-            </li>
-            <li>
-              <a href="#">
-                <img src="images/Ph-news-banner2.png" alt="소식 이미지 3" />
-                <h3>소개 합니다</h3>
-              </a>
-              <button type="button" class="btn btn--ghost btn--sm btn--block">자세히보기</button>
-            </li>
-          </ul>
+      <!-- 포인핸드 소식-->
+      <article class="ph-news">
+        <div class="news-header">
+          <h2 class="news-title">포인핸드 소식</h2>
+          <a href="login.html" class="btn btn--ghost btn--sm"
+            >캠페인 참여하기</a
+          >
         </div>
+        <ul class="news-list">
+          <li>
+            <a href="news.html" class="news-list-thumb"
+              ><img src="images/kakao_thumb.jpeg" alt="마음 자국 굿즈"
+            /></a>
+            <a href="news.html" class="btn btn--ghost btn--sm btn--block"
+              >자세히 보기</a
+            >
+          </li>
+          <li>
+            <a href="news.html" class="news-list-thumb"
+              ><img
+                src="images/Ph-news-banner.png"
+                alt="새로운 가족을 소개합니다"
+            /></a>
+            <a href="news.html" class="btn btn--ghost btn--sm btn--block"
+              >자세히 보기</a
+            >
+          </li>
+          <li>
+            <a href="news.html" class="news-list-thumb"
+              ><img
+                src="images/Ph-news-banner2.png"
+                alt="당신의 따듯한 손길을 기다립니다."
+            /></a>
+            <a href="news.html" class="btn btn--ghost btn--sm btn--block"
+              >자세히 보기</a
+            >
+          </li>
+        </ul>
       </article>
 
       <!-- 가이드 영역 -->

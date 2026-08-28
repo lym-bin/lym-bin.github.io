@@ -209,39 +209,43 @@
 }
 
 /* ==========================================
-   소식 영역
+   포인핸드 소식
    ========================================== */
-.news-container h2,
-.guide-container h2 {
-  margin-bottom: 20px;
+.ph-news {
+  margin-top: 48px;
 }
-.news-title {
-  margin-bottom: 20px;
+.news-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
 }
 .news-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 20px;
+  padding: 0;
   margin-bottom: 24px;
 }
 .news-list li {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
-.news-list li img {
+.news-list-thumb {
+  display: block;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.news-list-thumb img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 8px;
-  background: #eee;
+  display: block;
+  transition: transform 0.3s ease;
 }
-/* 소식 카드 제목 */
-.news-list li h3 {
-  margin-top: 24px;
-  font-size: 16px;
-}
-.news-list button {
-  margin-top: 12px;
+.news-list-thumb:hover img {
+  transform: scale(1.03);
 }
 
 /* ==========================================
