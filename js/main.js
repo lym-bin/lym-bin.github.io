@@ -18,6 +18,36 @@
  * - 웹 브라우저가 HTML 뼈대를 전부 읽고 그릴 준비가 끝났을 때 안전하게 코드를 실행시켜 주는 이벤트.
  * - 이 이벤트 안에서 비동기 함수(async)를 선언하여 화면 제어 로직을 시작.
  */
+// ==========================================
+// 포인핸드 소식 슬라이더 (배너 순환)
+// ==========================================
+(function newsSlider() {
+  const slider = document.getElementById("news-slider");
+  if (!slider) return;
+
+  const track = slider.querySelector(".news-track");
+  const slides = slider.querySelectorAll(".news-slide");
+  let index = 0;
+
+  function go(i) {
+    index = (i + slides.length) % slides.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  slider
+    .querySelector(".news-prev")
+    .addEventListener("click", () => go(index - 1));
+  slider
+    .querySelector(".news-next")
+    .addEventListener("click", () => go(index + 1));
+
+  // 5초 자동 넘김 (마우스 올리면 정지)
+  let timer = setInterval(() => go(index + 1), 5000);
+  slider.addEventListener("mouseenter", () => clearInterval(timer));
+  slider.addEventListener("mouseleave", () => {
+    timer = setInterval(() => go(index + 1), 5000);
+  });
+})();
 
 // 웹 페이지의 HTML(DOM)이 모두 로드 완료되면 실행
 document.addEventListener("DOMContentLoaded", async () => {

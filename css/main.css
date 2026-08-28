@@ -85,7 +85,7 @@
 .quick-list {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 12px;
+  gap: 4px;
   padding: 10px 0;
 }
 .quick-list a {
@@ -256,7 +256,7 @@
   color: #000;
 }
 /* ==========================================
-   포인핸드 소식
+   포인핸드 소식 슬라이더
    ========================================== */
 .ph-news {
   max-width: 1200px;
@@ -271,18 +271,62 @@
   margin-bottom: 20px;
 }
 .news-slider {
-  width: 100%;
+  position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  overflow: hidden; /* 영역 밖 숨김 */
-  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
-.news-list li img {
+.news-track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+.news-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+.news-slide img {
   width: 100%;
   height: auto;
   display: block;
-  /* img 하단에 원본이미지 파란줄이 있어서 강제로 잘라냄 */
+}
+/* banner_v9만 하단에 파란줄같은 버그가 있음(v7은 문제x)*/
+.news-slide.news-slide--clip img {
   clip-path: inset(0 0 3px 0);
+}
+.news-nav {
+  /* nav-btn 배너 상단50% 배치*/
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+.news-nav svg {
+  width: 20px;
+  height: 20px;
+}
+.news-nav:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.08);
+}
+.news-prev {
+  left: 14p;
+}
+.news-next {
+  right: 14px;
 }
 /* ==========================================
    실종/제보 동물
