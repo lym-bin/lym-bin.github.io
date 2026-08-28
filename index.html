@@ -89,106 +89,14 @@
             <h2 class="today-title">오늘의 추천동물</h2>
             <button type="button" data-category="today" class="btn btn--ghost btn--sm btn--pill btn-more">더보기</button>
         </div>
-<!-- 시 군 도 리스트-->
-<!-- 자동 슬라이드 클래스-->     
-        <div class="today-swiper">
-        <ul class="today-list" id="today-region">
-            <li>
-                <a href="#"><img src="images/today_1.svg" alt="">
-                    <span>가평군</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_2.svg" alt="">
-                    <span>창원시</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_3.svg" alt="">
-                    <span>영양군</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_4.svg" alt="">
-                    <span>마포센터</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_5.svg" alt="">
-                    <span>밀양시</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_4.svg" alt="">
-                    <span>동대문센터</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_6.svg" alt="">
-                    <span>군산시</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_7.svg" alt="">
-                    <span>사천시</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_8.svg" alt="">
-                    <span>남양주시</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_9.svg" alt="">
-                    <span>삼척시</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_10.svg" alt="">
-                    <span>진주시</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_11.svg" alt="">
-                    <span>포인핸드</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_12.svg" alt="">
-                    <span>상주시</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_13.svg" alt="">
-                    <span>노원구</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_14.svg" alt="">
-                    <span>강릉시</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_15.svg" alt="">
-                    <span>원주시</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_16.svg" alt="">
-                    <span>양평군</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img src="images/today_17.svg" alt="">
-                    <span>제주도</span>
-                </a>
-            </li>
-        </ul>
+<!-- 지역 슬라이드 JS로 제어 기존 하드코딩 삭제-->     
+        <div class="region-filter" id="region-filter">
+<!-- 지역 필터 JS로 제어 API데이터에서 시/도 생성-->
         </div>
 <!--카드 리스트 나열 그리드-->
         <div class="today-cardgrid">
             <ul class="card-list" id="today-dummy">
-<!--js로 뿌려줄 li리스트(더미)TO-BE API로 가져옴-->              
+<!--js로 뿌려줄 li리스트             
             </ul>
         </div>
       </section>

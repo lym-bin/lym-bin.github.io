@@ -140,51 +140,14 @@
 }
 /* 더보기 버튼 스타일은 공통 .btn .btn--ghost 로 통일 (common.css) */
 /* ==========================================
-   시군도 영역 설정
+   지역 필터
    ========================================== */
-.today-list {
+.region-filter {
   display: flex;
-  justify-content: left; /* 무조건 왼쪽부터 정렬 */
-  gap: 3px;
-  padding: 0;
-}
-.today-list a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  color: #333333;
-  transition: transform 0.2s;
-  width: 100px;
-}
-/* 시 군 도 텍스트 가평군...... */
-.today-list a span {
-  margin-top: 6px;
-  line-height: 1.2;
-  word-break: keep-all; /* 줄 맞춤 */
-  font-size: 14px;
-}
-/* 시 군 도 슬라이드 효과 */
-.today-swiper {
-  width: 100%;
-  overflow: hidden; /* 밖으로 나가는 건 숨김 */
-  margin-bottom: 40px;
-}
-.today-list {
-  display: flex;
-  justify-content: left;
-  gap: 3px;
-  padding: 0;
-  animation: slide 20s linear infinite; /* 20초 동안 무한 반복 */
-}
-/* @keyframes 속성 : 어떤 모양으로 변화시키는지 설계도 역할 뒤에는(slide) 변수명 */
-@keyframes slide {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  } /* 전체 길이의 절반만큼 왼쪽으로 이동 */
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 20px;
+  margin: 20px 0 32px;
 }
 /* ==========================================
    오늘의 추천동물 카드 리스트(그리드)

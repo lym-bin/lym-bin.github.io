@@ -21,7 +21,6 @@
 
 // 웹 페이지의 HTML(DOM)이 모두 로드 완료되면 실행
 document.addEventListener("DOMContentLoaded", async () => {
-
   // -------------------------------------------------------------
   // [1단계] 화면 왼쪽에 오늘 날짜 유기동물 통계 텍스트 설정
   // -------------------------------------------------------------
@@ -107,7 +106,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // [3단계] 유기동물 추천 및 지역 버튼 연동 (API 데이터 필터링))
   // -------------------------------------------------------------
   const listContainer = document.getElementById("today-dummy");
-  const regionButtons = document.querySelectorAll("#today-region li");
 
   // 데이터를 받아와서 화면에 카드형태로 렌더링하는 함수
   function renderAnimals(data) {
@@ -116,7 +114,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 데이터가 아에 없을 때의 방어코드
     if (!data || data.length === 0) {
-      showStateMessage(listContainer, "해당 지역에 등록된 동물 데이터가 없습니다.");
+      showStateMessage(
+        listContainer,
+        "해당 지역에 등록된 동물 데이터가 없습니다.",
+      );
       return;
     }
 
@@ -164,32 +165,51 @@ document.addEventListener("DOMContentLoaded", async () => {
   // }
   // 처음에 전체 데이터 기본 렌더링
   renderAnimals(allAnimalData);
-  // 2. 지역 버튼 클릭 이벤트
-  regionButtons.forEach((button) => {
-    button.addEventListener("click", async (e) => {
-      e.preventDefault();
-      // 클릭한 li 안의 span 태그(지역 이름) 가져오기
-      const spanEl = button.querySelector("span");
-      if (!spanEl) return;
-      const selectedRegion = spanEl.textContent.trim();
-      // 전체 동물 데이터 중 보호소 이름(careNm)이나 관할지역(orgNm)에 선택한 지역명이 포함된 항목 필터링
-      const filteredData = allAnimalData.filter((item) => {
-        const careName = item.careNm || "";
-        const orgName = item.orgNm || "";
-        return (
-          careName.includes(selectedRegion) || orgName.includes(selectedRegion)
+  // -------------------------------------------------------------
+  // 2. 지역 필터 칩(API 데이터에서 시/도별 집계)
+  // -------------------------------------------------------------
+  const regionFilter = document.getElementById("region-filter");
+  const getSido = (item) => (item.orgNm || "").split(" ")[0]; // 경상북도 영주시 => 경상북도
+
+  function renderRegionFilter() {
+    if (!regionFilter || !allAnimalData.length) return;
+
+    const counts = {};
+    allAnimalData.forEach((item) => {
+      const sido = getSido(item);
+      if (sido) counts[sido] = (counts[sido] || 0) + 1;
+    });
+
+    const regions = Object.entries(counts)
+      .filter(([, n]) => n >= 3)
+      .sort((a, b) => b[1] - a[1])
+      .map(([name]) => name);
+
+    regionFilter.innerHTML = ["전체", ...regions]
+      .map(
+        (name, i) =>
+          `<button type="button" class="btn btn--chip${i === 0 ? " is-active" : ""}" data-region="${name}">${name}</button>`,
+      )
+      .join("");
+
+    // querySelectorAll로 변경하여 전체 버튼 순회
+    regionFilter.querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        regionFilter
+          .querySelectorAll("button")
+          .forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active"); // 클릭한 버튼 활성화 추가
+
+        const region = btn.dataset.region;
+        renderAnimals(
+          region === "전체"
+            ? allAnimalData
+            : allAnimalData.filter((item) => getSido(item) === region),
         );
       });
-      // 만약 해당 지역 데이터가 존재하면 필터링된 결과 렌더링
-      if (filteredData.length > 0) {
-        renderAnimals(filteredData);
-      } else {
-        // 해당 지역 실시간 공고가 없으면 토스트로 안내 후 전체 목록 표시
-        showToast(`'${selectedRegion}' 지역 공고가 없어 전체 목록을 표시합니다.`);
-        renderAnimals(allAnimalData);
-      }
     });
-  });
+  }
+  renderRegionFilter();
   // -------------------------------------------------------------
   // [4단계] 베스트 입양후기 렌더링 및 호버 이벤트
   // -------------------------------------------------------------
