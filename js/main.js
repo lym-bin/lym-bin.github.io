@@ -185,6 +185,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // (함수 이름은 api.js에 정의한 이름으로 맞추기)
   showSkeleton(listContainer, 5); // API 응답 대기 중 스켈레톤 표시
   const allAnimalData = await fetchAnimalsList();
+  cacheAnimals(allAnimalData); // 상세 페이지가 재요청 없이 쓰도록 원본 캐시
   //  데이터가 있다면 첫 번째 동물의 모든 속성 이름과 값을 확인
   // if (allAnimalData && allAnimalData.length > 0) {
   //   console.log(

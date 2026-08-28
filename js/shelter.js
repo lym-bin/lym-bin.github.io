@@ -328,6 +328,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   showSkeleton(recommendContainer, 5); // 추천 영역 스켈레톤
   showSkeleton(container, 12); // 전체 목록 스켈레톤
   const apiItems = await fetchProtectData();
+  cacheAnimals(apiItems); // 상세 페이지가 재요청 없이 쓰도록 원본 캐시
   if (apiItems && apiItems.length > 0) {
     // API 원본 필드명과 매핑준비(desertionNo(공고번호), happenDt(구조 발견일?발생일)등)
     // 이름(name과 date등)을 매핑해서 allProtectData에 저장

@@ -194,6 +194,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const { bgnde, endde } = getDateRange(3);
   showSkeleton(searchListContainer, 12); // API 응답 대기 중 스켈레톤 표시
   const apiItems = await fetchProtectData({ bgnde, endde });
+  cacheAnimals(apiItems); // 상세 페이지가 재요청 없이 쓰도록 원본 캐시
 
   if (apiItems && apiItems.length > 0) {
     allSearchData = apiItems.map((item, index) => ({

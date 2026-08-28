@@ -1,55 +1,55 @@
 // ================================================
 // detail.js - 유기동물 상세 페이지
-// 역할: URL의 쿼리스트링(?num=...)으로 넘어온 공고번호를 가지고
-//      전체 목록 데이터를 조회한 뒤, 그 번호와 일치하는 동물 한 마리를 찾아 렌더링함.
-// 참고: 초기 코드 작성할 때 전체 데이터(로딩,성능 트러블) 보단 단건 데이터로 가져오려고 했으나
-//       공공데이터 API는 desertionNo(공고번호) 단건조회을 지원하지 않아서
-//       (파라미터(값)를 줘도 목록에 제일 첫번째 공고 반환해줌)
-//       전체 목록을 받아온 뒤 JS의 find()로 직접 찾는 방식을 쓴다.
-//       새로고침/직접 URL 접근에도 항상 동일하게 작동하도록 이 방식을 씀
+// 역할: URL 쿼리스트링(?num=...)의 공고번호로 동물 한 마리를 찾아 렌더링.
+// 데이터 출처 (순서대로):
+//   1) sessionStorage 캐시 — search/shelter 목록에서 넘어온 경우 이미 저장돼 있어 즉시 사용
+//   2) 캐시에 없으면(새로고침/직접 URL 접근) 전체 목록을 받아 find()
+//   ※ 공공데이터 API는 desertionNo 단건 조회를 지원하지 않음(파라미터를 줘도 목록 반환)
 // ================================================
 
-// 페이지 첫 진입(로드)시 브라우저가 html를 읽고 DOM 요소들을
-// 완성하자마자 관찰?감시 하다가 코드를 실행 async(이 안에서 await 비동기 작업을 하겠다)
+// 목록 페이지에서 저장해 둔 원본 동물 데이터를 공고번호로 꺼낸다.
+function getCachedAnimal(num) {
+  try {
+    const cache = JSON.parse(sessionStorage.getItem("animalCache") || "{}");
+    return cache[num] || null;
+  } catch {
+    return null;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   // [1] 주소창의 쿼리스트링에서 공고번호(num) 가져오기
-  // 예: detail.html?num=공고번호 -> targetNum = "공고번호"
   const urlParams = new URLSearchParams(window.location.search);
   const targetNum = urlParams.get("num");
 
-  // 공고번호 파라미터가 없다면 잘못된 접근이므로 if문으로 타켓이 없다면 실행X
   if (!targetNum) {
     showDetailError("잘못된 접근입니다. 공고번호가 없습니다.");
     return;
   }
-  // [2] 전체 목록 조회(api.js의 fetchProtectData 사용)
-  // numOfRows를 100도 줘보고 500도 줘봤지만 찾으려는 동물이 안나올 때가 있어서 넉넉하게 1000을줌
-  const apiItems = await fetchProtectData({ numOfRows: 1000 });
 
-  // 받아온 데이터(apiItems)가 아에 없거나, 들어있는 내용이 (0)개 면 alert 띄우고 이전 페이지로
-  // ! (NOT 연산자): true를 false로 뒤 바꾸는 연산자
-  // || (OR 연산자): 또는 왼쪽,오른쪽중 한가지라도 true면 true
-  // === (값과 자료형이 완벽하게 같은지), ==(양쪽의 값이 같은지 자료형이 달라도 형변환해서 같다고 할 떄가 있어서 잘 안씀), =(값을 변수에 대입할 떄 사용)
-  // length: 배열에선 갯수, 문자열이라면 길이
-  if (!apiItems || apiItems.length === 0) {
-    showDetailError("데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.");
-    return;
+  // [2] 캐시 먼저 확인 (목록 → 상세 이동이면 여기서 끝, 네트워크 요청 없음)
+  let currentAnimal = getCachedAnimal(targetNum);
+
+  // [3] 캐시에 없으면 전체 목록을 받아 find (새로고침 / 직접 URL 접근 대비)
+  if (!currentAnimal) {
+    const apiItems = await fetchProtectData({ numOfRows: 1000 });
+
+    if (!apiItems || apiItems.length === 0) {
+      showDetailError("데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.");
+      return;
+    }
+
+    // String()으로 감싸는 이유: desertionNo 타입이 섞여 와도 안전하게 문자열 비교
+    currentAnimal = apiItems.find(
+      (item) => String(item.desertionNo) === String(targetNum),
+    );
   }
 
-  // [3] 받아온 목록 중에서 URL의 공고번호와 일치하는 동물 하나를 찾는다.
-  // String()으로 감싸는 이유: desertionNo가 숫자/문자 어느 타입으로 오든
-  // 안전하게 문자열로 맞춰서 비교하기 위함 (타입 불일치로 인한 매칭 실패 방지)
-  const currentAnimal = apiItems.find(
-    // 담은상자(apiItems)에서 find(스마트한 함수)첫번째 요소부터 쭉 돌대 내가 원하는
-    // 공고번호(desertionNo)와 내가 타켓한Num(공고번호)와 같다면 실행
-    (item) => String(item.desertionNo) === String(targetNum),
-  );
-
-  // 타켓에 일치하지 않거나 데이터가 없다면 되돌리기
   if (!currentAnimal) {
     showDetailError("해당하는 유기동물 정보를 찾을 수 없습니다.");
     return;
   }
+
   // [4] 찾은 데이터를 화면에 뿌려주기
   renderAnimalDetail(currentAnimal);
 });
@@ -219,17 +219,26 @@ function setupComments(animalNum) {
       ...myComments.map((c) => ({ name: "방문자", date: c.date, text: c.text })),
     ];
 
-    commentList.innerHTML = rows
-      .map(
-        (c) => `
-      <div class="comment-item">
-        <span class="user-name">${c.name}</span>
-        <span class="date">${c.date}</span>
-        <p>${c.text}</p>
-      </div>
-    `,
-      )
-      .join("");
+    // 사용자 입력(text)이 들어가므로 innerHTML 대신 textContent 로 안전하게 그린다 (XSS 방지)
+    commentList.innerHTML = "";
+    rows.forEach((c) => {
+      const item = document.createElement("div");
+      item.className = "comment-item";
+
+      const name = document.createElement("span");
+      name.className = "user-name";
+      name.textContent = c.name;
+
+      const date = document.createElement("span");
+      date.className = "date";
+      date.textContent = c.date;
+
+      const text = document.createElement("p");
+      text.textContent = c.text;
+
+      item.append(name, date, text);
+      commentList.appendChild(item);
+    });
   }
 
   commentSubmitBtn.addEventListener("click", () => {

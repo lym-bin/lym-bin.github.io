@@ -45,6 +45,24 @@ function imgError(el) {
   el.src = PLACEHOLDER_IMG;
 }
 
+/**
+ * 목록 API 원본 데이터를 공고번호(desertionNo) 키로 sessionStorage에 캐시.
+ * 상세 페이지가 목록에서 넘어온 경우 재요청 없이 이 캐시를 사용한다.
+ * @param {Array} items - fetchProtectData / fetchAnimalsList 결과 배열
+ */
+function cacheAnimals(items) {
+  if (!Array.isArray(items) || items.length === 0) return;
+  try {
+    const cache = JSON.parse(sessionStorage.getItem("animalCache") || "{}");
+    items.forEach((item) => {
+      if (item && item.desertionNo) cache[item.desertionNo] = item;
+    });
+    sessionStorage.setItem("animalCache", JSON.stringify(cache));
+  } catch {
+    // 용량 초과 등으로 실패해도 무시 (상세 페이지에 API fallback이 있음)
+  }
+}
+
 // 현재 보고 있는 페이지에 해당하는 헤더 nav 링크를 강조 표시
 (function markCurrentNav() {
   const current = location.pathname.split("/").pop() || "index.html";
