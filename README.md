@@ -13,18 +13,20 @@
 
 | 페이지 | 주요 기능 |
 |---|---|
-| **index** | 히어로 배너 · 오늘의 추천동물(API) · 베스트 후기 · 실종/제보 · 기부 챌린지 · 유기동물 현황 미니 대시보드 |
-| **search** | 실시간 키워드 검색(품종/지역/특징) · 상태 필터 · 최신/오래된순 정렬 · 더보기 페이지네이션 · 찜하기(localStorage) |
-| **detail** | 쿼리스트링(`?num=`) 기반 상세 조회 · 이미지 갤러리 · 성격/입양절차 · 댓글(localStorage) |
-| **shelter** | 추천 입양 동물 · 전체 보호동물 2열 그리드 · 조건 필터 모달 · 카카오맵 보호소 마커(주소→좌표 지오코딩) |
+| **index** | 히어로 배너 · 지역별 추천동물 필터(API `orgNm` 집계) · 베스트 후기 · 소식 배너 슬라이더 · 실종/제보 · 기부 챌린지 · 유기동물 현황 미니 대시보드 |
+| **search** | 실시간 키워드 검색(품종/지역/특징) · 상태 필터 · 최신/오래된순 정렬 · 더보기 페이지네이션 · 찜하기(localStorage) · 캠페인 소식 카드(→ news) |
+| **detail** | 공고번호(`?num=`) 기반 상세 조회 — sessionStorage 캐시 우선, 없으면 목록 조회로 폴백 · 이미지 갤러리 · 성격/입양 절차 · 댓글(localStorage) |
+| **shelter** | 오늘의 추천 입양 동물 · 전체 보호동물 2열 그리드 · 조건 필터 모달 · 카카오맵 보호소 마커(주소→좌표 지오코딩) |
+| **news** | 캠페인·이벤트 소식 (search 소식 카드에서 진입) |
 | **login** | 폼 유효성 검사(인라인 오류) · localStorage 세션 유지 (프론트 전용 데모) |
 
 ## 아키텍처
 
 - **디자인 토큰**: `css/common.css` `:root` 에 색상·타이포·간격·모서리·그림자를 CSS Custom Properties로 정의, 전 페이지 일괄 관리
-- **버튼 시스템**: `.btn` + 변형(`--primary` / `--ghost` / `--chip` / `--text`)으로 페이지마다 제각각이던 버튼 6종을 하나로 통합
-- **공통 UI 헬퍼** (`js/ui.js`): 로딩 스켈레톤, 빈/에러 상태 메시지, 토스트 알림, 이미지 로드 실패 폴백, 헤더 현재 페이지 표시
+- **버튼 시스템**: `.btn` + 변형(`--primary` / `--ghost` / `--chip` / `--text`)으로 페이지마다 제각각이던 버튼을 하나로 통합
+- **공통 UI 헬퍼** (`js/ui.js`): 로딩 스켈레톤, 빈/에러 상태 메시지, 토스트 알림, 이미지 로드 실패 폴백, 헤더 현재 페이지 표시, 동물 데이터 캐시
 - **API 레이어 분리** (`js/api.js`): fetch·예외 처리·응답 파싱을 페이지 로직과 분리
+- **데이터 캐시**: 목록 페이지가 받은 API 원본을 `sessionStorage`(`animalCache`)에 공고번호 키로 저장 → 상세 페이지에서 재요청 없이 사용
 
 ## 디렉토리 구조
 
@@ -33,7 +35,8 @@
  ┣ 📂 css        # common(토큰·버튼·공통) + 페이지별
  ┣ 📂 js         # config / api / ui + 페이지별 스크립트
  ┣ 📂 images
- ┣ 📄 index.html / search.html / detail.html / shelter.html / login.html
+ ┣ 📄 index.html / search.html / detail.html / shelter.html / news.html / login.html
+ ┣ 📄 .gitattributes
  ┗ 📄 .gitignore
 ```
 
@@ -45,25 +48,30 @@
 → 대기 조건을 `kakao.maps.load` 존재 여부로 바꾸고, 나머지 로직을 콜백 안으로 이동. 재시도 상한(25회)을 둬서 SDK 로드 실패 시 안내 문구를 노출.
 
 ### 2. 통계 수치가 "비율"이 아니라 "마리 수"
-통계 API(`rescueAnimalStats`)의 `tot` 값을 그대로 `%` 로 표기하고 있었습니다. 실제로는 처리상태별 **마리 수**(보호중 22,044 / 입양 16 / 안락사 85 …)였고, `numOfRows` 기본값(10)에 6개 항목 중 일부가 잘리기도 했습니다.
+통계 API(`rescueAnimalStats`)의 `tot` 값을 그대로 `%` 로 표기하고 있었습니다. 실제로는 처리상태별 **마리 수**(보호중 / 입양 / 반환 / 자연사 / 안락사 …)였고, `numOfRows` 기본값(10)에 6개 항목 중 일부가 잘리기도 했습니다.
 → `numOfRows=50` 으로 올리고 6개 항목을 모두 파싱. "보호 종료 결과" 는 종료 건 총합 대비 실제 비율을 계산해 스택 바로 시각화.
 
 ### 3. 모바일 가로 스크롤
 푸터 4단 메뉴(`.nav-list`)가 좁은 화면에서 줄바꿈 없이 펼쳐져 `documentElement.scrollWidth` 가 뷰포트를 63px 초과했습니다.
 → 원인을 Puppeteer 로 요소별 `getBoundingClientRect` 를 찍어 특정한 뒤, 모바일에서 2열로 접히도록 수정.
 
-### 4. 상세 페이지 단건 조회
-유기동물 API가 `desertionNo` 단건 조회를 제대로 지원하지 않아(파라미터를 줘도 목록 첫 항목 반환), 전체 목록을 받아 `find()` 로 일치 항목을 찾는 방식으로 구현했습니다. 새로고침·직접 URL 접근에도 동일하게 동작합니다.
+### 4. 상세 페이지 조회 최적화
+유기동물 API가 `desertionNo` 단건 조회를 지원하지 않아(파라미터를 줘도 목록 반환), 처음엔 상세 페이지마다 전체 목록(1,000건)을 받아 `find()` 했습니다.
+→ 목록 페이지(search / shelter / index)가 받은 원본을 `sessionStorage` 에 캐시하고, 상세 페이지는 캐시를 먼저 확인. 목록 → 상세 이동 시 네트워크 요청이 사라지고, 새로고침·직접 URL 접근에만 목록 조회로 폴백합니다.
 
 ### 5. 비동기 렌더링 체감 성능
 대량 데이터를 받는 동안 화면이 비어 보이는 문제를 해결하기 위해, `async/await` 대기 구간에 스켈레톤 카드를 먼저 렌더하고 초기 노출 개수를 제한(`displayLimit`)했습니다.
+
+### 6. 댓글 XSS 방지
+localStorage 댓글을 `innerHTML` 템플릿으로 렌더하고 있어 `<img onerror>` 같은 입력이 실행될 수 있었습니다.
+→ `createElement` + `textContent` 로 변경해 사용자 입력이 항상 텍스트로만 그려지도록 했습니다.
 
 ## 기술 스택
 
 - **Frontend**: HTML5, CSS3, Vanilla JavaScript (ES6+)
 - **Styling**: CSS Custom Properties, Flexbox, Grid, 반응형(모바일·태블릿·데스크톱)
 - **API**: 공공데이터포털 유기동물 조회 Open API, 카카오 지도 API(geocoding)
-- **저장소**: localStorage (찜 / 댓글 / 로그인 세션)
+- **저장소**: localStorage(찜 / 댓글 / 로그인 세션), sessionStorage(동물 데이터 캐시)
 - **환경**: Git, GitHub, GitHub Pages
 
 ## 배포
