@@ -12,7 +12,6 @@
   color: var(--color-text-strong);
   text-align: left;
 }
-
 /* ==========================================
    상단 배너
    ========================================== */
@@ -83,10 +82,14 @@
   margin-bottom: 25px;
 }
 .quick-list {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 4px;
-  padding: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px 44px;
+  padding: 0;
+}
+.quick-list li {
+  width: 84px;
 }
 .quick-list a {
   display: flex;
@@ -606,10 +609,6 @@
   .banner-content {
     padding: 32px;
   }
-  .quick-list {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
   .card-list,
   .miss-list {
     grid-template-columns: repeat(3, 1fr);
@@ -643,9 +642,7 @@
     font-size: 22px;
   }
   .quick-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 18px 28px;
   }
   /* 통계 영역: 타일 세로로 쌓기 */
   .stats-section {
