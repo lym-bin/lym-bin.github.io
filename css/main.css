@@ -190,15 +190,18 @@
   border-radius: 12px;
   margin-bottom: 10px;
 }
-/* 상세 정보 텍스트 스타일 */
-.card-list li span {
-  font-size: 16px;
-  margin-bottom: 5px;
+/* 카드 텍스트 (추천동물 / 실종 · 제보 공용 */
+.card-list li .card-species,
+.miss-list li .card-species {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-strong);
 }
-/* 첫 번째 span 강조 */
-.card-list li span:nth-of-type(1) {
-  font-weight: bold;
-  color: #000;
+.card-list li .card-meta,
+.miss-list li .card-meta {
+  margin-top: 3px;
+  font-size: 13px;
+  color: var(--color-text-sub);
 }
 /* ==========================================
    베스트 입양후기 영역
@@ -254,7 +257,7 @@
   top: 8px;
   left: 8px;
   padding: 3px 9px;
-  border-radius: 50%;
+  border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
   color: #fff;

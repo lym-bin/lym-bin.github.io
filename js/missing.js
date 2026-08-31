@@ -62,9 +62,8 @@ const missingCards = missingData
           <img src="${item.image}" alt="${item.breed} (${item.color})" onerror="imgError(this)">
           <span class="badge ${item.type === "실종" ? "missing-badge" : "report-badge"}">${item.type}</span>
         </div>
-        <span>${item.region}</span>
-        <span>${item.breed}</span>
-        <span>${item.color}</span>
+        <span class="card-species">${item.breed}</span>
+        <span class="card-meta">${item.region} · ${item.color}</span>
       </a>
     </li>
   `;

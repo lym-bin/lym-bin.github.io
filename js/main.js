@@ -171,9 +171,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         <li>
         <a href="detail.html?num=${desertionNo}">
         <img src="${img}" alt="${kind}" loading="lazy" onerror="imgError(this)">
-        <span>품종: ${kind}</span>
-        <span>성별: ${sex}</span>
-        <span>나이: ${age}</span>
+        <span class="card-species">${kind}</span>
+        <span class="card-meta">${sex} · ${age}</span>
         </a>
         </li>
       `;
