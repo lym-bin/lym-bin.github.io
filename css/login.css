@@ -57,32 +57,6 @@ input[type="password"] {
   color: #666;
   font-size: 14px;
 }
-/* 소셜 로그인*/
-.social-login {
-  /* 구분선 스타일 */
-  border-top: 1px solid #e0e0e0; /* 옅은 회색 선 */
-  /* 위쪽 간격 조절 (로그인 폼과의 거리) */
-  margin-top: 30px;
-  /* 안쪽 여백 조절 (선과 버튼 사이의 거리) */
-  padding-top: 30px;
-  /* 버튼 정렬 */
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.btn-pawinhand {
-  width: 100%;
-  padding: 15px;
-  background-color: var(--color-primary);
-  color: white;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.btn-pawinhand:hover {
-  background-color: #e68a00;
-}
 /* 로고 이미지 위치 조정*/
 .logo {
   display: block; /* img는 기본적으로 inline(여백)이 생김 block을 썻을 시 미세한 기본 여백이 사라짐*/
@@ -108,6 +82,7 @@ input[type="password"] {
   display: block;
   margin: 0 auto 30px;
   max-width: 40%;
+  margin-top: 20px;
 }
 .footer_inner {
   margin-bottom: 20px;
