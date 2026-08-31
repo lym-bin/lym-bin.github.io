@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -22,8 +22,20 @@
       /></a>
 
       <form id="login-form">
-        <input type="text" id="id-input" placeholder="아이디" required />
-        <input type="password" id="pw-input" placeholder="비밀번호" required />
+        <input
+          type="text"
+          id="id-input"
+          placeholder="아이디"
+          autocomplete="username"
+          required
+        />
+        <input
+          type="password"
+          id="pw-input"
+          placeholder="비밀번호"
+          autocomplete="current-password"
+          required
+        />
 
         <div class="login-options">
           <label class="checkbox-group">
@@ -32,13 +44,23 @@
           <span class="ip-security">IP보안</span>
         </div>
 
-        <button type="submit" class="btn btn--primary btn--lg btn--block login-btn">로그인</button>
+        <button
+          type="submit"
+          class="btn btn--primary btn--lg btn--block login-btn"
+        >
+          로그인
+        </button>
+        <button
+          type="button"
+          id="demo-login-btn"
+          class="btn btn--ghost btn--block"
+        >
+          체험 계정으로 로그인
+        </button>
       </form>
 
       <nav class="links">
-        <a href="#">비밀번호 찾기</a>
-        <a href="#">아이디 찾기</a>
-        <a href="#">회원가입</a>
+        <a href="signup.html">회원가입</a>
       </nav>
 
       <!-- target="_blank"는 새 탭으로 연결(문법오류 수정해야함 a태그안에 button은 올 수가 없음),  target="_blank" 무분별한 사용X-->
@@ -71,6 +93,7 @@
       </div>
     </footer>
     <script src="js/ui.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/login.js"></script>
     <script src="js/login-state.js"></script>
   </body>
