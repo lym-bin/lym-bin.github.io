@@ -202,6 +202,11 @@
   flex-shrink: 0;
   background-color: #eee;
 }
+/*스켈레톤 카드(1:1)기준으로 실제 가로형 정사각형 맞춤 -> loading 후 레이아웃XW */
+.protect-boho .skeleton-card::before {
+  aspect-ratio: auto;
+  height: 152px;
+}
 .card-info {
   width: 100%;
 }
@@ -214,8 +219,11 @@
   font-size: 12px;
   padding: 2px 6px;
   border-radius: 4px;
-  background: #eee;
-  color: #333;
+  color: #fff; /* 상태 뱃지: (.badge-blue등) + 흰 텍스트*/
+}
+.badge.sex {
+  background: var(--color-bg-soft);
+  color: var(--color-text-sub);
 }
 .protect-boho li dl {
   display: grid;

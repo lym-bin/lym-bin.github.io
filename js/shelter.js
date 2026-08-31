@@ -76,6 +76,12 @@ const startDateInput =
 const endDateInput =
   document.querySelector("input[name='endDate']") ||
   document.querySelector(".filter-event input[type='date']:nth-of-type(2)");
+// 상태값 -> 뱃지 색상 클래스 (search 페이지와 동일 규칙)
+function stateBadgeClass(state = "") {
+  if (state.includes("긴급")) return "badge-red";
+  if (state.includes("종료") || state.includes("완료")) return "badge-green";
+  return "badge-blue";
+}
 
 // =================================================
 // [5] 카드 렌더링 함수(* 핵심 - 여러곳에서 재사용)
@@ -126,7 +132,7 @@ function renderProtectsCards(data) {
           <img src="${item.image}" alt="${item.species}" loading="lazy" onerror="imgError(this)"/>
           <div class="card-info">
             <div class="badge-group">
-              <span class="badge state">${item.state}</span>
+              <span class="badge state ${stateBadgeClass(item.state)}">${item.state}</span>
               <span class="badge sex">${item.sexCd}</span>
             </div>
             <dl>
@@ -135,7 +141,7 @@ function renderProtectsCards(data) {
               <dt>공고번호</dt>
               <dd>${item.num}</dd>
               <dt>등록날짜</dt>
-              <dd>${item.date}</dd>
+              <dd>${formatYmd(item.date)}</dd>
               <dt>구조장소</dt>
               <dd>${item.loc}</dd>
             </dl>
@@ -416,7 +422,6 @@ document.querySelectorAll(".protect-tab").forEach((tab) => {
     }
   });
 });
-
 // -------------------------------------------------------------
 // [13] 카카오맵으로 보호소 위치 표시하는 함수
 // -------------------------------------------------------------

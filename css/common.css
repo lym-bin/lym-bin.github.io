@@ -3,7 +3,7 @@
  * @Author: [임상빈]
  * @Organization: [MBC컴퓨터 아카데미 수원점]
  * @Copyright: 2026 [임상빈]. All rights reserved.
- * @Version: 1.1.0
+ * @Version: 2.0.0 final
 
 * [이미지 및 에셋 안내]
  * 본 프로젝트는 개인 포트폴리오 용도의 비공식 리뉴얼 습작입니다.
@@ -26,25 +26,21 @@
   --color-primary: #ff9900;
   --color-primary-dark: #f28c00;
   --color-primary-soft: #fdeccf; /* 연한 주황 (아이콘 배경 등) */
-
   /* 텍스트 */
   --color-text: #333;
   --color-text-strong: #111;
   --color-text-sub: #666;
   --color-text-muted: #999;
-
   /* 배경 / 테두리 */
   --color-bg: #fff;
   --color-bg-soft: #f9f9f9;
   --color-bg-hover: #f5f5f5;
   --color-border: #e0e0e0;
   --color-border-light: #eee;
-
   /* 상태 뱃지 */
   --color-state-protect: #4a90d9; /* 보호중 */
   --color-state-urgent: #e74c3c; /* 긴급 */
   --color-state-done: #27ae60; /* 종료/입양완료 */
-
   /* 타이포 스케일 */
   --font-h1: 1.75rem; /* 28px */
   --font-h2: 1.375rem; /* 22px */
@@ -52,30 +48,25 @@
   --font-body: 1rem; /* 16px */
   --font-sm: 0.875rem; /* 14px */
   --font-xs: 0.75rem; /* 12px */
-
   /* 간격 스케일 */
   --space-xs: 8px;
   --space-sm: 12px;
   --space-md: 20px;
   --space-lg: 40px;
   --space-xl: 70px;
-
   /* 레이아웃 */
   --container-max: 1200px;
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-pill: 20px;
-
   /* 그림자 */
   --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-card: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
-
 /* ==========================================================
                        CSS 공통(global) 초기화
     ==========================================================
  */
-
 *,
 *::before, /*전체선택자만 주면 box-sizing 상속이 안됨 브라우저에 앞(before), 뒤(after)로 (*::*)가상선택자주고 초기화 */
 *::after {
@@ -101,10 +92,15 @@ a {
 /* 전체 폰트 가져오기 (Pretendard: jsdelivr CDN, 미로드 시 시스템 폰트로 폴백) */
 body {
   font-family:
-    "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
-    "Malgun Gothic", "맑은 고딕", system-ui, sans-serif;
+    "Pretendard",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    "맑은 고딕",
+    system-ui,
+    sans-serif;
 }
-
 /* 스크린리더 전용 (시각적으로 숨김, 접근성용 텍스트) */
 .sr-only {
   position: absolute;
@@ -226,7 +222,6 @@ body {
   font-size: 12px;
   color: var(--color-text-muted);
 }
-
 /* ==========================================================
    공통 상태 표시 (로딩 / 빈 결과 / 에러)
    - JS 렌더 함수에서 카드 컨테이너에 삽입해 사용
@@ -242,7 +237,6 @@ body {
 .state-message--error {
   color: var(--color-state-urgent);
 }
-
 /* 스켈레톤 카드 (로딩 중 자리표시) */
 .skeleton-grid {
   display: contents; /* 부모 grid 흐름 그대로 사용 */
@@ -258,12 +252,7 @@ body {
   display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
-  background: linear-gradient(
-    100deg,
-    #eee 30%,
-    #f5f5f5 50%,
-    #eee 70%
-  );
+  background: linear-gradient(100deg, #eee 30%, #f5f5f5 50%, #eee 70%);
   background-size: 200% 100%;
   animation: skeleton-loading 1.2s ease-in-out infinite;
 }
@@ -280,7 +269,6 @@ body {
     animation: none;
   }
 }
-
 /* 토스트 알림 (alert 대체) */
 .toast {
   position: fixed;
@@ -308,7 +296,6 @@ body {
 .toast--error {
   background: rgba(231, 76, 60, 0.95);
 }
-
 /* 섹션 제목 공통 */
 .section-title {
   font-size: var(--font-h2);
@@ -316,7 +303,6 @@ body {
   color: var(--color-text-strong);
   margin-bottom: 16px;
 }
-
 /* 페이지 전체 에러 상태 (상세 페이지 등) */
 .page-error {
   min-height: 50vh;
@@ -333,7 +319,6 @@ body {
   color: var(--color-primary);
   font-weight: 700;
 }
-
 /* ==========================================================
    버튼 시스템 (.btn + 변형)
    페이지별로 제각각이던 버튼을 하나로 통일
@@ -422,7 +407,16 @@ body {
 .btn--pill {
   border-radius: var(--radius-pill);
 }
-
+/* 상태 뱃지 색상 (search / shelter 공용*/
+.badge-blue {
+  background: var(--color-state-protect);
+}
+.badge-red {
+  background: var(--color-state-urgent);
+}
+.badge-green {
+  background: var(--color-state-done);
+}
 /* ==========================================
    메인 페이지 반응형 (1024px or 769px)
    헤더 푸터 공통

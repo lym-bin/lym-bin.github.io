@@ -16,7 +16,6 @@ function showSkeleton(container, count = 8) {
     .map(() => `<li class="skeleton-card" aria-hidden="true"></li>`)
     .join("");
 }
-
 /**
  * 안내 메시지 1줄 렌더 (빈 결과 / 에러 공용)
  * @param {HTMLElement} container
@@ -26,16 +25,12 @@ function showSkeleton(container, count = 8) {
 function showStateMessage(container, message, type = "empty") {
   if (!container) return;
   const cls =
-    type === "error"
-      ? "state-message state-message--error"
-      : "state-message";
+    type === "error" ? "state-message state-message--error" : "state-message";
   container.innerHTML = `<li class="${cls}" role="status">${message}</li>`;
 }
-
 // 이미지 로드 실패 시 대체할 회색 플레이스홀더 (별도 파일 불필요, data URI)
 const PLACEHOLDER_IMG =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='100%25' height='100%25' fill='%23eeeeee'/%3E%3Ctext x='50%25' y='50%25' fill='%23aaaaaa' font-family='sans-serif' font-size='22' text-anchor='middle' dominant-baseline='middle'%3E이미지 준비 중%3C/text%3E%3C/svg%3E";
-
 /**
  * <img> 로드 실패 콜백. 템플릿에 onerror="imgError(this)" 로 연결.
  * @param {HTMLImageElement} el
@@ -91,4 +86,11 @@ function showToast(message, type = "info") {
   box.classList.add("toast--show");
   clearTimeout(_toastTimer);
   _toastTimer = setTimeout(() => box.classList.remove("toast--show"), 2500);
+}
+
+// "20260831" (YYYYMMDD) → "26.08.31" 표시용 변환
+function formatYmd(d) {
+  return d && d.length === 8
+    ? `${d.slice(2, 4)}.${d.slice(4, 6)}.${d.slice(6, 8)}`
+    : d || "";
 }
