@@ -247,10 +247,6 @@
   margin-bottom: 20px;
 }
 /* 더보기 버튼은 공통 .btn .btn--ghost 사용 */
-/*추천 입양 동물 disable 처리(js에서 alert줬지만 dom과부화로 인해 렉걸림*/
-.disabled-tab {
-  opacity: 0.5;
-}
 /*보호소 찾기 필터 영역*/
 .map-section {
   width: 100%;

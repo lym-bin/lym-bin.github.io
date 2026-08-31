@@ -22,7 +22,6 @@ let displayLimit = 12; // 초기 노출 개수 (3열 4줄= 12개)
 // [2] DOM 요소 제어
 // -------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", async () => {
-  // console.log("스크립트 시작점");
   const searchInput = document.getElementById("search-input");
   const searchForm = document.querySelector(".form-container form");
   const countSpan = document.querySelector(".info-space span"); // "전체 n건"
@@ -212,7 +211,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }));
 
     filterAndRender();
-    // console.log("allSearchData length:", allSearchData.length);
   } else {
     showStateMessage(
       searchListContainer,
@@ -245,12 +243,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // -------------------------------------------------------------
   moreBtn?.addEventListener("click", () => {
     displayLimit += 12;
-    // console.log(
-    //   "클릭! displayLimit:",
-    //   displayLimit,
-    //   "currentFilteredData.length:",
-    //   currentFilteredData.length,
-    // );
     renderSearchCards(currentFilteredData);
   });
 
@@ -299,7 +291,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           dateB.localeCompare(dateA) // 최신순
         : dateA.localeCompare(dateB); // 오래된 순
     });
-    // console.log(allSearchData.map((item) => item.noticeDate));
     renderSearchCards(currentFilteredData);
   }
 

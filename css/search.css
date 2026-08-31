@@ -230,7 +230,6 @@
 .news-list-thumb:hover img {
   transform: scale(1.03);
 }
-
 /* ==========================================
    입양가이드 & 팁 영역
    ========================================== */
@@ -281,6 +280,15 @@
   .search-list {
     grid-template-columns: repeat(2, 1fr); /*3열에서 2열*/
     gap: 12px;
+  }
+  .guide-list {
+    grid-template-columns: 1fr;
+  }
+  .guide-list li {
+    border-right: 0;
+  }
+  .guide-list li:last-child {
+    border-bottom: 0;
   }
   .news-list {
     grid-template-columns: 1fr; /*1열*/
