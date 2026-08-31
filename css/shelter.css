@@ -272,9 +272,6 @@
   .list-design {
     grid-template-columns: repeat(3, 1fr); /*5열 -> 3열*/
   }
-  .protect-boho {
-    grid-template-columns: 1fr; /*2열 -> 1열*/
-  }
   .filter-modal-content {
     max-width: 90%; /* 모달이 화면 밖으로 빠져 나가지 않게함*/
   }
@@ -283,6 +280,9 @@
 @media screen and (max-width: 768px) {
   .list-design {
     grid-template-columns: repeat(2, 1fr); /*3열 -> 2열*/
+  }
+  .protect-boho {
+    grid-template-columns: 1fr; /*2열 -> 1열 (모바일에서만)*/
   }
   .protect-boho li a {
     flex-direction: column; /* li안에 a태그 이미지+정보 가로 배치 -> 세로 배치*/
