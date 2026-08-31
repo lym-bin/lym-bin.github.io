@@ -247,60 +247,57 @@ document.addEventListener("DOMContentLoaded", async () => {
   const adopReview = document.getElementById("best-dummy");
   const adopDummy = [
     {
-      info: "초코의 입양 전/입양 후",
-      popfile: "images/dog_1.png",
-      beforefile: "images/dog_2.png",
+      name: "초코",
+      afterImg: "images/dog_2.png",
+      beforeImg: "images/dog_1.png",
     },
     {
-      info: "구름이의 입양 전/입양 후",
-      popfile: "images/dog_3.png",
-      beforefile: "images/dog_4.png",
+      name: "구름",
+      afterImg: "images/dog_4.png",
+      beforeImg: "images/dog_3.png",
     },
     {
-      info: "쵸파의 입양 전/입양 후",
-      popfile: "images/dog_5.png",
-      beforefile: "images/dog_6.png",
+      name: "쵸파",
+      afterImg: "images/dog_6.png",
+      beforeImg: "images/dog_5.png",
     },
     {
-      info: "가을이의 입양 전/입양 후",
-      popfile: "images/cat_1.png",
-      beforefile: "images/cat_2.png",
+      name: "가을",
+      afterImg: "images/cat_2.png",
+      beforeImg: "images/cat_1.png",
     },
   ];
 
   if (adopReview) {
     adopReview.innerHTML = adopDummy
       .map(
-        (review) => `
-      <li>
-      <a href="">
-        <img src="${review.popfile}" alt="${review.info}" data-after="${review.popfile}" data-before="${review.beforefile}" onerror="imgError(this)"/>
-        <span>${review.info}</span>
-      </a>
+        (r) => `
+      <li class="best-card">
+      <div class="best-thumb">
+        <img src="${r.afterImg}" alt="${r.name}" data-after="${r.afterImg}" data-before="${r.beforeImg}" onerror="imgError(this)"/>
+        <span class="best-badge">입양 후</span>
+        </div>
+        <span class="best-name">${r.name}</span>
       </li>
       `,
       )
       .join("");
 
-    // 마우스 호버 이벤트 설정
-    const cards = document.querySelectorAll("#best-dummy li");
-    cards.forEach((card) => {
-      const imgElement = card.querySelector("img");
-      if (!imgElement) return;
+    // 마우스 호버 이벤트 설정 (입양 전/후 이미지 및 배지 전환)
+    adopReview.querySelectorAll(".best-card").forEach((card) => {
+      const img = card.querySelector("img");
+      const badge = card.querySelector(".best-badge");
+      if (!img) return;
 
-      const beforeImage = imgElement.getAttribute("data-before");
-      const afterImage = imgElement.getAttribute("data-after");
-
-      card.addEventListener("mouseover", () => {
-        if (beforeImage && beforeImage !== "undefined") {
-          imgElement.setAttribute("src", beforeImage);
-        }
+      card.addEventListener("mouseenter", () => {
+        img.src = img.dataset.before;
+        badge.textContent = "입양 전";
+        badge.classList.add("is-before");
       });
-
-      card.addEventListener("mouseout", () => {
-        if (afterImage && afterImage !== "undefined") {
-          imgElement.setAttribute("src", afterImage);
-        }
+      card.addEventListener("mouseleave", () => {
+        img.src = img.dataset.after;
+        badge.textContent = "입양 후";
+        badge.classList.remove("is-before");
       });
     });
   }

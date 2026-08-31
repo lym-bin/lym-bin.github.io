@@ -26,7 +26,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 /* aspect-ratio 를 원본 크롭 비율(920:600)과 맞춰서 background-size:cover 여도
-   상하가 잘리지 않고 꽉 차게 함. 배너 높이는 이 사진 높이를 따라감 */
+   상하가 잘리지 않고 n꽉 차게 함. 배너 높이는 이 사진 높이를 따라감 */
 .banner-photo {
   flex: 1 1 58%;
   aspect-ratio: 920 / 600;
@@ -41,7 +41,7 @@
   text-align: center;
   gap: 12px;
   padding: 40px 36px;
-  background-color: #736a25; /* 기존 배너 올리브 톤 (흰 글씨 대비 확보용으로 살짝 어둡게) */
+  background-color: #b5622a;
   color: #fff;
 }
 .banner-eyebrow {
@@ -62,7 +62,7 @@
   padding: 10px 22px;
   border-radius: 999px;
   background: #fff;
-  color: #5f5820;
+  color: #8a3d15;
   font-weight: 700;
   font-size: 14px;
   transition: opacity 0.2s ease;
@@ -222,41 +222,51 @@
   gap: 15px;
   padding: 0;
 }
-.best-cardlist li {
+.best-card {
   background: #fff;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-border-light);
   border-radius: 15px;
   overflow: hidden;
-  transition: transform 0.7s;
-}
-.best-cardlist li:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-.best-cardlist li a {
-  display: flex;
-  flex-direction: column;
   padding: 11px;
   text-align: center;
-  color: #333;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
-.best-cardlist li img {
+.best-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card);
+}
+.best-thumb {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.best-thumb img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 10px;
+  display: block;
 }
-.best-cardlist li:hover img {
-  filter: brightness(90%); /* 살짝 어둡게 */
+.best-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 3px 9px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-state-done); /* 입양 후 =초록*/
 }
-.best-cardlist li span {
+.best-badge.is-before {
+  background: var(--color-text-muted); /*입양 전 = 회색*/
+}
+.best-name {
   font-size: 16px;
-  margin-bottom: 5px;
-}
-.best-cardlist li span:nth-of-type(1) {
-  font-weight: bold;
-  color: #000;
+  font-weight: 700;
+  color: var(--color-text-strong);
 }
 /* ==========================================
    포인핸드 소식 슬라이더
@@ -326,7 +336,7 @@
   transform: translateY(-50%) scale(1.08);
 }
 .news-prev {
-  left: 14p;
+  left: 14px;
 }
 .news-next {
   right: 14px;
