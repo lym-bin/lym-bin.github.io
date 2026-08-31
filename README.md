@@ -80,7 +80,7 @@ localStorage 댓글을 `innerHTML` 템플릿으로 렌더하고 있어 `<img one
 
 ## 배포
 
-- **상태**: 배포 예정 (현재 로컬 환경 실행)
+- **URL**: https://lym-bin.github.io (GitHub Pages)
 
 ---
 
