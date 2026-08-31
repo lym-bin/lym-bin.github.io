@@ -142,6 +142,45 @@ body {
   color: var(--color-primary);
   font-weight: 700;
 }
+/* 로그인/로그아웃 버튼 — nav 텍스트 링크와 구분되는 알약 버튼 */
+.nav-auth {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid var(--color-primary);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.nav-auth:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+/* 로그인 상태: 채움 + 초록 점으로 '접속 중' 명시 */
+.nav-auth.is-logged-in {
+  border-color: transparent;
+  background-color: var(--color-bg-soft);
+  color: var(--color-text-strong);
+  font-weight: 500;
+}
+.nav-auth.is-logged-in::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-state-done);
+  flex-shrink: 0;
+}
+.nav-auth.is-logged-in:hover {
+  background-color: var(--color-border-light);
+  color: var(--color-text-strong);
+}
 /* ==========================================
    메인 전체 컨테이너 배치
    ========================================== */
@@ -157,6 +196,7 @@ body {
 /* 메뉴 가로 나열 */
 .main-nav {
   display: flex;
+  align-items: center; /* 텍스트 링크와 로그인 알약 버튼 높이 맞춤 */
   gap: 30px; /* 메뉴 사이 간격 */
 }
 /* ==========================================

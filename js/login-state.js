@@ -15,8 +15,9 @@ const loginNav = document.querySelector("#nav-login");
 // !==는 불일치 연산자로 타입과(둘 다) 값이 같아야 true 정리하면 savedUsername이 null 아니어야하고
 // login-nav가 존재(값이) 있어야 true
 if (savedUsername !== null && loginNav) {
-  // 로그인 버튼을 innerText로 내부를 사용자 아이디[로그아웃]으로 변경
-  loginNav.innerText = `${savedUsername}님 환영합니다! [로그아웃]`;
+  // 로그인 버튼을 "아이디 · 로그아웃" 문구로 바꾸고, 상태 클래스를 부여
+  loginNav.textContent = `${savedUsername}님 · 로그아웃`;
+  loginNav.classList.add("is-logged-in");
   // 로그아웃 버튼으로 변경했기 때문에 링크 이동을 막아줌
   loginNav.href = "#"; // 링크 이동막기
   // [4] 로그아웃 클릭 이벤트
