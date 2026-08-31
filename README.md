@@ -18,7 +18,7 @@
 | **detail** | 공고번호(`?num=`) 기반 상세 조회 — sessionStorage 캐시 우선, 없으면 목록 조회로 폴백 · 이미지 갤러리 · 성격/입양 절차 · 댓글(localStorage) |
 | **shelter** | 오늘의 추천 입양 동물 · 전체 보호동물 2열 그리드 · 조건 필터 모달 · 카카오맵 보호소 마커(주소→좌표 지오코딩) |
 | **news** | 캠페인·이벤트 소식 (search 소식 카드에서 진입) |
-| **login** | 폼 유효성 검사(인라인 오류) · localStorage 세션 유지 (프론트 전용 데모) |
+| **login / signup** | 회원가입(ID 중복·비밀번호 8자 규칙·확인 일치 검증) · 로그인(가입 계정 대조) · 체험 계정 즉시 로그인 · 폼 인라인 오류 표시 · localStorage 세션 유지 (프론트 전용 데모) |
 
 ## 아키텍처
 
@@ -35,7 +35,7 @@
  ┣ 📂 css        # common(토큰·버튼·공통) + 페이지별
  ┣ 📂 js         # config / api / ui + 페이지별 스크립트
  ┣ 📂 images
- ┣ 📄 index.html / search.html / detail.html / shelter.html / news.html / login.html
+ ┣ 📄 index.html / search.html / detail.html / shelter.html / news.html / login.html / signup.html
  ┣ 📄 .gitattributes
  ┗ 📄 .gitignore
 ```
@@ -66,12 +66,16 @@
 localStorage 댓글을 `innerHTML` 템플릿으로 렌더하고 있어 `<img onerror>` 같은 입력이 실행될 수 있었습니다.
 → `createElement` + `textContent` 로 변경해 사용자 입력이 항상 텍스트로만 그려지도록 했습니다.
 
+### 7. 백엔드 없는 회원가입/로그인
+서버가 없어 회원 정보를 `localStorage`(`pawinhandUsers`)에 저장합니다. 비밀번호는 데모 목적상 평문으로 두었습니다 — 클라이언트에만 저장되는 값이라 해시를 걸어도 보안상 의미가 없고, 오히려 "서버·HTTPS·단방향 해시가 전제"라는 점을 분명히 하기 위한 선택입니다.
+→ 가입 시 ID 중복/비밀번호 규칙을 검증하고, 로그인은 저장된 계정과 대조합니다. 실제 인증 플로우(토큰 발급·세션)는 재현하지 않았습니다.
+
 ## 기술 스택
 
 - **Frontend**: HTML5, CSS3, Vanilla JavaScript (ES6+)
 - **Styling**: CSS Custom Properties, Flexbox, Grid, 반응형(모바일·태블릿·데스크톱)
 - **API**: 공공데이터포털 유기동물 조회 Open API, 카카오 지도 API(geocoding)
-- **저장소**: localStorage(찜 / 댓글 / 로그인 세션), sessionStorage(동물 데이터 캐시)
+- **저장소**: localStorage(찜 / 댓글 / 로그인 세션 / 회원 정보), sessionStorage(동물 데이터 캐시)
 - **환경**: Git, GitHub, GitHub Pages
 
 ## 배포
