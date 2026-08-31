@@ -94,3 +94,16 @@ function formatYmd(d) {
     ? `${d.slice(2, 4)}.${d.slice(4, 6)}.${d.slice(6, 8)}`
     : d || "";
 }
+// 모바일 헤더 햄버거 메뉴 토글 (전 페이지 공통)
+(function initNavToggle() {
+  const toggle = document.querySelector(".nav-toggle");
+  const nav = document.querySelector(".main-nav");
+  if (!toggle || !nav) return;
+
+  toggle.addEventListener("click", () => {
+    const open = nav.classList.toggle("is-open");
+    toggle.classList.toggle("is-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
+  });
+})();

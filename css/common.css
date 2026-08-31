@@ -199,6 +199,38 @@ body {
   align-items: center; /* 텍스트 링크와 로그인 알약 버튼 높이 맞춤 */
   gap: 30px; /* 메뉴 사이 간격 */
 }
+/*모바일 헤더 햄버거 버튼 (기본 숨김, 1024에서 노출*/
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-text-strong);
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+.nav-toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
 /* ==========================================
    푸터 레이아웃
    ========================================== */
@@ -464,21 +496,45 @@ body {
 /*테블릿 화면 (너비 1024 이하일때)*/
 @media screen and (max-width: 1024px) {
   .main-container {
-    flex-direction: column;
-    gap: 12px;
-    padding: 12px 15px;
-    align-items: center;
-  }
-  .main-nav {
-    display: flex;
-    gap: 15px;
-    font-size: 14px;
     flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 10px;
+    padding: 12px 15px;
   }
   .main-logo img {
     width: 140px;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+  /* nav를 로고 버튼 아래 줄로 내려서 폭 전체 사용*/
+  .main-container nav {
+    order: 3;
+    flex-basis: 100%;
+  }
+  /* nav 목록을 헤더 아래로 떨어지는 패널로 (닫혀 있으면 공간 차지 안 함) */
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin-top: 10px;
+    border-top: 1px solid var(--color-border-light);
+  }
+  .main-nav.is-open {
+    display: flex;
+  }
+  .main-nav li {
+    padding: 12px 4px;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  .main-nav li:last-child {
+    border-bottom: 0;
+    padding: 16px 4px 4px;
+  }
+  .main-nav .nav-auth {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0;
+    padding: 12px;
   }
 }
 /*모바일 화면 (너비 768 이하 일떄)*/
