@@ -106,6 +106,7 @@ body {
 /* 스크린리더 전용 (시각적으로 숨김, 접근성용 텍스트) */
 .sr-only {
   /* abosolute를 줘서 공중에 띄움(요소에서 뻄)*/
+  /* display:none 주면 될줄 알았지만 스크린리더도 무시해서 1px로 찌그러뜨리고 잘라냄*/
   position: absolute;
   width: 1px;
   height: 1px;
@@ -192,7 +193,7 @@ body {
    메인 전체 컨테이너 배치
    ========================================== */
 .main-container {
-  max-width: 1200px;
+  max-width: var(--container-max);
   margin: 0 auto; /* 가운데 정렬 */
   display: flex; /* 로고와 nav를 가로로 배치 */
   justify-content: space-between; /* 로고는 왼쪽, 메뉴는 오른쪽 끝으로 */
@@ -222,7 +223,7 @@ body {
 .nav-toggle span {
   display: block;
   width: 100%;
-  height: 2px;
+  height: 2px; /* 막대 3개*/
   border-radius: 2px;
   background: var(--color-text-strong);
   transition:
@@ -260,7 +261,7 @@ body {
   justify-content: space-between;
   /* 가로-> flex-start: 위 정렬, end:아래 정렬*/
   align-items: flex-start;
-  max-width: 1200px;
+  max-width: var(--container-max);
   margin: 0 auto;
   padding: 20px 20px 0;
   border-top: 1px solid var(--color-border);
@@ -296,7 +297,7 @@ body {
 }
 /* 하단 영역 */
 .footer-bottom {
-  max-width: 1200px;
+  max-width: var(--container-max);
   width: 100%;
   margin: 15px auto 0 auto;
   padding: 12px 20px 0;
@@ -311,7 +312,7 @@ body {
    - JS 렌더 함수에서 카드 컨테이너에 삽입해 사용
    ========================================================== */
 .state-message {
-  grid-column: 1 / -1; /* grid 컨테이너 안에서 한 줄 전체 차지 */
+  grid-column: 1 / -1; /* grid 컨테이너 안에서 가로 한줄 전체 차지 */
   width: 100%;
   text-align: center;
   padding: 48px 20px;
@@ -333,7 +334,12 @@ body {
   display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
-  background: linear-gradient(100deg, #eee 30%, #f5f5f5 50%, #eee 70%);
+  background: linear-gradient(
+    100deg,
+    var(--color-border-light) 30%,
+    var(--color-bg-hover) 50%,
+    var(--color-border-light) 70%
+  );
   background-size: 200% 100%;
   animation: skeleton-loading 1.2s ease-in-out infinite;
 }
@@ -406,6 +412,7 @@ body {
    버튼 시스템 (.btn + 변형)
    페이지별로 제각각이던 버튼을 하나로 통일
    ========================================================== */
+/* 기본 뼈대 btn*/
 .btn {
   display: inline-flex;
   align-items: center;
@@ -519,6 +526,7 @@ body {
   /* nav를 로고 버튼 아래 줄로 내려서 폭 전체 사용*/
   .main-container nav {
     order: 3;
+    /* 요소하나만 줄바꿈*/
     flex-basis: 100%;
   }
   /* nav 목록을 헤더 아래로 떨어지는 패널로 (닫혀 있으면 공간 차지 안 함) */

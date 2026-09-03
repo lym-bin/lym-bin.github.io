@@ -13,9 +13,9 @@ body {
   max-width: 400px;
   margin: 0 auto;
   padding: 30px;
-  background-color: white;
+  background-color: var(--color-bg);
   border-radius: 12px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--color-border);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
 }
 /* 아이디 비밀번호 폼 */
@@ -54,7 +54,7 @@ input[type="password"] {
   gap: 15px;
 }
 .links a {
-  color: #666;
+  color: var(--color-text-sub);
   font-size: var(--font-sm);
 }
 /* 로고 이미지 위치 조정*/
@@ -75,7 +75,7 @@ input[type="password"] {
 /* 푸터 영역 */
 .footer_wrapper {
   text-align: center;
-  color: #666;
+  color: var(--color-text-sub);
   font-size: var(--font-sm);
 }
 .footer_bottom img {
@@ -89,7 +89,7 @@ input[type="password"] {
 }
 .footer_inner a {
   margin: 0 20px;
-  color: #666;
+  color: var(--color-text-sub);
 }
 /* 체험 계정으로 로그인 버튼 (스타일은 공통 .btn .btn--ghost) */
 #demo-login-btn {

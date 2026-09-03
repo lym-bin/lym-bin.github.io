@@ -7,6 +7,7 @@
       name="description"
       content="포인핸드 리뉴얼 - 공공데이터 기반 유기동물 입양 정보 플랫폼"
     />
+    <!-- crossorigin: 폰트파일 fetch가 항상 CORS(익명,쿠키,인증번호 안보냄)라서 작성 -->
     <link
       rel="stylesheet"
       as="style"
@@ -43,11 +44,13 @@
           aria-expanded="false"
           aria-controls="main-nav"
         >
+          <!--햄버거 막대3줄 css로 height 조절-->
           <span></span><span></span><span></span>
         </button>
       </div>
     </header>
     <main>
+      <!-- sr-only로 view에서 가리고 스크린리더상 읽히게-->
       <h1 class="sr-only">포인핸드 - 유기동물 입양 정보 플랫폼</h1>
       <!-- 메인 section(기존 통계를 상단에 배치했으나 수정)-->
       <section class="banner-container">
@@ -69,6 +72,8 @@
         <ul class="quick-list">
           <li>
             <a href="search.html">
+              <!-- 바로가기 아이콘-->
+              <!-- stroke: 글자색상속, fill,stroke: 선,스타일 아이콘-->
               <svg
                 viewBox="0 0 24 24"
                 fill="none"

@@ -1,5 +1,5 @@
 /* ==========================================
-   상단 메인 컨테이너 
+   동물 상세(detail) 페이지
    ========================================== */
 /*상세 페이지 메인 전체 컨테이너*/
 .shelter-detail {
@@ -51,7 +51,7 @@
   gap: 20px;
 }
 .info-details article {
-  background: #fff;
+  background: var(--color-bg);
   padding: 24px;
   border: 1px solid var(--color-border-light);
   border-radius: 12px;
@@ -63,12 +63,13 @@
   margin-bottom: 16px;
   color: var(--color-text-strong);
 }
-
 /* 성격/건강 점수 (5점 만점 도트) */
 .trait-list {
-  list-style: none;
   display: grid;
+  /* repeat(2....) 열 2개, mixmax(0,260px) 0~260사이 공간이 많으면 260에서 멈추고 부족하면 0까지 줄어듬*/
+  /* 보통 grid에서 1fr줬었는데 컨테이너가 너무 폭이 넓어져서 제한줌*/
   grid-template-columns: repeat(2, minmax(0, 260px));
+  /* 열들을 왼쪽에 몰아붙임 여백 오른쪽*/
   justify-content: start;
   gap: 12px 40px;
   padding: 0;
@@ -99,9 +100,7 @@
   font-size: var(--font-xs);
   color: var(--color-text-muted);
 }
-
 .health-status ul {
-  list-style: none;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
@@ -137,7 +136,6 @@
    ========================================== */
 .steps {
   display: flex;
-  list-style: none;
   padding: 8px 0 0;
 }
 .steps li {
@@ -147,7 +145,7 @@
   font-size: var(--font-xs);
   color: var(--color-text-sub);
 }
-/* 앞 단계와 잇는 연결선 */
+/* 요소내용의 앞(before)가상요소 단계와 잇는 연결선 */
 .steps li::before {
   content: "";
   position: absolute;
@@ -162,6 +160,7 @@
   display: none;
 }
 .step-num {
+  /* 위치 이동없이 z-index설정을 줘야해서 relative 속성추가*/
   position: relative;
   z-index: 1;
   display: flex;
@@ -185,7 +184,7 @@
    ========================================== */
 .comments-section {
   margin-top: 40px;
-  border-top: 2px solid #eee;
+  border-top: 2px solid var(--color-border-light);
   padding-top: 20px;
 }
 .comment-item {
@@ -207,7 +206,9 @@
   font-size: var(--font-sm);
   line-height: 1.55;
   color: var(--color-text-sub);
+  /* 줄바꿈 공백 유지*/
   white-space: pre-wrap;
+  /* 긴 텍스트 강제로 잘라서 다음줄로 */
   word-break: break-word;
 }
 textarea {

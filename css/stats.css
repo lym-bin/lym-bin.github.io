@@ -1,5 +1,8 @@
-/* stats.css — 유기동물 통계 페이지
-   폰트 크기는 common.css 토큰만 사용: --font-h1 / --font-h3 / --font-sm / --font-xs */
+/* ==========================================
+    유기동물 통계 (stats) 페이지
+    차르를 순수 CSS로 그리는게 핵심인 페이지
+   ========================================== */
+/*  폰트 크기는 common.css 토큰만 사용: --font-h1 / --font-h3 / --font-sm / --font-xs */
 
 .stats-page {
   max-width: 900px;
@@ -48,10 +51,10 @@
   text-align: center;
 }
 .sum-tile--good {
-  --sum-color: #4a90d9;
+  --sum-color: var(--color-state-protect);
 }
 .sum-tile--bad {
-  --sum-color: #e74c3c;
+  --sum-color: var(--color-state-urgent);
 }
 .sum-label {
   font-size: var(--font-sm);
@@ -78,6 +81,7 @@
 .chart-block {
   margin-bottom: 40px;
 }
+/* 구분선 넣기 인접 형태 결합자(A + B (A바로 뒤에 오는 chart-block이 있는 chart-block만 선택))*/
 .chart-block + .chart-block {
   padding-top: 40px;
   border-top: 1px solid var(--color-border-light);
@@ -103,10 +107,10 @@
   max-width: 1000px;
   margin: 0 auto;
   padding: 0;
-  list-style: none;
 }
 .bar-row {
   display: grid;
+  /* 라벨: 최소 72px, 최대는 콘텐트 길이만큼, 1fr, 막대 남는공간 전부*/
   grid-template-columns: minmax(72px, max-content) 1fr auto;
   align-items: center;
   gap: 12px;
@@ -127,11 +131,11 @@
   display: block;
   height: 100%;
   border-radius: 0 4px 4px 0;
-  background: #4a90d9;
+  background: var(--color-state-protect);
   transition: width 0.7s ease;
 }
 .bar-fill.is-eol {
-  background: #e74c3c;
+  background: var(--color-state-urgent);
 }
 .bar-row:hover .bar-fill {
   filter: brightness(0.92);
@@ -142,7 +146,6 @@
   white-space: nowrap;
   color: var(--color-text-strong);
 }
-
 /* 표 보기 (접근성) — 알약 토글 + 카드형 표 */
 .chart-table-toggle {
   margin-top: 18px;
@@ -184,7 +187,6 @@
   background: var(--color-bg-hover);
   color: var(--color-text-strong);
 }
-
 .chart-table-toggle table {
   display: inline-table;
   width: 100%;

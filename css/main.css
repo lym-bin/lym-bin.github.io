@@ -1,4 +1,7 @@
 /* ==========================================
+   메인(main) 페이지
+   ========================================== */
+/* ==========================================
    섹션 제목 공통 (타이포 스케일 적용)
    ========================================== */
 .quick-title,
@@ -19,7 +22,7 @@
    기존엔 문구가 이미지에 박혀 있어 모바일에서 잘렸음 → 실제 HTML 텍스트로 분리 */
 .banner-container {
   display: flex;
-  max-width: 1200px;
+  max-width: var(--container-max);
   margin: 0 auto 70px auto;
   border-radius: 20px;
   overflow: hidden;
@@ -28,6 +31,7 @@
 /* aspect-ratio 를 원본 크롭 비율(920:600)과 맞춰서 background-size:cover 여도
    상하가 잘리지 않고 n꽉 차게 함. 배너 높이는 이 사진 높이를 따라감 */
 .banner-photo {
+  /*grow(1): 남는 공간 나눠 가질 비율, shrink(1): 부족할 떄 줄어들 비율, basis(58%): 기본크기*/
   flex: 1 1 58%;
   aspect-ratio: 920 / 600;
   background: url("../images/banner-left.jpg") center / cover no-repeat;
@@ -62,7 +66,7 @@
   margin-top: 8px;
   padding: 10px 22px;
   border-radius: 999px;
-  background: #fff;
+  background: var(--color-bg);
   color: #8a3d15;
   font-weight: 700;
   font-size: var(--font-sm);
@@ -75,7 +79,7 @@
    퀵 메뉴바
    ========================================== */
 .quick-menu {
-  max-width: 1200px;
+  max-width: var(--container-max);
   padding: 0 20px;
   margin: 0 auto 70px auto; /* 섹션 여백 확보 */
 }
@@ -128,7 +132,7 @@
    오늘의 추천동물
    ========================================== */
 .today-animal {
-  max-width: 1200px;
+  max-width: var(--container-max);
   margin: 0 auto 70px auto; /* 섹션 간격 넓게 수정 */
   padding: 0 20px;
   text-align: left;
@@ -166,15 +170,15 @@
 }
 /* 개별 카드 디자인 */
 .card-list li {
-  border: 1px solid #eee;
+  border: 1px solid var(--color-border-light);
   border-radius: 15px; /* 모서리 둥글게 */
   overflow: hidden;
   transition: transform 0.3s; /* 마우스 올렸을 때 애니메이션 */
-  background: #fff;
+  background: var(--color-bg);
 }
 .card-list li:hover {
   transform: translateY(-5px); /* 마우스 올리면 살짝 위로 이동 */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-card);
 }
 /* 카드 내부 링크 및 텍스트 정렬 */
 .card-list li a {
@@ -182,7 +186,7 @@
   flex-direction: column; /* 세로 정렬 */
   padding: 11px;
   text-align: center;
-  color: #333;
+  color: var(--color-text);
 }
 .card-list li img {
   width: 100%; /* 세트로 사용 가로는 부모 너비에 맞춤 */
@@ -208,8 +212,8 @@
    베스트 입양후기 영역
    ========================================== */
 .best-animal {
-  max-width: 1200px;
-  margin: 0 auto 70px auto; /* 섹션 간격 넓게 수정 */
+  max-width: var(--container-max);
+  margin: 0 auto 70px; /* 섹션 간격 넓게 수정 */
   padding: 0 20px;
   text-align: left;
 }
@@ -227,7 +231,7 @@
   padding: 0;
 }
 .best-card {
-  background: #fff;
+  background: var(--color-bg);
   border: 1px solid var(--color-border-light);
   border-radius: 15px;
   overflow: hidden;
@@ -242,6 +246,7 @@
   box-shadow: var(--shadow-card);
 }
 .best-thumb {
+  /*badge가 absolute 가장 가까운 조상기준으로 배치 thumb에 relative줘서 badge기준점으로 고정*/
   position: relative;
   border-radius: 10px;
   overflow: hidden;
@@ -276,8 +281,8 @@
    포인핸드 소식 슬라이더
    ========================================== */
 .ph-news {
-  max-width: 1200px;
-  margin: 0 auto 70px auto; /* 섹션 간격 넓게 수정 */
+  max-width: var(--container-max);
+  margin: 0 auto 70px; /* 섹션 간격 넓게 수정 */
   padding: 0 20px;
   text-align: left;
 }
@@ -289,13 +294,14 @@
 }
 .news-slider {
   position: relative;
-  max-width: 1200px;
+  max-width: var(--container-max);
   margin: 0 auto;
   border-radius: var(--radius-md);
-  overflow: hidden;
+  overflow: hidden; /* 100%로 한 장만 보이게 (창문 역할) */
 }
 .news-track {
   display: flex;
+  /* 이동 시 애니메이션*/
   transition: transform 0.4s ease;
 }
 .news-slide {
@@ -307,7 +313,7 @@
   height: auto;
   display: block;
 }
-/* banner_v9만 하단에 파란줄같은 버그가 있음(v7은 문제x)*/
+/* banner_v9만 하단에 파란줄 버그가 있음 임시방편 clip(v7은 문제x)*/
 .news-slide.news-slide--clip img {
   clip-path: inset(0 0 3px 0);
 }
@@ -336,7 +342,7 @@
   height: 20px;
 }
 .news-nav:hover {
-  background: #fff;
+  background: var(--color-bg);
   transform: translateY(-50%) scale(1.08);
 }
 .news-prev {
@@ -349,8 +355,8 @@
    실종/제보 동물
    ========================================== */
 .missing-report {
-  max-width: 1200px;
-  margin: 0 auto 70px auto; /* 섹션 간격 넓게 수정 */
+  max-width: var(--container-max);
+  margin: 0 auto 70px; /* 섹션 간격 넓게 수정 */
   padding: 0 20px;
   text-align: left;
 }
@@ -373,22 +379,22 @@
 }
 /* 개별 카드 디자인 */
 .miss-list li {
-  background: #fff;
-  border: 1px solid #eee;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-light);
   border-radius: 15px;
   overflow: hidden;
   transition: transform 0.3s;
 }
 .miss-list li:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-card);
 }
 .miss-list li a {
   display: flex;
   flex-direction: column;
   padding: 11px;
   text-align: center;
-  color: #333;
+  color: var(--color-text);
   cursor: default;
 }
 /* 이미지를 감싸는 영역 */
@@ -406,6 +412,8 @@
   object-fit: cover;
 }
 /* 사진 위에 얹어질 실종/제보 뱃지 스타일 */
+/* .카드 { position: relative; }  /* 자리 그대로, 기준점만 제공 */
+/*.뱃지 { position: absolute; top: 8px; left: 8px; }  /* 부모 모서리에 콕 */
 .miss-img-wrap .badge {
   position: absolute;
   top: 10px;
@@ -428,11 +436,11 @@
    기부 챌린지 영역
    ========================================== */
 .donation-challenge {
-  max-width: 1200px;
+  max-width: var(--container-max);
   width: 100%;
-  margin: 0 auto 90px auto; /* 마지막 섹션은 통계 바 위에 걸치지 않도록 더 넉넉하게 */
+  margin: 0 auto 90px; /* 마지막 섹션은 통계 바 위에 걸치지 않도록 더 넉넉하게 */
   padding: 0 20px;
-  background-color: #ffffff;
+  background-color: var(--color-bg);
 }
 .donation-header {
   display: flex;
@@ -454,11 +462,11 @@
 }
 .donation-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-card);
 }
 .donation-card img {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
 }
 .donation-info {
@@ -474,9 +482,10 @@
   margin-bottom: 12px;
 }
 .progress-bar {
+  /* 트랙 */
   width: 100%;
   height: 8px;
-  background: #eee;
+  background: var(--color-border-light);
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 8px;
@@ -490,7 +499,7 @@
   display: flex;
   justify-content: space-between;
   font-size: var(--font-sm);
-  color: #666;
+  color: var(--color-text-sub);
 }
 .donation-meta .percent {
   font-weight: 700;
@@ -501,8 +510,8 @@
    ========================================== */
 .stats-section {
   position: relative;
-  max-width: 1200px;
-  margin: 0 auto 70px auto;
+  max-width: var(--container-max);
+  margin: 0 auto 70px;
   padding: 28px;
   border: 1px solid var(--color-border-light);
   border-radius: 16px;
@@ -514,6 +523,7 @@
 }
 .stats-section__link {
   position: absolute;
+  /* 상 우 하 좌 모든 방향 0 꽉 채움*/
   inset: 0;
   border-radius: 16px;
 }
@@ -539,6 +549,7 @@
   color: var(--color-text-sub);
 }
 /* 핵심 수치 타일 3개 */
+/*스코프 변수 + 폴백*/
 .stats-tiles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -552,6 +563,8 @@
   padding: 18px 20px;
   background: var(--color-bg);
   border: 1px solid var(--color-border-light);
+  /* var(--tile-color) 폴백 첫 번째 var()가 없으면 두번쨰로 넘김*/
+  /* js로치면 삼항연산자 const color = tileColor ? tileColor : colorBorder*/
   border-top: 3px solid var(--tile-color, var(--color-border));
   border-radius: 12px;
 }
@@ -572,13 +585,13 @@
   color: var(--color-text-sub);
 }
 .stat-care {
-  --tile-color: #28a745;
+  --tile-color: #28a745; /* 이 카드만 초록*/
 }
 .stat-adopt {
-  --tile-color: #007bff;
+  --tile-color: #007bff; /* 이 카드만 파랑*/
 }
 .stat-eol {
-  --tile-color: #fd7e14;
+  --tile-color: #fd7e14; /* 이 카드만 주황*/
 }
 /* 보호 종료 결과 스택 바 */
 .stats-breakdown-title {
@@ -605,7 +618,6 @@
   gap: 8px 18px;
   margin-top: 12px;
   padding: 0;
-  list-style: none;
 }
 .stats-legend li {
   display: flex;

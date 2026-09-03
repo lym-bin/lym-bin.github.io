@@ -1,3 +1,6 @@
+/* ==========================================
+   동물 검색(search) 페이지
+   ========================================== */
 /* .sr-only, 버튼(.btn*) 은 common.css 에서 공통 정의 */
 
 /* ==========================================
@@ -5,7 +8,7 @@
    ========================================== */
 .search-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -58,7 +61,7 @@
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  background: #fff;
+  background: var(--color-bg);
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 14px;
@@ -67,7 +70,7 @@
   gap: 10px;
   z-index: 10;
   min-width: 160px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-soft);
 }
 .filter-panel[hidden] {
   display: none;
@@ -94,7 +97,7 @@
   gap: 10px;
   margin: 15px 0;
   font-size: var(--font-sm);
-  color: #666;
+  color: var(--color-text-sub);
 }
 .info-action {
   display: flex;
@@ -130,7 +133,7 @@
 .search-list li a img {
   width: 100%;
   aspect-ratio: 1 / 1; /* 정사각형 카드 이미지 */
-  object-fit: cover;
+  object-fit: cover; /* 꽉 채우고 넘치면 cut*/
   display: block;
 }
 /* 이미지 아래 정보 영역 */
@@ -236,7 +239,7 @@
 .guide-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-border-light);
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 24px;
@@ -248,14 +251,14 @@
   display: flex;
   justify-content: space-between; /* 제목-부가텍스트 양끝 배치 */
   align-items: center;
-  border-bottom: 1px solid #eee;
-  border-right: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border-light);
+  border-right: 1px solid var(--color-border-light);
   padding: 20px;
 }
 /* 가이드 항목 오른쪽 부가 텍스트 (많이 찾아요, 궁금해요 등) */
 .guide-tag {
   font-size: var(--font-xs);
-  color: #999;
+  color: var(--color-text-muted);
 }
 /* ==========================================
    찜하기 버튼
