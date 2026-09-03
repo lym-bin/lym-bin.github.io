@@ -11,7 +11,7 @@
 .protect-item {
   display: flex;
   gap: 4px;
-  font-size: 16px;
+  font-size: var(--font-body);
   margin-bottom: 24px;
   list-style: none;
   padding: 0;
@@ -95,7 +95,7 @@
 }
 /* 닫기 버튼: 공통 .btn .btn--text, 크기만 키움 */
 .filter-modal-content .close-btn {
-  font-size: 18px;
+  font-size: var(--font-h3);
 }
 /*필터가 보여졌을 때 상태*/
 .filter-event.show {
@@ -148,7 +148,7 @@
   background-color: #eee;
 }
 .rec-species {
-  font-size: 14px;
+  font-size: var(--font-sm);
   font-weight: 600;
   color: var(--color-text);
   white-space: nowrap;
@@ -157,7 +157,7 @@
 }
 .rec-loc {
   margin-top: 2px;
-  font-size: 12px;
+  font-size: var(--font-xs);
   color: var(--color-text-sub);
   white-space: nowrap;
   overflow: hidden;
@@ -216,7 +216,7 @@
   margin-bottom: 10px;
 }
 .badge {
-  font-size: 12px;
+  font-size: var(--font-xs);
   padding: 2px 6px;
   border-radius: 4px;
   color: #fff; /* 상태 뱃지: (.badge-blue등) + 흰 텍스트*/
@@ -229,7 +229,7 @@
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 4px 15px;
-  font-size: 14px;
+  font-size: var(--font-sm);
   width: 100%;
   margin: 0;
 }

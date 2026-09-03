@@ -27,7 +27,7 @@
 .form-design {
   flex: 1; /* 버튼 자리 빼고 남는 공간 다 채움 */
   padding: 10px 14px;
-  font-size: 16px;
+  font-size: var(--font-body);
   border: 1px solid var(--color-border);
   border-radius: 6px;
 }
@@ -44,7 +44,7 @@
 }
 /* 필터 버튼 옆 드롭다운 화살표 */
 .arrow {
-  font-size: 10px;
+  font-size: var(--font-xs);
   margin-left: 4px;
 }
 .reset-btn {
@@ -76,7 +76,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
+  font-size: var(--font-sm);
   cursor: pointer;
 }
 .filter-panel-actions {
@@ -93,7 +93,7 @@
   flex-wrap: wrap;
   gap: 10px;
   margin: 15px 0;
-  font-size: 14px;
+  font-size: var(--font-sm);
   color: #666;
 }
 .info-action {
@@ -138,7 +138,7 @@
   padding: 12px 12px 14px;
 }
 .card-species {
-  font-size: 14px;
+  font-size: var(--font-sm);
   font-weight: 700;
   color: var(--color-text);
   white-space: nowrap;
@@ -147,7 +147,7 @@
 }
 .card-meta {
   margin-top: 4px;
-  font-size: 12px;
+  font-size: var(--font-xs);
   color: var(--color-text-sub);
   white-space: nowrap;
   overflow: hidden;
@@ -160,7 +160,7 @@
   left: 8px;
   padding: 4px 10px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: var(--font-xs);
   color: #fff;
 }
 /* 카드 우상단 하트(찜하기) 버튼 */
@@ -174,7 +174,7 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-  font-size: 14px;
+  font-size: var(--font-sm);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -254,7 +254,7 @@
 }
 /* 가이드 항목 오른쪽 부가 텍스트 (많이 찾아요, 궁금해요 등) */
 .guide-tag {
-  font-size: 13px;
+  font-size: var(--font-xs);
   color: #999;
 }
 /* ==========================================

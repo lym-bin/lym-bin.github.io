@@ -16,11 +16,12 @@
  */
 
 /* ==========================================================
-                       디자인 토큰 (CSS Custom Properties)
+               디자인 토큰 (CSS Custom Properties)
    - 색상/간격/모서리/그림자를 한 곳에서 관리
    - 값 변경 시 전체 페이지에 일괄 반영
    ==========================================================
  */
+/*변수명 --분류-역할-변형 케밥케이스 */
 :root {
   /* 브랜드 */
   --color-primary: #ff9900;
@@ -42,6 +43,7 @@
   --color-state-urgent: #e74c3c; /* 긴급 */
   --color-state-done: #27ae60; /* 종료/입양완료 */
   /* 타이포 스케일 */
+  --font-hero: 2rem; /* 32px - 배너 등 히어로 제목 */
   --font-h1: 1.75rem; /* 28px */
   --font-h2: 1.375rem; /* 22px */
   --font-h3: 1.125rem; /* 18px */
@@ -103,11 +105,13 @@ body {
 }
 /* 스크린리더 전용 (시각적으로 숨김, 접근성용 텍스트) */
 .sr-only {
+  /* abosolute를 줘서 공중에 띄움(요소에서 뻄)*/
   position: absolute;
   width: 1px;
   height: 1px;
   padding: 0;
   margin: -1px;
+  /*요소 박스 잘라냄*/
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
@@ -144,15 +148,17 @@ body {
 }
 /* 로그인/로그아웃 버튼 — nav 텍스트 링크와 구분되는 알약 버튼 */
 .nav-auth {
+  /*자식은 flex로 배치 + 컨테이너는 inline처럼*/
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 6px 14px;
   border: 1px solid var(--color-primary);
   border-radius: 999px;
-  font-size: 14px;
+  font-size: var(--font-sm);
   font-weight: 600;
   color: var(--color-primary);
+  /* 한 줄 유지*/
   white-space: nowrap;
   transition:
     background-color 0.2s ease,
@@ -169,6 +175,7 @@ body {
   color: var(--color-text-strong);
   font-weight: 500;
 }
+/* 초록 점 영역*/
 .nav-auth.is-logged-in::before {
   content: "";
   width: 7px;
@@ -222,12 +229,16 @@ body {
     transform 0.2s ease,
     opacity 0.2s ease;
 }
+/* 햄버거 JS 클릭 토글*/
 .nav-toggle.is-open span:nth-child(1) {
+  /* y축 아래로 내려서 막대 대각선*/
   transform: translateY(7px) rotate(45deg);
 }
+/* 가운데 막대 숨김*/
 .nav-toggle.is-open span:nth-child(2) {
   opacity: 0;
 }
+/* y축 올려서 막대 반대 대각선*/
 .nav-toggle.is-open span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
@@ -246,7 +257,8 @@ body {
 }
 .footer-inner {
   display: flex;
-  justify-content: space-between; /* 왼쪽 로고와 오른쪽 메뉴 간격 최대로 벌림 */
+  justify-content: space-between;
+  /* 가로-> flex-start: 위 정렬, end:아래 정렬*/
   align-items: flex-start;
   max-width: 1200px;
   margin: 0 auto;
@@ -279,7 +291,7 @@ body {
 }
 .sub-nav a {
   color: var(--color-text);
-  font-size: 16px;
+  font-size: var(--font-body);
   white-space: nowrap;
 }
 /* 하단 영역 */
@@ -291,7 +303,7 @@ body {
   border-top: 1px solid var(--color-border);
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: var(--font-xs);
   color: var(--color-text-muted);
 }
 /* ==========================================================
@@ -304,12 +316,12 @@ body {
   text-align: center;
   padding: 48px 20px;
   color: var(--color-text-sub);
-  font-size: 15px;
+  font-size: var(--font-sm);
 }
 .state-message--error {
   color: var(--color-state-urgent);
 }
-/* 스켈레톤 카드 (로딩 중 자리표시) */
+/* 스켈레톤 카드 (API데이터 들어오기 전 로딩 중 자리표시) */
 .skeleton-card {
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -339,6 +351,8 @@ body {
   }
 }
 /* 토스트 알림 (alert 대체) */
+/* view포트 창 기준 고정*/
+/*헤더 100, 드롭다운 200, 모달 1000, 토스트 2000*/
 .toast {
   position: fixed;
   top: 24px;
@@ -349,7 +363,7 @@ body {
   border-radius: var(--radius-pill);
   background: rgba(17, 17, 17, 0.9);
   color: #fff;
-  font-size: 14px;
+  font-size: var(--font-sm);
   line-height: 1.4;
   opacity: 0;
   pointer-events: none;
@@ -540,7 +554,7 @@ body {
     flex-direction: column;
     gap: 30px;
     padding: 24px 15px 0;
-    font-size: 14px;
+    font-size: var(--font-sm);
   }
   /* 4단 메뉴가 한 줄에 안 들어가서 가로 스크롤이 생기던 문제 → 2열로 접기 */
   .footer-nav {
@@ -556,7 +570,7 @@ body {
   }
   .sub-nav a {
     flex-direction: column;
-    font-size: 12px;
+    font-size: var(--font-xs);
   }
 }
 
