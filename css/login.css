@@ -1,7 +1,11 @@
+/* ==========================================
+    로그인 (login) 페이지
+   ========================================== */
+/* 콘텐츠가 하나 뿐이여서 body로 묶어서 flex로 가운데 정렬*/
 body {
   display: flex;
   flex-direction: column;
-  align-items: center; /* 가로 중앙 정렬*/
+  align-items: center;
   padding: 40px 20px;
   background-color: var(--color-bg-soft);
 }
@@ -19,6 +23,7 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
 }
 /* 아이디 비밀번호 폼 */
+/*타입 선택자로 스타일*/
 input[type="text"],
 input[type="password"] {
   width: 100%;
@@ -26,11 +31,10 @@ input[type="password"] {
   margin-bottom: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  box-sizing: border-box; /* 패딩이 전체 너비에 포함되게 함 */
 }
 /* 입력창 아래 검증 오류 문구 */
 .form-error {
-  margin: -8px 0 12px;
+  margin: -8px 0 12px; /* 위로 8px 당김*/
   color: var(--color-state-urgent);
   font-size: var(--font-xs);
 }

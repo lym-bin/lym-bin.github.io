@@ -10,6 +10,7 @@
   margin-bottom: 32px;
   color: var(--color-text-sub);
 }
+/* 세로 카드 목록*/
 .news-post-list {
   display: flex;
   flex-direction: column;
@@ -26,13 +27,14 @@
 .news-post-media {
   background: var(--color-bg-soft);
   text-align: center;
-  line-height: 0;
+  line-height: 0; /* img에 block이 아닌 inline-block(text-align)주려고 대신 0으로 틈제거*/
 }
 .news-post-media img {
   max-width: 100%;
   max-height: 400px;
   display: inline-block;
 }
+/* 제목 날짜 양끝, 좁으면 줄바꿈*/
 .news-post-body {
   display: flex;
   align-items: center;
@@ -50,6 +52,7 @@
   font-size: var(--font-xs);
   color: var(--color-text-muted);
 }
+/* 본문 줄 간격*/
 .news-post-desc {
   font-size: var(--font-sm);
   color: var(--color-text-sub);

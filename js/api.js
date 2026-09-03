@@ -6,6 +6,7 @@
 // [1] 하단 통계 데이터 조회
 //- 지정된 기간(시작일~종료일) 동안의 유기동물 구조 및 통계 데이터를 공공데이터 API로부터 받아옴
 // -------------------------------------------------------------
+// async 붙은 함수는 항상 Promise를 반환 안에서 await 사용가능
 async function fetchAnimalStats(lookbackMonths = 3) {
   // 날짜를 YYYYMMDD 문자열로 변환하는 헬퍼
   const format = (d) =>
@@ -21,23 +22,26 @@ async function fetchAnimalStats(lookbackMonths = 3) {
   const bgnde = format(start);
 
   // numOfRows 기본값(10)이면 chart1 6개 항목이 잘려서 넉넉히 50
+  // url 조립
   const url = `${STATS_API_URL}?serviceKey=${encodeURIComponent(API_KEY)}&bgnde=${bgnde}&endde=${endde}&numOfRows=50&_type=json`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url); // 1. 요청 보내고 응답 올때까지 기다림
     if (!response.ok) {
+      // 2. HTTP 에러(404,500) 체크
       throw new Error(`HTTP 에러 발생! 상태 코드: ${response.status}`);
     }
+    // 3. response를 JSON으로 파싱
     const data = await response.json();
-    return data?.response?.body?.items?.item || [];
+    return data?.response?.body?.items?.item || []; // 4. 필요한 데이터만 꺼내서 반환
   } catch (error) {
     console.error("API 요청 실패:", error);
-    return [];
+    return []; // 5. 실패해도 빈 배열 -> 호출 한 쪽이 안터짐
   }
 }
 
 /**
- * [3] 유기동물 목록 조회 함수 (가장 핵심)
+ * [2] 유기동물 목록 조회 함수 (가장 핵심)
  * - 전국의 보호 동물 리스트를 가져오는 메인 API 함수.
  * - 기본값인 10개만 가져오면 지역 필터링 시 데이터가 부족하므로, numOfRows=200을 주어 데이터 풀을 넓힘.
  */
@@ -60,13 +64,12 @@ async function fetchAnimalsList() {
 }
 
 /**
- * [4] 유기동물 보호소 데이터 조회 함수
+ * [3] 유기동물 보호소 데이터 조회 함수
  * - filters 객체로 지역(upr_cd), 시군구(org_cd), 축종(upkind) 등을 동적으로 받음.
  */
 async function fetchProtectData(filters = {}) {
-  // 1. 유기동물 조회 서비스 정식 엔드포인트 URL
-  const baseUrl =
-    "https://apis.data.go.kr/1543061/abandonmentPublicService_v2/abandonmentPublic_v2";
+  // 1. 유기동물 조회 서비스 정식 엔드포인트 URL (config.js 상수 사용)
+  const baseUrl = RESCUEANIMAL_API_URL;
 
   // 2. 기본 필수 파라미터 조합 (서비스키 및 응답 타입)
   const numOfRows = filters.numOfRows || 500;

@@ -188,15 +188,16 @@
   color: var(--color-text-strong);
 }
 .chart-table-toggle table {
+  /* 테이블을 콘텐츠 폭만큼만 inline 유지*/
   display: inline-table;
   width: 100%;
   max-width: 440px;
   margin-top: 16px;
   border: 1px solid var(--color-border-light);
-  border-radius: 12px;
-  border-collapse: separate;
-  border-spacing: 0;
-  overflow: hidden;
+  border-radius: 12px; /* table 둥근 모서리 만들기*  (1)*/
+  border-collapse: separate; /*(2)*/
+  border-spacing: 0; /*(3)*/
+  overflow: hidden; /*(4)*/
   font-size: var(--font-sm);
   text-align: center;
 }
