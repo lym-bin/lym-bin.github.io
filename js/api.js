@@ -6,7 +6,7 @@
 // [1] 하단 통계 데이터 조회
 //- 지정된 기간(시작일~종료일) 동안의 유기동물 구조 및 통계 데이터를 공공데이터 API로부터 받아옴
 // -------------------------------------------------------------
-async function fetchAnimalStats() {
+async function fetchAnimalStats(lookbackMonths = 3) {
   // 날짜를 YYYYMMDD 문자열로 변환하는 헬퍼
   const format = (d) =>
     `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
@@ -15,9 +15,9 @@ async function fetchAnimalStats() {
   const end = new Date();
   const endde = format(end);
 
-  // 시작일: 오늘로부터 3개월 전 (필요에 따라 조정 가능)
+  // 시작일: 오늘로부터 N개월 전 (기본 3, 통계 페이지는 12개월)
   const start = new Date();
-  start.setMonth(start.getMonth() - 3);
+  start.setMonth(start.getMonth() - lookbackMonths);
   const bgnde = format(start);
 
   // numOfRows 기본값(10)이면 chart1 6개 항목이 잘려서 넉넉히 50

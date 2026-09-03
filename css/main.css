@@ -499,12 +499,33 @@
    유기동물 처리 현황 (본문 하단 미니 대시보드)
    ========================================== */
 .stats-section {
+  position: relative;
   max-width: 1200px;
   margin: 0 auto 70px auto;
   padding: 28px;
   border: 1px solid var(--color-border-light);
   border-radius: 16px;
   background: var(--color-bg-soft);
+  transition: border-color 0.2s ease;
+}
+.stats-section:hover {
+  border-color: var(--color-primary);
+}
+.stats-section__link {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+}
+.stats-section__link span {
+  position: absolute;
+  right: 28px;
+  bottom: 28px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.stats-section:hover .stats-section__link span {
+  text-decoration: underline;
 }
 .stats-header {
   margin-bottom: 20px;
