@@ -72,12 +72,7 @@ const recent3MonthsCheckbox = document.querySelector(
 const [startDateInput, endDateInput] = filterForm
   ? filterForm.querySelectorAll("input[type='date']")
   : [];
-// 상태값 -> 뱃지 색상 클래스 (search 페이지와 동일 규칙)
-function stateBadgeClass(state = "") {
-  if (state.includes("긴급")) return "badge-red";
-  if (state.includes("종료") || state.includes("완료")) return "badge-green";
-  return "badge-blue";
-}
+// 상태값 → 뱃지 색상 클래스는 js/badge.js (공용) 의 getBadgeClass 사용
 
 // =================================================
 // [5] 카드 렌더링 함수(* 핵심 - 여러곳에서 재사용)
@@ -121,7 +116,7 @@ function renderProtectsCards(data) {
           <img src="${item.image}" alt="${item.species}" loading="lazy" onerror="imgError(this)"/>
           <div class="card-info">
             <div class="badge-group">
-              <span class="badge state ${stateBadgeClass(item.state)}">${item.state}</span>
+              <span class="badge state ${getBadgeClass(item.state)}">${item.state}</span>
               <span class="badge sex">${item.sexCd}</span>
             </div>
             <dl>

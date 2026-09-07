@@ -281,32 +281,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   // [4단계] 베스트 입양후기 렌더링 및 호버 이벤트
   // -------------------------------------------------------------
   const adopReview = document.querySelector("#best-dummy");
-  const adopDummy = [
-    // 하드코딩 더미 배열 (non-API)
-    {
-      name: "초코",
-      afterImg: "images/dog_2.png",
-      beforeImg: "images/dog_1.png",
-    },
-    {
-      name: "구름",
-      afterImg: "images/dog_4.png",
-      beforeImg: "images/dog_3.png",
-    },
-    {
-      name: "쵸파",
-      afterImg: "images/dog_6.png",
-      beforeImg: "images/dog_5.png",
-    },
-    {
-      name: "가을",
-      afterImg: "images/cat_2.png",
-      beforeImg: "images/cat_1.png",
-    },
-  ];
 
   if (adopReview) {
-    adopReview.innerHTML = adopDummy
+    adopReview.innerHTML = ADOPTION_REVIEWS
       .map(
         (r) => `
       <li class="best-card">
@@ -358,32 +335,9 @@ document.querySelectorAll('.btn-more[data-category="today"]').forEach((btn) => {
 // [6단계] 기부 챌린지 영역
 // -------------------------------------------------------------
 const donationContainer = document.querySelector("#donation-dummy");
-const donationDummy = [
-  {
-    title: "여름나기 물품 지원",
-    desc: "더위에 힘든 아이들에게 용품을",
-    current: 3200000,
-    goal: 5000000,
-    image: "images/donation_1.png",
-  },
-  {
-    title: "중성화 수술 지원",
-    desc: "유기를 막기 위한 필수 수술비",
-    current: 1800000,
-    goal: 5000000,
-    image: "images/donation_2.png",
-  },
-  {
-    title: "긴급 치료비 기금",
-    desc: "다치고 아픈 아이들의 수술비 모금",
-    current: 4100000,
-    goal: 5000000,
-    image: "images/donation_3.png",
-  },
-];
 
 if (donationContainer) {
-  donationContainer.innerHTML = donationDummy
+  donationContainer.innerHTML = DONATION_CHALLENGES
     .map((item) => {
       // Math.min(계산값, 100) : 둘 중 작은값. 초과 모금돼도 100% 넘지않게함
       const percent = Math.min(

@@ -46,15 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 중복 자동제거 용이 속도 빠름
   let selectedStatuses = new Set(["보호중", "긴급", "종료"]);
 
-  // -------------------------------------------------------------
-  // [3] 원본 상태값(API 문구)을 3개 그룹 중 하나로 분류하는 함수
-  // -------------------------------------------------------------
-  // 예: "종료(자연사)" → "종료" 그룹으로 묶는다.
-  function getStatusGroup(state) {
-    if (state.includes("긴급")) return "긴급";
-    if (state.includes("종료") || state.includes("완료")) return "종료";
-    return "보호중";
-  }
+  // [3] getStatusGroup / getBadgeClass 는 js/badge.js (공용) 에 있음
 
   // -------------------------------------------------------------
   // [4] 상태 필터 드롭다운 열기/닫기
@@ -341,18 +333,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     //  더 보여줄 데이터가 남았으면 버튼 표시, 다 보여줬으면 숨기기
     if (moreBtn)
       moreBtn.classList.toggle("hidden", displayLimit >= data.length);
-    // 상태값에 따라 뱃지 색상 클래스를 변경해주는 함수
-    function getBadgeClass(state) {
-      // 긴급이라는 글자가 포함되면 => badge-red 반환
-      if (state.includes("긴급")) return "badge-red";
-      // "종료" 이거나 ||(or) "완료"라는 글자가 포함되면
-      if (state.includes("종료") || state.includes("완료"))
-        // badge-green 반환
-        return "badge-green";
-      // 둘다 아니면 badge-blue 반환
-      return "badge-blue";
-    }
-
     searchListContainer.innerHTML = slicedData
       .map((item) => {
         const isLiked = likedList.includes(item.num);
