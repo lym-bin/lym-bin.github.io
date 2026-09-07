@@ -10,13 +10,12 @@
     <!-- crossorigin: 폰트파일 fetch가 항상 CORS(익명,쿠키,인증번호 안보냄)라서 작성 -->
     <link
       rel="stylesheet"
-      as="style"
       crossorigin
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
     />
     <link href="images/dog-solid-full.png" type="image/png" rel="icon" />
-    <link href="./css/main.css" rel="stylesheet" />
     <link href="./css/common.css" rel="stylesheet" />
+    <link href="./css/main.css" rel="stylesheet" />
     <title>포인핸드</title>
   </head>
   <body>
@@ -280,7 +279,7 @@
         </div>
         <!-- 카드 리스트 나열 그리드 구조 추가 -->
         <div class="miss-cardgrid">
-          <ul class="miss-list" id="miss-dummy">
+          <ul class="miss-list">
             <!-- js로 렌더링 -->
           </ul>
         </div>
@@ -426,7 +425,6 @@
     <script src="js/api.js"></script>
     <script src="js/main.js"></script>
     <script src="js/missing.js"></script>
-    <script src="js/login.js"></script>
     <script src="js/login-state.js"></script>
   </body>
 </html>
