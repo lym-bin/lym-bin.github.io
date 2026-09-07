@@ -66,9 +66,8 @@
   font-weight: 800;
   color: var(--sum-color, var(--color-text-strong));
 }
-.sum-value em {
+.sum-value .unit {
   margin-left: 3px;
-  font-style: normal;
   font-size: var(--font-sm);
   color: var(--color-text-sub);
 }

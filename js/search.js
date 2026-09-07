@@ -22,25 +22,28 @@ let displayLimit = 12; // 초기 노출 개수 (3열 4줄= 12개)
 // [2] DOM 요소 제어
 // -------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", async () => {
-  const searchInput = document.getElementById("search-input");
+  const searchInput = document.querySelector("#search-input");
   const searchForm = document.querySelector(".form-container form");
   const countSpan = document.querySelector(".info-space span"); // "전체 n건"
   const searchListContainer = document.querySelector(".search-list"); // 카드가 그려질 ul
   const moreBtn = document.querySelector(".more-btn");
 
   // 상태 필터 드롭다운 관련 요소
-  const statusFilterBtn = document.getElementById("status-filter-btn");
-  const statusFilterPanel = document.getElementById("status-filter-panel");
+  const statusFilterBtn = document.querySelector("#status-filter-btn");
+  const statusFilterPanel = document.querySelector("#status-filter-panel");
   const statusCheckboxes = statusFilterPanel
-    ? statusFilterPanel.querySelectorAll('input[name="status"]')
+    ? // statusFilterPanel이 null이면 querySelectorAll 호출시 에러 없으면 빈배열로 반환
+      statusFilterPanel.querySelectorAll('input[name="status"]')
     : [];
   const applyBtn = statusFilterPanel
     ? statusFilterPanel.querySelector(".filter-apply-btn")
     : null;
-  const likedFilterBtn = document.getElementById("liked-filter-btn");
+  const likedFilterBtn = document.querySelector("#liked-filter-btn");
   let showLikedOnly = false;
 
   // 현재 선택된 상태 그룹(초기값: 3개 다 체크 된 상태)
+  // set: js안에 있는 객체 중복 없는 값을 모음 배열 대신
+  // 중복 자동제거 용이 속도 빠름
   let selectedStatuses = new Set(["보호중", "긴급", "종료"]);
 
   // -------------------------------------------------------------
@@ -60,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (statusFilterBtn && statusFilterPanel) {
     // 버튼에다가 클릭이벤트 달아줌
     statusFilterBtn.addEventListener("click", (e) => {
-      //
+      // 클릭한 요소보다 부모까지 갈수 있음 버블링으로 방지
       e.stopPropagation();
       // 현재 드롭다운이 숨겨진(hidden)이 있는지 선언하는 부분
       // hasAttribute: html태그에 어떤 특정 속성이 붙어있는지 물어보는 js 메서드
@@ -81,6 +84,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.addEventListener("click", (e) => {
       if (
         // 패널 바깥쪽을 클릭했고, 그리고(&&)
+        // e.target: 실제로 클릭된 요소
         !statusFilterPanel.contains(e.target) &&
         // 클릭한 타켓(대상이) 열기/닫기 버튼 자체가 아니라면
         e.target !== statusFilterBtn
@@ -112,8 +116,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           : `상태 ${selectedStatuses.size}개 `;
 
       displayLimit = 12; // 필터가 바뀌었으니 노출 개수 초기화
-      filterAndRender();
-      statusFilterPanel.setAttribute("hidden", "");
+      filterAndRender(); // 재 렌더링
+      statusFilterPanel.setAttribute("hidden", ""); // 패널 닫기
       statusFilterBtn.setAttribute("aria-expanded", "false");
     });
   }
@@ -160,6 +164,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       likedFilterBtn.textContent = showLikedOnly
         ? "♥ 전체보기"
         : "♡ 찜한 동물만";
+      // 조건이 true면 클래스 추가 false면 제거 인자없으면 반전
       likedFilterBtn.classList.toggle("active", showLikedOnly);
       displayLimit = 12;
       filterAndRender();
@@ -185,14 +190,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // -------------------------------------------------------------
-  // [9] 페이지 진입 시 API 데이터 불러오기
+  // [9] 페이지 진입 시 API 로드 및 데이터 정규화 불러오기
   // -------------------------------------------------------------
   // 조회 기간을 최근 3일로 좁혀서 numOfRows(api.js에서 500으로 설정됨)로도
   // 그 기간의 데이터를 충분히 커버하게 하고, 등록일(happenDt)이 다양하게
   // 섞이도록 해서 정렬 기능이 실제로 눈에 띄게 동작하도록 만듬.
-  const { bgnde, endde } = getDateRange(3);
+  const { bgnde, endde } = getDateRange(3); // 최근 3일
   showSkeleton(searchListContainer, 12); // API 응답 대기 중 스켈레톤 표시
-  const apiItems = await fetchProtectData({ bgnde, endde });
+  const apiItems = await fetchProtectData({ bgnde, endde }); // api.js호출
   cacheAnimals(apiItems); // 상세 페이지가 재요청 없이 쓰도록 원본 캐시
 
   if (apiItems && apiItems.length > 0) {
@@ -203,7 +208,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       image: item.popfile1 || "", // 기존 더미 이미지있던 버그 삭제
       rawKind: item.kindFullNm || item.kindCd || "", // 게[믹스견] 원본 형태(검색용)
       species: item.kindFullNm
-        ? item.kindFullNm.replace(/\[.*?\]\s*/g, "")
+        ? // 정규식 으로 감싼다음 replace
+          item.kindFullNm.replace(/\[.*?\]\s*/g, "")
         : item.kindCd || "정보 없음",
       loc: item.orgNm || "",
       specialMark: item.specialMark || "",
@@ -211,6 +217,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }));
 
     filterAndRender();
+    // 실패 처리
   } else {
     showStateMessage(
       searchListContainer,
@@ -246,29 +253,43 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderSearchCards(currentFilteredData);
   });
 
+  // 찜 버튼 — 이벤트 위임 (카드 재렌더돼도 리스너 하나로 계속 작동)
+  searchListContainer?.addEventListener("click", (e) => {
+    const btn = e.target.closest(".like-btn");
+    if (!btn) return;
+    e.preventDefault(); // 카드 링크 이동 막기
+    e.stopPropagation();
+    const nowLiked = toggleLike(btn.dataset.num); // localStorage 갱신 + 현재 찜 여부
+    btn.textContent = nowLiked ? "♥" : "♡";
+    btn.classList.toggle("liked", nowLiked);
+  });
+
   // -------------------------------------------------------------
   // [13] 검색어 + 상태 필터 → 필터링 + 정렬 + 렌더링을 한 번에 처리하는 함수
   // -------------------------------------------------------------
   function filterAndRender() {
-    // searchInput값을 공백제거하고 소문자로
+    // 검색어 준비: 공백 제거 + 소문자. filter 콜백 밖에서 한 번만 가공
+    const likedList = getLikedList(); // 한 번만 읽어서 filter에서 재사용
     const keyword = searchInput ? searchInput.value.trim().toLowerCase() : "";
 
     currentFilteredData = allSearchData.filter((item) => {
-      let keywordMatch = true;
+      let keywordMatch = true; // 기본: 통과 (검색어 없으면 다 통과)
       if (keyword) {
         // "개" 라는 키워드는 고양이도 포함 할 수 있기 때문에
         if (keyword === "개") {
           //  [개]라고 명칭을 포함시킴
           keywordMatch = item.rawKind.includes("[개]");
+          // [개] 검색 시 "강아지"가 아니라 축종이 [개] 인것만 포함
+          // 강아지 검색하면 고양이도 나오거나 아에 검색 안나왔었음
         } else {
           // 그외 검색어는 품종/지역/특징 한가지만 포함되면 패싱
           const species = item.species.toLowerCase();
           const loc = item.loc.toLowerCase();
           const mark = item.specialMark.toLowerCase();
           keywordMatch =
-            species.includes(keyword) ||
-            loc.includes(keyword) ||
-            mark.includes(keyword);
+            species.includes(keyword) || // 품종에 있거나
+            loc.includes(keyword) || // 지역에 있거나
+            mark.includes(keyword); // 특징에 있으면
         }
       }
 
@@ -276,7 +297,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       // 원본 상태값을 3개 그룹(보호중/긴급/종료) 중 하나로 바꾼뒤
       // 사용자가 체크한 그룹(selectedStatuses)안에 있는지 체크함
       const statusMatch = selectedStatuses.has(getStatusGroup(item.state));
-      const likedMatch = !showLikedOnly || getLikedList().includes(item.num);
+      const likedMatch = !showLikedOnly || likedList.includes(item.num);
 
       return keywordMatch && statusMatch && likedMatch;
     });
@@ -309,22 +330,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         searchListContainer,
         "조건에 맞는 검색 결과가 없습니다.",
       );
-      if (moreBtn) moreBtn.style.display = "none";
-      return;
+      if (moreBtn) moreBtn.classList.add("hidden"); // 더보기 숨김
+      return; // 카드가 0개면 렌더 할게 없으므로 return
     }
 
     //  현재 displayLimit 만큼 잘라서 화면에 표현 (더보기 페이지 네이션)
     const slicedData = data.slice(0, displayLimit);
+    const likedList = getLikedList(); // map 안에서 매번 안 읽게 여기서 한 번
 
     //  더 보여줄 데이터가 남았으면 버튼 표시, 다 보여줬으면 숨기기
-    if (moreBtn) {
-      if (displayLimit < data.length) {
-        moreBtn.style.display = "block";
-      } else {
-        moreBtn.style.display = "none";
-      }
-    }
-
+    if (moreBtn)
+      moreBtn.classList.toggle("hidden", displayLimit >= data.length);
     // 상태값에 따라 뱃지 색상 클래스를 변경해주는 함수
     function getBadgeClass(state) {
       // 긴급이라는 글자가 포함되면 => badge-red 반환
@@ -337,18 +353,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       return "badge-blue";
     }
 
-    // "20260827" → "26.08.27" 로 표시용 변환
-    const formatDate = (d) =>
-      d && d.length === 8
-        ? `${d.slice(2, 4)}.${d.slice(4, 6)}.${d.slice(6, 8)}`
-        : "";
-
     searchListContainer.innerHTML = slicedData
       .map((item) => {
-        const isLiked = getLikedList().includes(item.num);
-        const meta = [item.loc, formatDate(item.noticeDate)]
-          .filter(Boolean)
-          .join(" · ");
+        const isLiked = likedList.includes(item.num);
+        // formatYmd: ui.js 공용. "20260827" → "26.08.27"
+        const meta = [item.loc, formatYmd(item.noticeDate)]
+          .filter(Boolean) // falsy("",null,undefined,0) 걸러냄
+          .join(" · "); // "경북 영주시 · 26.08.27" 또는 지역만
         return `
       <li>
         <span class="badge ${getBadgeClass(item.state)}">${item.state}</span>
@@ -364,19 +375,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
       })
       .join("");
-    searchListContainer.querySelectorAll(".like-btn").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault(); // 카드 링크 이동 막기
-        e.stopPropagation(); // 즉시 멈춰줌 js메서드 함수
-
-        const num = btn.dataset.num; // dataset(num)을 담아줄 변수
-        const nowLiked = toggleLike(num); // localStorage 갱신 + 현재 찜 여부 반환
-
-        // 버튼/아이콘 스타일을 갱신(화면을 다시 그리지 않고 버튼만)
-        btn.textContent = nowLiked ? "♥" : "♡";
-        btn.classList.toggle("liked", nowLiked);
-      });
-    });
+    // 찜 버튼 클릭은 위쪽 이벤트 위임에서 처리 (여기서 리스너 안 붙임)
   }
 });
 
@@ -400,13 +399,13 @@ function getLikedList() {
 }
 // 특정 동물 번호를(num) 찜 목록에 추가/제거하고, 최종 찜 여부(boolean)을 반환
 function toggleLike(num) {
-  const liked = getLikedList();
-  const index = liked.indexOf(num);
+  const liked = getLikedList(); // 현재 목록
+  const index = liked.indexOf(num); // 번호 위치
   if (index > -1) {
     liked.splice(index, 1); // 이미 찜했으면 제거함
   } else {
     liked.push(num); //안 찜했으면 추가
   }
-  localStorage.setItem(LIKED_KEY, JSON.stringify(liked));
+  localStorage.setItem(LIKED_KEY, JSON.stringify(liked)); // 저장
   return liked.includes(num);
 }

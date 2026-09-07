@@ -105,7 +105,7 @@ function renderProtectsCards(data) {
   // 결과가 없으니깐 더보기 버튼도 아래로 숨김
   if (data.length === 0) {
     showStateMessage(container, "조건에 맞는 보호동물이 없습니다.");
-    if (moreBtn) moreBtn.style.display = "none";
+    if (moreBtn) moreBtn.classList.add("hidden");
     return;
   }
 
@@ -114,14 +114,7 @@ function renderProtectsCards(data) {
   const slicedData = data.slice(0, displayLimit);
 
   // 아직 안 보여준 데이터가 남아있으면 더보기 버튼 표시, 다 보여줬으면 숨김
-  if (moreBtn) {
-    if (displayLimit < data.length) {
-      moreBtn.style.display = "block";
-    } else {
-      moreBtn.style.display = "none";
-    }
-  }
-
+  if (moreBtn) moreBtn.classList.toggle("hidden", displayLimit >= data.length);
   //slice한 데이터를 동적으로 li태그에 삽입
   container.innerHTML = slicedData
     // img 템플릿에 loading="lazy" 추가 초기로딩 가볍게
@@ -278,7 +271,7 @@ if (filterForm) {
       const matchDate =
         !startDateInput ||
         !endDateInput ||
-        !startDateInput.value ||
+        !startDateInput.value || // 날짜 안넣었으면 통과
         !endDateInput.value ||
         (item.date &&
           // 시작일 이후이면
@@ -366,16 +359,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       "데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
       "error",
     );
-    if (moreBtn) {
-      moreBtn.style.display = "none";
-    }
+    if (moreBtn) moreBtn.classList.add("hidden");
   }
 });
 
 // -------------------------------------------------------------
 // [12] 상단 탭 전환 (보호동물 / 보호소 찾기 / 추천 입양 동물)
 // -------------------------------------------------------------
-const mapSection = document.getElementById("map-section"); // 지도 영역
+const mapSection = document.querySelector("#map-section"); // 지도 영역
 const mainSection = document.querySelector(".main-section"); // 추천 입양 동물 영역
 const bohoSection = document.querySelector(".boho-section"); // 전체 보호동물 목록 영역
 const filterWrap = document.querySelector(".filter-wrap"); // 전체 목록용 필터 pill 영역
@@ -423,12 +414,14 @@ document.querySelectorAll(".protect-tab").forEach((tab) => {
   });
 });
 // -------------------------------------------------------------
-// [13] 카카오맵으로 보호소 위치 표시하는 함수
+// [13] 카카오맵으로 보호소 위치 표시하는 (콜백)함수
+// KaKao SDK는 외부 스크립트아 어제 로드되는지 fetch처럼 await 못함
+// Promise 아님 그래서 콜백 함수
 // -------------------------------------------------------------
 let mapRetryCount = 0; // SDK 로드 대기 재시도 횟수 (무한 대기 방지)
 
 function renderShelterMap() {
-  const mapContainer = document.getElementById("shelter-map");
+  const mapContainer = document.querySelector("#shelter-map");
   if (!mapContainer) return;
 
   // 1. 카카오 SDK 스크립트 자체가 아직 안 붙었을 때만 재시도
@@ -464,12 +457,13 @@ function renderShelterMap() {
     const uniqueShelters = [];
 
     allProtectData.forEach((item) => {
-      if (!item.careAddr) return;
+      if (!item.careAddr) return; // 주소 없으면 스킵
       const foundShelter = uniqueShelters.find(
         (shelter) => shelter.addr === item.careAddr,
       );
 
       if (!foundShelter) {
+        // 아직 없는 주소면 추간
         uniqueShelters.push({
           name: item.careNm,
           addr: item.careAddr,
@@ -486,18 +480,21 @@ function renderShelterMap() {
 
     // --- 4. 지도 초기화 ---
     map = new kakao.maps.Map(mapContainer, {
-      center: new kakao.maps.LatLng(36.5, 127.8),
-      level: 12,
+      center: new kakao.maps.LatLng(36.5, 127.8), // 우리나라 중심
+      level: 12, // 줌 레벨 (클 수록 축소)
     });
     mapInitialized = true;
 
     // --- 5. 주소 → 좌표 변환 후 마커 찍기 ---
-    const geocoder = new kakao.maps.services.Geocoder();
-    const bounds = new kakao.maps.LatLngBounds();
-    let currentInfowindow = null;
-    let completedCount = 0;
+    const geocoder = new kakao.maps.services.Geocoder(); // 주소 -> 좌표 변환기
+    const bounds = new kakao.maps.LatLngBounds(); // 모든 마커 담을 범위
+    let currentInfowindow = null; // 현재 열린 정보창
+    let completedCount = 0; // 지오코딩 완료 개수
 
+    // 주소 -> 좌표 (콜백 비동기)
     uniqueShelters.forEach((shelter) => {
+      // 위,경도 좌표 비동기(카카오 서버) 결과 콜백으로
+      // status로 성공/실패 판단 (result)에 데이터
       geocoder.addressSearch(shelter.addr, (result, status) => {
         completedCount++;
 
@@ -505,7 +502,7 @@ function renderShelterMap() {
           const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
           const marker = new kakao.maps.Marker({ map, position: coords });
 
-          bounds.extend(coords);
+          bounds.extend(coords); // 이 좌표를 범위에 포함
 
           const infowindow = new kakao.maps.InfoWindow({
             content: `<div style="padding:8px; font-size:13px; white-space:nowrap;">
@@ -516,19 +513,21 @@ function renderShelterMap() {
 
           kakao.maps.event.addListener(marker, "click", () => {
             if (currentInfowindow === infowindow) {
+              // 같은 마커 다시 클릭 -> 닫기
               infowindow.close();
               currentInfowindow = null;
             } else {
-              if (currentInfowindow) currentInfowindow.close();
-              infowindow.open(map, marker);
+              if (currentInfowindow) currentInfowindow.close(); // 다른거 열려있으면 닫고
+              infowindow.open(map, marker); // 열기
               currentInfowindow = infowindow;
             }
           });
         }
 
         if (completedCount === uniqueShelters.length) {
+          // 전부 완료 됐을 때
           if (!bounds.isEmpty()) {
-            map.setBounds(bounds);
+            map.setBounds(bounds); // 모든 마커 보이게/ 줌 자동조정
           }
         }
       });
