@@ -82,6 +82,9 @@ ul,
 ol {
   list-style: none;
 }
+.hidden {
+  display: none !important;
+}
 /*글꼴 기울임 제거*/
 p {
   font-style: normal;

@@ -389,13 +389,12 @@
   transform: translateY(-5px);
   box-shadow: var(--shadow-card);
 }
-.miss-list li a {
+.miss-list li .miss-card {
   display: flex;
   flex-direction: column;
   padding: 11px;
   text-align: center;
   color: var(--color-text);
-  cursor: default;
 }
 /* 이미지를 감싸는 영역 */
 .miss-img-wrap {
