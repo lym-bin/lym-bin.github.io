@@ -68,14 +68,10 @@ const recent3MonthsCheckbox = document.querySelector(
   "input[name='recent3Months']",
 );
 
-// startDateInput/endDateInput: name 속성으로 먼저 찾고, 없으면 순서 기반으로 대체 탐색
-// (HTML 구조가 바뀌어도 최대한 안전하게 요소를 찾기 위한 방어 코드)
-const startDateInput =
-  document.querySelector("input[name='startDate']") ||
-  document.querySelector(".filter-event input[type='date']:nth-of-type(1)");
-const endDateInput =
-  document.querySelector("input[name='endDate']") ||
-  document.querySelector(".filter-event input[type='date']:nth-of-type(2)");
+// 모달 폼의 date input 2개를 순서대로 (첫 번째=시작일, 두 번째=종료일)
+const [startDateInput, endDateInput] = filterForm
+  ? filterForm.querySelectorAll("input[type='date']")
+  : [];
 // 상태값 -> 뱃지 색상 클래스 (search 페이지와 동일 규칙)
 function stateBadgeClass(state = "") {
   if (state.includes("긴급")) return "badge-red";
@@ -339,7 +335,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       date: item.happenDt, // 발생일 (YYYYMMDD)
       loc: item.orgNm, // 관할기간(지역)
       image: item.popfile1, // 이미지 1번
-      species: item.kindFullNm, // 품종
+      species: (item.kindFullNm || "").replace(/\[.*?\]\s*/g, ""), // "[개] 믹스견" → "믹스견"
       careNm: item.careNm, // 보호센터 이름
       careAddr: item.careAddr, // 보호센터 주소(지도 좌표 변환 사용)
       careTel: item.careTel, // 보호센터 전화번호

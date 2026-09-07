@@ -10,7 +10,10 @@
 // 목록 페이지에서 저장해 둔 원본 동물 데이터를 공고번호로 꺼낸다.
 function getCachedAnimal(num) {
   try {
+    // ui.js cacheAnimals가 저장한 캐시(목록 페이지에서)
+    // JSON parse으로 문자열을 객체로("공고번호": {동물데이터})
     const cache = JSON.parse(sessionStorage.getItem("animalCache") || "{}");
+    // cache[num]: 공고번호 키의 동물 데이터
     return cache[num] || null;
   } catch {
     return null;
@@ -19,6 +22,7 @@ function getCachedAnimal(num) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   // [1] 주소창의 쿼리스트링에서 공고번호(num) 가져오기
+  // window.location.search: ?이후부분 datail.mhtl"?num=449"
   const urlParams = new URLSearchParams(window.location.search);
   const targetNum = urlParams.get("num");
 
@@ -35,7 +39,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const apiItems = await fetchProtectData({ numOfRows: 1000 });
 
     if (!apiItems || apiItems.length === 0) {
-      showDetailError("데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.");
+      showDetailError(
+        "데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
+      );
       return;
     }
 
@@ -79,10 +85,11 @@ function renderAnimalDetail(item) {
   // filter와 find의 차이: filter(여러개의 조건을 찾고 싶을때) find(단 한개의 조건)
   const images = [item.popfile1, item.popfile2].filter(Boolean);
 
-  // 화면에 img태그가 존재하고 사진목록에 사진이 1개 이상이면 true
+  // 대표 이미지 요소가 있으면
   // &&: and연산자(그리고) 좌우가 true여야지 true
   if (imgEl) {
     imgEl.onerror = () => imgError(imgEl); // 로드 실패 시 플레이스홀더
+    // 이미지가 한장이 있으면 이미지 배열로 추가
     imgEl.src = images.length > 0 ? images[0] : PLACEHOLDER_IMG;
   }
   if (thumbList) {
@@ -126,9 +133,11 @@ function renderAnimalDetail(item) {
   // --- 품종 (null 방어코드) ---
   // if (speciesEl)을 먼저 써서 "이 글상자 태그가 화면에 안전하게 존재할 때만(true일 때만) 글자를 넣어라!
   const speciesEl = document.querySelector(".detail-species");
-  // 품종에 넣을 HTML태그가 화면에 확실히 존재할 때만, API에서 가져온 품종 이름을 넣고
-  // 없으면 "정보 없음"표시
-  if (speciesEl) speciesEl.textContent = item.kindFullNm || "정보 없음";
+  // "[개] 믹스견" → "믹스견" (search 페이지와 표기 통일)
+  if (speciesEl) {
+    const kind = (item.kindFullNm || "").replace(/\[.*?\]\s*/g, "");
+    speciesEl.textContent = kind || item.kindCd || "정보 없음";
+  }
 
   // --- 요약 텍스트 (성별,색상,나이,체중) ---
   const descTextEl = document.querySelector(".detail-desc-text");
@@ -147,8 +156,9 @@ function renderAnimalDetail(item) {
   if (numEl) numEl.textContent = item.desertionNo || item.num || "-";
 
   const periodEl = document.querySelector(".detail-period");
+  // formatYmd(ui.js): "20260907" → "26.09.07"
   if (periodEl)
-    periodEl.textContent = `${item.noticeSdt || ""} ~ ${item.noticeEdt || ""}`;
+    periodEl.textContent = `${formatYmd(item.noticeSdt)} ~ ${formatYmd(item.noticeEdt)}`;
 
   const locEl = document.querySelector(".detail-loc");
   if (locEl) locEl.textContent = item.happenPlace || item.loc || "-";
@@ -185,15 +195,18 @@ function renderAnimalDetail(item) {
 // ==========================================
 
 function setupComments(animalNum) {
+  // animalNum: 동물 공고 번호 = 댓글 구분 키
   const commentInput = document.querySelector("#comment-input");
   const commentSubmitBtn = document.querySelector("#comment-submit-btn");
   const commentList = document.querySelector(".comment-list"); // ← comments-section 전체가 아니라 목록 부분만
   const commentCountEl = document.querySelector(".comment-count");
 
+  // 셋 중 하나라도 없으면 return;
   if (!commentInput || !commentSubmitBtn || !commentList) return;
 
   function getAllComments() {
     try {
+      // 전체 댓글 {공고 번호: [댓글들]}
       return JSON.parse(localStorage.getItem("animalComments")) || {};
     } catch {
       return {};
@@ -208,6 +221,7 @@ function setupComments(animalNum) {
   };
 
   function renderComments() {
+    // 이 동물의 댓글만, 없으면 빈 배열
     const myComments = getAllComments()[animalNum] || [];
 
     if (commentCountEl) {
@@ -216,7 +230,11 @@ function setupComments(animalNum) {
 
     const rows = [
       seedComment,
-      ...myComments.map((c) => ({ name: "방문자", date: c.date, text: c.text })),
+      ...myComments.map((c) => ({
+        name: "방문자",
+        date: c.date,
+        text: c.text,
+      })),
     ];
 
     // 사용자 입력(text)이 들어가므로 innerHTML 대신 textContent 로 안전하게 그린다 (XSS 방지)
@@ -227,6 +245,7 @@ function setupComments(animalNum) {
 
       const name = document.createElement("span");
       name.className = "user-name";
+      // textContent는 태그 해석안하기 때문에 XSS 안전
       name.textContent = c.name;
 
       const date = document.createElement("span");
@@ -237,13 +256,14 @@ function setupComments(animalNum) {
       text.textContent = c.text;
 
       item.append(name, date, text);
-      commentList.appendChild(item);
+      commentList.appendChild(item); // 완성된 댓글을 목록에 추가
     });
   }
 
   commentSubmitBtn.addEventListener("click", () => {
     const text = commentInput.value.trim();
     if (text === "") {
+      // 빈 댓글 방어
       showToast("댓글 내용을 입력해주세요.", "error");
       commentInput.focus();
       return;
