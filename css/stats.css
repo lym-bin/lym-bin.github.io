@@ -47,7 +47,7 @@
   background: var(--color-bg);
   border: 1px solid var(--color-border-light);
   border-top: 3px solid var(--sum-color, var(--color-border));
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   text-align: center;
 }
 .sum-tile--good {
@@ -160,7 +160,7 @@
   color: var(--color-text-sub);
   background: var(--color-bg);
   border: 1px solid var(--color-border-light);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   cursor: pointer;
   list-style: none;
   transition:
@@ -193,7 +193,7 @@
   max-width: 440px;
   margin-top: 16px;
   border: 1px solid var(--color-border-light);
-  border-radius: 12px; /* table 둥근 모서리 만들기*  (1)*/
+  border-radius: var(--radius-md); /* table 둥근 모서리 만들기*  (1)*/
   border-collapse: separate; /*(2)*/
   border-spacing: 0; /*(3)*/
   overflow: hidden; /*(4)*/

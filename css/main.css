@@ -24,7 +24,7 @@
   display: flex;
   max-width: var(--container-max);
   margin: 0 auto 70px auto;
-  border-radius: 20px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
@@ -65,7 +65,7 @@
 .banner-cta {
   margin-top: 8px;
   padding: 10px 22px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--color-bg);
   color: #8a3d15;
   font-weight: 700;
@@ -171,7 +171,7 @@
 /* 개별 카드 디자인 */
 .card-list li {
   border: 1px solid var(--color-border-light);
-  border-radius: 15px; /* 모서리 둥글게 */
+  border-radius: var(--radius-md); /* 모서리 둥글게 */
   overflow: hidden;
   transition: transform 0.3s; /* 마우스 올렸을 때 애니메이션 */
   background: var(--color-bg);
@@ -192,7 +192,7 @@
   width: 100%; /* 세트로 사용 가로는 부모 너비에 맞춤 */
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   margin-bottom: 10px;
 }
 /* 카드 텍스트 (추천동물 / 실종 · 제보 공용 */
@@ -233,7 +233,7 @@
 .best-card {
   background: var(--color-bg);
   border: 1px solid var(--color-border-light);
-  border-radius: 15px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   padding: 11px;
   text-align: center;
@@ -248,7 +248,7 @@
 .best-thumb {
   /*badge가 absolute 가장 가까운 조상기준으로 배치 thumb에 relative줘서 badge기준점으로 고정*/
   position: relative;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   margin-bottom: 10px;
 }
@@ -263,7 +263,7 @@
   top: 8px;
   left: 8px;
   padding: 3px 9px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-size: var(--font-xs);
   font-weight: 700;
   color: #fff;
@@ -381,7 +381,7 @@
 .miss-list li {
   background: var(--color-bg);
   border: 1px solid var(--color-border-light);
-  border-radius: 15px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   transition: transform 0.3s;
 }
@@ -401,7 +401,7 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   margin-bottom: 10px;
   position: relative; /* 뱃지 위치 조정을 위한 기준점 */
 }
@@ -455,7 +455,7 @@
 .donation-card {
   background: var(--color-bg-soft);
   border: 1px solid var(--color-border);
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   transition: transform 0.3s;
 }
@@ -513,7 +513,7 @@
   margin: 0 auto 70px;
   padding: 28px;
   border: 1px solid var(--color-border-light);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   background: var(--color-bg-soft);
   transition: border-color 0.2s ease;
 }
@@ -524,7 +524,7 @@
   position: absolute;
   /* 상 우 하 좌 모든 방향 0 꽉 채움*/
   inset: 0;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
 }
 .stats-section__link span {
   position: absolute;
@@ -565,7 +565,7 @@
   /* var(--tile-color) 폴백 첫 번째 var()가 없으면 두번쨰로 넘김*/
   /* js로치면 삼항연산자 const color = tileColor ? tileColor : colorBorder*/
   border-top: 3px solid var(--tile-color, var(--color-border));
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 }
 .stats-tile-label {
   font-size: var(--font-xs);
@@ -602,7 +602,7 @@
 .stats-bar {
   display: flex;
   height: 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   overflow: hidden;
   background: #e9e9e9;
 }
