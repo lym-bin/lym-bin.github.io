@@ -405,35 +405,65 @@ document.querySelectorAll(".protect-tab").forEach((tab) => {
   });
 });
 // -------------------------------------------------------------
-// [13] 카카오맵으로 보호소 위치 표시하는 (콜백)함수
-// KaKao SDK는 외부 스크립트아 어제 로드되는지 fetch처럼 await 못함
-// Promise 아님 그래서 콜백 함수
+// [13] 보호소 위치 — 카카오맵 (실패 시 텍스트 목록으로 대체)
+// 카카오 SDK는 외부 스크립트라 fetch처럼 await 못 함 (Promise 아님) → 콜백 방식
 // -------------------------------------------------------------
-let mapRetryCount = 0; // SDK 로드 대기 재시도 횟수 (무한 대기 방지)
+let mapRetryCount = 0; // SDK 로드 대기 재시도 횟수
+
+// 보호소 주소 중복 제거 (지도 성공/실패 양쪽에서 씀 → load 콜백 밖으로 뺌)
+function getUniqueShelters() {
+  const seen = new Set();
+  const list = [];
+  allProtectData.forEach((item) => {
+    if (!item.careAddr || seen.has(item.careAddr)) return;
+    seen.add(item.careAddr);
+    list.push({ name: item.careNm, addr: item.careAddr, tel: item.careTel });
+  });
+  return list;
+}
+
+// 지도 대신 보호소 이름·주소·전화 목록 (SDK 실패 / 도메인 미등록 / 지오코딩 전부 실패)
+function showShelterList(mapContainer) {
+  const shelters = getUniqueShelters();
+  if (shelters.length === 0) {
+    mapContainer.innerHTML =
+      "<p class='map-fallback-msg'>표시할 보호소 데이터가 없습니다.</p>";
+    return;
+  }
+  mapContainer.innerHTML = `
+    <ul class="shelter-fallback">
+      ${shelters
+        .map(
+          (s) => `
+        <li>
+          <strong>${s.name || "보호소"}</strong>
+          <span>${s.addr}</span>
+          <span>${s.tel || "전화번호 정보 없음"}</span>
+        </li>`,
+        )
+        .join("")}
+    </ul>`;
+}
 
 function renderShelterMap() {
   const mapContainer = document.querySelector("#shelter-map");
   if (!mapContainer) return;
 
-  // 1. 카카오 SDK 스크립트 자체가 아직 안 붙었을 때만 재시도
-  //    (autoload=false 이므로 kakao.maps.services / kakao.maps.Map 은
-  //     아래 kakao.maps.load() 콜백 안에서야 사용 가능. 여기서 검사하면 무한 루프)
+  // 1. SDK 스크립트가 아직 안 붙었으면 0.2초 간격 재시도, 25회(약 5초) 넘으면 텍스트 목록
   if (typeof kakao === "undefined" || !kakao.maps || !kakao.maps.load) {
     if (mapRetryCount >= 25) {
-      // 약 5초 대기해도 안 되면 SDK 로드 실패로 간주 (도메인 미등록/네트워크 등)
-      mapContainer.innerHTML =
-        "<p style='text-align:center; padding:40px; color:#888;'>지도를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</p>";
+      showShelterList(mapContainer);
       return;
     }
     mapRetryCount++;
-    setTimeout(renderShelterMap, 200); // 0.2초 후 다시 시도
+    setTimeout(renderShelterMap, 200);
     return;
   }
   mapRetryCount = 0;
 
-  // 2. 카카오 SDK 로드 (이 콜백 안부터 services / Map 사용 가능)
+  // 2. SDK 로드 (이 콜백 안부터 services / Map 사용 가능)
   kakao.maps.load(function () {
-    // 이미 만들어진 지도면 재생성 없이 크기/중심만 재조정
+    // 이미 만든 지도면 크기/중심만 재조정
     if (mapInitialized) {
       setTimeout(() => {
         if (map) {
@@ -444,56 +474,33 @@ function renderShelterMap() {
       return;
     }
 
-    // --- 3. 보호소 주소 중복 제거 ---
-    const uniqueShelters = [];
-
-    allProtectData.forEach((item) => {
-      if (!item.careAddr) return; // 주소 없으면 스킵
-      const foundShelter = uniqueShelters.find(
-        (shelter) => shelter.addr === item.careAddr,
-      );
-
-      if (!foundShelter) {
-        // 아직 없는 주소면 추간
-        uniqueShelters.push({
-          name: item.careNm,
-          addr: item.careAddr,
-          tel: item.careTel,
-        });
-      }
-    });
-
+    const uniqueShelters = getUniqueShelters();
     if (uniqueShelters.length === 0) {
-      mapContainer.innerHTML =
-        "<p style='text-align:center; padding:40px; color:#888;'>표시할 보호소 데이터가 없습니다.</p>";
+      showShelterList(mapContainer);
       return;
     }
 
-    // --- 4. 지도 초기화 ---
+    // 3. 지도 초기화
     map = new kakao.maps.Map(mapContainer, {
       center: new kakao.maps.LatLng(36.5, 127.8), // 우리나라 중심
-      level: 12, // 줌 레벨 (클 수록 축소)
+      level: 12,
     });
     mapInitialized = true;
 
-    // --- 5. 주소 → 좌표 변환 후 마커 찍기 ---
-    const geocoder = new kakao.maps.services.Geocoder(); // 주소 -> 좌표 변환기
-    const bounds = new kakao.maps.LatLngBounds(); // 모든 마커 담을 범위
-    let currentInfowindow = null; // 현재 열린 정보창
-    let completedCount = 0; // 지오코딩 완료 개수
+    // 4. 주소 → 좌표 변환 후 마커 (콜백 비동기)
+    const geocoder = new kakao.maps.services.Geocoder();
+    const bounds = new kakao.maps.LatLngBounds();
+    let currentInfowindow = null;
+    let completedCount = 0;
 
-    // 주소 -> 좌표 (콜백 비동기)
     uniqueShelters.forEach((shelter) => {
-      // 위,경도 좌표 비동기(카카오 서버) 결과 콜백으로
-      // status로 성공/실패 판단 (result)에 데이터
       geocoder.addressSearch(shelter.addr, (result, status) => {
         completedCount++;
 
         if (status === kakao.maps.services.Status.OK) {
           const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
           const marker = new kakao.maps.Marker({ map, position: coords });
-
-          bounds.extend(coords); // 이 좌표를 범위에 포함
+          bounds.extend(coords);
 
           const infowindow = new kakao.maps.InfoWindow({
             content: `<div style="padding:8px; font-size:13px; white-space:nowrap;">
@@ -504,21 +511,24 @@ function renderShelterMap() {
 
           kakao.maps.event.addListener(marker, "click", () => {
             if (currentInfowindow === infowindow) {
-              // 같은 마커 다시 클릭 -> 닫기
               infowindow.close();
               currentInfowindow = null;
             } else {
-              if (currentInfowindow) currentInfowindow.close(); // 다른거 열려있으면 닫고
-              infowindow.open(map, marker); // 열기
+              if (currentInfowindow) currentInfowindow.close();
+              infowindow.open(map, marker);
               currentInfowindow = infowindow;
             }
           });
         }
 
+        // 전부 완료됐을 때
         if (completedCount === uniqueShelters.length) {
-          // 전부 완료 됐을 때
           if (!bounds.isEmpty()) {
-            map.setBounds(bounds); // 모든 마커 보이게/ 줌 자동조정
+            map.setBounds(bounds); // 모든 마커 보이게 줌 자동조정
+          } else {
+            // 좌표 변환이 전부 실패 → 텍스트 목록으로 대체
+            mapInitialized = false; // 다음 탭 진입 때 다시 시도
+            showShelterList(mapContainer);
           }
         }
       });
