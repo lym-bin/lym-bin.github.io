@@ -90,11 +90,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // -------------------------------------------------------------
-  // [2단계] api.js의 통계 데이터 가져오기
+  // [2단계] 통계 + 유기동물 목록 API를 동시에 요청 (직렬 → 병렬)
   // -------------------------------------------------------------
 
-  // 외부 API 파일에 선언된 통계 조회 함수를 비동기(await)로 호출하여 데이터를 기다림
-  const statsData = await fetchAnimalStats();
+  // 목록 컨테이너와 스켈레톤을 먼저 잡아둠 (두 API 응답 대기 동안 표시)
+  const listContainer = document.querySelector("#today-dummy");
+  showSkeleton(listContainer, 5);
+
+  // 두 함수를 await 없이 호출 → 요청이 동시에 나감.
+  // Promise.all: 둘 다 끝나면 결과를 배열로 반환. 대기시간 = 둘 중 느린 쪽.
+  // (각 함수는 내부에서 실패해도 []를 반환하므로 Promise.all이 reject되지 않음)
+  const [statsData, allAnimalData] = await Promise.all([
+    fetchAnimalStats(),
+    fetchAnimalsList(),
+  ]);
 
   // statsData 있을때만 실행
   if (statsData && statsData.length > 0) {
@@ -170,7 +179,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // -------------------------------------------------------------
   // [3단계] 유기동물 추천 및 지역 버튼 연동 (API 데이터 필터링))
   // -------------------------------------------------------------
-  const listContainer = document.querySelector("#today-dummy");
 
   // 데이터를 받아와서 화면에 카드형태로 렌더링하는 함수
   function renderAnimals(data) {
@@ -220,13 +228,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       .join("");
   }
 
-  //  1. 페이지 처음 켜졌을 때 '전국 유기동물 목록' 불러오기
-  // (함수 이름은 api.js에 정의한 이름으로 맞추기)
-  showSkeleton(listContainer, 5); // API 응답 대기 중 스켈레톤 표시
-  const allAnimalData = await fetchAnimalsList(); // API호출 , 배열 대기
+  //  1. 위 Promise.all로 이미 받아둔 목록 데이터를 캐시 + 렌더링
   cacheAnimals(allAnimalData); // 상세 페이지가 재요청 없이 쓰도록 원본 캐시
-  // 처음에 전체 데이터 기본 렌더링
-  renderAnimals(allAnimalData);
+  renderAnimals(allAnimalData); // 처음엔 전체 데이터 기본 렌더링
   // -------------------------------------------------------------
   // 2. 지역 필터 칩(API 데이터에서 시/도별 집계)
   // -------------------------------------------------------------
