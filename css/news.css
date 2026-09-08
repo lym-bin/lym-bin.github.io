@@ -14,7 +14,7 @@
 .news-post-list {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: var(--space-md);
   padding: 0;
 }
 .news-post {

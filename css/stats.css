@@ -35,7 +35,7 @@
 .stats-summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: var(--space-md);
   margin-bottom: 40px;
 }
 .sum-tile {

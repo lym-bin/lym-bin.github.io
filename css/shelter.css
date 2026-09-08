@@ -128,7 +128,7 @@
 .list-design {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  gap: var(--space-md);
   padding: 0;
 }
 .list-design li a {
@@ -173,7 +173,7 @@
 .protect-boho {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: var(--space-md);
   padding: 0;
   margin-bottom: 30px;
 }

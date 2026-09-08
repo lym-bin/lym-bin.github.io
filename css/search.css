@@ -109,7 +109,7 @@
 .search-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: var(--space-md);
   margin-top: 20px;
 }
 .search-list li {
@@ -209,7 +209,7 @@
 .news-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: var(--space-md);
   padding: 0;
   margin-bottom: 24px;
 }
@@ -282,7 +282,7 @@
 @media screen and (max-width: 768px) {
   .search-list {
     grid-template-columns: repeat(2, 1fr); /*3열에서 2열*/
-    gap: 12px;
+    gap: var(--space-sm);
   }
   .guide-list {
     grid-template-columns: 1fr;

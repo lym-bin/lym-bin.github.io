@@ -163,7 +163,7 @@
 .card-list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 15px; /* 카드 사이의 간격 */
+  gap: var(--space-md); /* 카드 사이의 간격 */
   padding: 0;
   margin-top: 20px;
   width: 100%;
@@ -227,7 +227,7 @@
 .best-cardlist {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
+  gap: var(--space-md);
   padding: 0;
 }
 .best-card {
@@ -373,7 +373,7 @@
 .miss-list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 15px;
+  gap: var(--space-md);
   padding: 0;
   margin-top: 0;
 }
@@ -450,7 +450,7 @@
 .donation-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: var(--space-md);
 }
 .donation-card {
   background: var(--color-bg-soft);
@@ -552,7 +552,7 @@
 .stats-tiles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: var(--space-md);
   margin-bottom: 24px;
 }
 .stats-tile {
@@ -696,7 +696,7 @@
   }
   .stats-tiles {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: var(--space-sm);
   }
   .stats-tile {
     flex-direction: row;
