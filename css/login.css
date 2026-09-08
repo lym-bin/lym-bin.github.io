@@ -64,7 +64,13 @@ input[type="password"] {
 /* 로고 이미지 위치 조정*/
 .logo {
   display: block; /* img는 기본적으로 inline(여백)이 생김 block을 썻을 시 미세한 기본 여백이 사라짐*/
+  width: fit-content;
   margin: 0 auto 30px;
+}
+.logo img {
+  width: 150px; /* 헤더 로고와 동일. 없으면 원본 크기라 모바일에서 넘침 */
+  height: auto;
+  display: block;
 }
 .promotion-area {
   width: 100%;
