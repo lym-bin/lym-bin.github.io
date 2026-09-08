@@ -366,42 +366,32 @@ const filterWrap = document.querySelector(".filter-wrap"); // 전체 목록용 �
 let mapInitialized = false; // 최초 진입시엔 false (지도를 이미 한번 만들었는지 확인) 중복 방지
 let map = null; // 카카오 지도API맵 인스턴스를 담을 변수(초기엔 없기때문에 null)
 
+// 탭 이름 → 보여줄 섹션 목록 + 렌더 동작 (규칙 테이블)
+const SECTIONS = { mainSection, filterWrap, bohoSection, mapSection };
+const TAB_VIEW = {
+  protect: {
+    show: ["mainSection", "filterWrap", "bohoSection"],
+    render: () => renderRecommend(5),
+  },
+  find: { show: ["mapSection"], render: renderShelterMap },
+  recommend: { show: ["mainSection"], render: () => renderRecommend(15) },
+};
+
 document.querySelectorAll(".protect-tab").forEach((tab) => {
   tab.addEventListener("click", (e) => {
-    // 모든 protect-tab을 불러와서 클릭했을 때 새로고침 방지
-    e.preventDefault();
+    e.preventDefault(); // <a> 태그라 페이지 이동 막기
 
     document
       .querySelectorAll(".protect-tab")
-      // 모든 ptrotect-tab에서 forEach 반복문을 돌려 순차적으로 active라는 class가 있으면 삭제
       .forEach((t) => t.classList.remove("active"));
-    // 클릭한 tab에만 다시 active기능을줌
     tab.classList.add("active");
 
-    const selected = tab.dataset.tab; // protect || find || recommend
-
-    if (selected === "find") {
-      // "보호소 찾기": 목록/추천 숨기고 지도만
-      if (mainSection) mainSection.style.display = "none";
-      if (filterWrap) filterWrap.style.display = "none";
-      if (bohoSection) bohoSection.style.display = "none";
-      if (mapSection) mapSection.hidden = false;
-      renderShelterMap();
-    } else if (selected === "recommend") {
-      // "추천 입양 동물": 추천 카드만 크게, 전체 목록/필터는 숨김
-      if (mainSection) mainSection.style.display = "";
-      if (filterWrap) filterWrap.style.display = "none";
-      if (bohoSection) bohoSection.style.display = "none";
-      if (mapSection) mapSection.hidden = true;
-      renderRecommend(15); // 추천 탭에서는 더 많이 노출
-    } else {
-      // "보호동물": 추천 5마리 + 필터 + 전체 목록 모두 표시
-      if (mainSection) mainSection.style.display = "";
-      if (filterWrap) filterWrap.style.display = "";
-      if (bohoSection) bohoSection.style.display = "";
-      if (mapSection) mapSection.hidden = true;
-      renderRecommend(5);
-    }
+    const view = TAB_VIEW[tab.dataset.tab] || TAB_VIEW.protect;
+    // show 목록에 없는 섹션은 hidden 붙이고, 있는 건 뗌
+    Object.entries(SECTIONS).forEach(([name, el]) => {
+      if (el) el.classList.toggle("hidden", !view.show.includes(name));
+    });
+    view.render();
   });
 });
 // -------------------------------------------------------------

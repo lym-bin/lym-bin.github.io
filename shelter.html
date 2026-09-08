@@ -17,6 +17,12 @@
     <link href="./css/common.css" rel="stylesheet" />
     <link href="./css/shelter.css" rel="stylesheet" />
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=33b78f6c06127c8eef2088fd7774e264&libraries=services&autoload=false"></script>
+    <script src="js/config.js" defer></script>
+    <script src="js/badge.js" defer></script>
+    <script src="js/ui.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/shelter.js" defer></script>
+    <script src="js/login-state.js" defer></script>
   </head>
   <body>
     <!-- 메인홈페이지 헤더 -->
@@ -176,7 +182,7 @@
         </div>
       </div>
       <!-- 보호소 찾기 지도 영역 (기본은 숨김) -->
-      <section class="map-section" id="map-section" hidden>
+      <section class="map-section hidden" id="map-section">
         <div id="shelter-map"></div>
       </section>
       <!-- 오늘의 추천 입양 동물 (API에서 추린 카드) -->
@@ -299,11 +305,5 @@
         <p>&copy; Pawinhand all rights reserved.</p>
       </div>
     </footer>
-    <script src="js/config.js"></script>
-    <script src="js/badge.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/shelter.js"></script>
-    <script src="js/login-state.js"></script>
   </body>
 </html>
