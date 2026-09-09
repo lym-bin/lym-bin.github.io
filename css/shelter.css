@@ -47,7 +47,7 @@
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5); /*배경 어둡게*/
-  z-index: 1000;
+  z-index: var(--z-modal);
 }
 /*모달 내용 박스*/
 .filter-modal-content {

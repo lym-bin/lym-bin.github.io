@@ -64,6 +64,10 @@
   /* 그림자 */
   --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-card: 0 10px 20px rgba(0, 0, 0, 0.1);
+  /* z-index 레이어 (값보다 순서가 의미. 사이에 낄 자리 두려고 띄엄띄엄) */
+  --z-dropdown: 10;
+  --z-modal: 1000;
+  --z-toast: 2000;
 }
 /* ==========================================================
                        CSS 공통(global) 초기화
@@ -360,13 +364,12 @@ body {
   }
 }
 /* 토스트 알림 (alert 대체) */
-/* view포트 창 기준 고정*/
-/*헤더 100, 드롭다운 200, 모달 1000, 토스트 2000*/
+/* view포트 창 기준 고정 (z-index 레이어: --z-dropdown < --z-modal < --z-toast) */
 .toast {
   position: fixed;
   top: 24px;
   left: 50%;
-  z-index: 2000;
+  z-index: var(--z-toast);
   max-width: 90vw;
   padding: 12px 20px;
   border-radius: var(--radius-pill);
