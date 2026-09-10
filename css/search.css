@@ -68,7 +68,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  z-index: var(--z-dropdown);
+  z-index: var(--z-dropdown); /* 10 */
   min-width: 160px;
   box-shadow: var(--shadow-soft);
 }
@@ -274,8 +274,9 @@
   .search-list {
     grid-template-columns: repeat(3, 1fr); /*4열에서 3열*/
   }
+  /* 아이템 3개라 2열이면 둘째 줄에 빈칸이 생김 → 태블릿에서도 3열 유지 */
   .news-list {
-    grid-template-columns: repeat(2, 1fr); /*3열에서 2열*/
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 /*모바일 화면 (너비 768 이하 일떄)*/
