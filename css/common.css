@@ -265,8 +265,7 @@ body {
 }
 .footer-inner {
   display: flex;
-  justify-content: space-between;
-  /* 가로-> flex-start: 위 정렬, end:아래 정렬*/
+  gap: 100px;
   align-items: flex-start;
   max-width: var(--container-max);
   margin: 0 auto;

@@ -23,7 +23,7 @@
 .banner-container {
   display: flex;
   max-width: var(--container-max);
-  margin: 0 auto 70px auto;
+  margin: 0 auto var(--space-xl) auto;
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -81,7 +81,7 @@
 .quick-menu {
   max-width: var(--container-max);
   padding: 0 20px;
-  margin: 0 auto 70px auto; /* 섹션 여백 확보 */
+  margin: 0 auto var(--space-xl) auto; /* 섹션 여백 확보 */
 }
 .quick-title {
   margin-bottom: 25px;
@@ -133,7 +133,7 @@
    ========================================== */
 .today-animal {
   max-width: var(--container-max);
-  margin: 0 auto 70px auto; /* 섹션 간격 넓게 수정 */
+  margin: 0 auto var(--space-xl) auto; /* 섹션 간격 넓게 수정 */
   padding: 0 20px;
   text-align: left;
 }
@@ -213,7 +213,7 @@
    ========================================== */
 .best-animal {
   max-width: var(--container-max);
-  margin: 0 auto 70px; /* 섹션 간격 넓게 수정 */
+  margin: 0 auto var(--space-xl); /* 섹션 간격 넓게 수정 */
   padding: 0 20px;
   text-align: left;
 }
@@ -282,7 +282,7 @@
    ========================================== */
 .ph-news {
   max-width: var(--container-max);
-  margin: 0 auto 70px; /* 섹션 간격 넓게 수정 */
+  margin: 0 auto var(--space-xl); /* 섹션 간격 넓게 수정 */
   padding: 0 20px;
   text-align: left;
 }
@@ -352,7 +352,7 @@
    ========================================== */
 .missing-report {
   max-width: var(--container-max);
-  margin: 0 auto 70px; /* 섹션 간격 넓게 수정 */
+  margin: 0 auto var(--space-xl); /* 섹션 간격 넓게 수정 */
   padding: 0 20px;
   text-align: left;
 }
@@ -506,7 +506,7 @@
 .stats-section {
   position: relative;
   max-width: var(--container-max);
-  margin: 0 auto 70px;
+  margin: 0 auto var(--space-xl);
   padding: 28px;
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
