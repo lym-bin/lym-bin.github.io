@@ -29,7 +29,7 @@ input[type="password"] {
   width: 100%;
   padding: 15px;
   margin-bottom: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
 }
 /* 입력창 아래 검증 오류 문구 */

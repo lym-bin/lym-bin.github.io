@@ -36,7 +36,7 @@
   gap: 16px;
 }
 .summary-info dt {
-  color: #888;
+  color: var(--color-text-muted);
   font-size: var(--font-sm);
 }
 .detail-info {
@@ -216,7 +216,7 @@ textarea {
   height: 100px;
   margin-top: 15px;
   border-radius: var(--radius-sm);
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   padding: 10px;
 }
 /* 액션 버튼 (스타일은 공통 .btn .btn--primary, 배치만) */

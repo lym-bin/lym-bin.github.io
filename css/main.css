@@ -473,7 +473,7 @@
 }
 .donation-info p {
   font-size: var(--font-sm);
-  color: #888;
+  color: var(--color-text-muted);
   margin-bottom: 12px;
 }
 .progress-bar {

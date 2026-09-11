@@ -86,7 +86,7 @@
 .filter-modal-content input[type="date"] {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   box-sizing: border-box;
   margin-top: 5px;
@@ -236,7 +236,7 @@
   margin: 0;
 }
 .protect-boho li dt {
-  color: #888;
+  color: var(--color-text-muted);
 }
 .protect-boho li dd {
   color: var(--color-text);
