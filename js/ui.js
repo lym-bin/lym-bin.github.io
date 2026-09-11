@@ -12,6 +12,10 @@
  */
 function showSkeleton(container, count = 8) {
   if (!container) return;
+  // 스켈레톤 카드는 aria-hidden이라 스크린리더가 못 읽음 + 시각적으로도
+  // 회색 뼈대만 봐선 "로딩 중"인지 알기 어려울 수 있어서, 이미 있는 토스트
+  // (role="status")로 "불러오는 중" 을 같이 안내함 (시각 + 스크린리더 둘 다)
+  showToast("불러오는 중...");
   container.innerHTML = Array.from({ length: count })
     .map(() => `<li class="skeleton-card" aria-hidden="true"></li>`)
     .join("");
@@ -59,6 +63,8 @@ function cacheAnimals(items) {
 }
 
 // 현재 보고 있는 페이지에 해당하는 헤더 nav 링크를 강조 표시
+// 내부 변수를 전역에 노출 안 시키려고 함수에 감싸서 스코프를 격리
+// 한 번만 실행하면 되기 때문에 바로 호출(IIFE)
 (function markCurrentNav() {
   const current = location.pathname.split("/").pop() || "index.html";
   document.querySelectorAll(".main-nav .nav-item").forEach((link) => {
@@ -70,9 +76,12 @@ function cacheAnimals(items) {
 })();
 
 // 화면 상단에 잠깐 떴다 사라지는 토스트 알림 (alert 대체)
+// 여러번 연속으로 토스트를 호출 할 때 시간제어를 저장할 변수
 let _toastTimer = null;
+// 매개 변수 함수 저장
 function showToast(message, type = "info") {
   let box = document.querySelector(".toast");
+  // not연산자 사용해서 충족실행
   if (!box) {
     box = document.createElement("div");
     box.className = "toast";
@@ -84,6 +93,8 @@ function showToast(message, type = "info") {
   // 재트리거 시 애니메이션이 다시 돌도록 리플로우 강제
   void box.offsetWidth;
   box.classList.add("toast--show");
+  // setTimeout이 아직 대기중 일 수 있어서 clearTimeout으로 취소하고
+  // 새로 예약하면 매번 2.5초 초기화
   clearTimeout(_toastTimer);
   _toastTimer = setTimeout(() => box.classList.remove("toast--show"), 2500);
 }
@@ -96,8 +107,10 @@ function formatYmd(d) {
 }
 // 모바일 헤더 햄버거 메뉴 토글 (전 페이지 공통)
 (function initNavToggle() {
+  // 지역변수선언
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector(".main-nav");
+  // toggle이 false면 , || : 하나라도 true면 실행 nav가 false면 true
   if (!toggle || !nav) return;
 
   toggle.addEventListener("click", () => {
