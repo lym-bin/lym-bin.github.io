@@ -12,13 +12,13 @@
  */
 function showSkeleton(container, count = 8) {
   if (!container) return;
-  // 스켈레톤 카드는 aria-hidden이라 스크린리더가 못 읽음 + 시각적으로도
-  // 회색 뼈대만 봐선 "로딩 중"인지 알기 어려울 수 있어서, 이미 있는 토스트
-  // (role="status")로 "불러오는 중" 을 같이 안내함 (시각 + 스크린리더 둘 다)
-  showToast("불러오는 중...");
-  container.innerHTML = Array.from({ length: count })
+  // 첫 카드만 "불러오는 중" 텍스트 + role="status" (시각적으로도 보이고,
+  // 스크린리더도 읽음). 나머지는 그대로 장식용 shimmer라 aria-hidden 유지.
+  const labelCard = `<li class="skeleton-card skeleton-card--label" role="status">불러오는 중...</li>`;
+  const plainCards = Array.from({ length: Math.max(count - 1, 0) })
     .map(() => `<li class="skeleton-card" aria-hidden="true"></li>`)
     .join("");
+  container.innerHTML = labelCard + plainCards;
 }
 /**
  * 안내 메시지 1줄 렌더 (빈 결과 / 에러 공용)

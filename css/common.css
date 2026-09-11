@@ -350,6 +350,19 @@ body {
   background-size: 200% 100%;
   animation: skeleton-loading 1.2s ease-in-out infinite;
 }
+/* 스켈레톤 중 첫 카드 = shimmer 사각형 아래에 "불러오는 중" 텍스트 */
+.skeleton-card--label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  color: var(--color-text-sub);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  text-align: center;
+}
 @keyframes skeleton-loading {
   from {
     background-position: 200% 0;
