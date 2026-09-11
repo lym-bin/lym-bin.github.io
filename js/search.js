@@ -44,6 +44,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 현재 선택된 상태 그룹(초기값: 3개 다 체크 된 상태)
   // set: js안에 있는 객체 중복 없는 값을 모음 배열 대신
   // 중복 자동제거 용이 속도 빠름
+  // has로 써도 되지않을까?: 해쉬 조회라서 콜백안에서 아이템마다 검색
+  // 300개면 has가 300번 호출되므로 set 사용
   let selectedStatuses = new Set(["보호중", "긴급", "종료"]);
 
   // [3] getStatusGroup / getBadgeClass 는 js/badge.js (공용) 에 있음
@@ -134,6 +136,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // [7] 정렬 버튼 (최신순 ↔ 오래된순 토글)
   // -------------------------------------------------------------
   const sortBtn = document.querySelector(".info-space button");
+  // 클로저 콜백 안 지역 변수
   let sortOrder = "desc"; // desc: 최신순, asc: 오래된순
 
   if (sortBtn) {
@@ -184,7 +187,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // -------------------------------------------------------------
   // [9] 페이지 진입 시 API 로드 및 데이터 정규화 불러오기
   // -------------------------------------------------------------
-  // 조회 기간을 최근 3일로 좁혀서 numOfRows(api.js에서 500으로 설정됨)로도
+  // 조회 기간을 최근 3일로 좁혀서 numOfRows(api.js 기본값 200)로도
   // 그 기간의 데이터를 충분히 커버하게 하고, 등록일(happenDt)이 다양하게
   // 섞이도록 해서 정렬 기능이 실제로 눈에 띄게 동작하도록 만듬.
   const { bgnde, endde } = getDateRange(3); // 최근 3일
@@ -240,6 +243,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   // -------------------------------------------------------------
   // [12] 더보기 버튼 클릭 → 12개씩 추가로 노출
   // -------------------------------------------------------------
+  // ?: 옵셔널 체이닝으로 morebtn이 요소면 리스너 실행
+  // null이면 에러 없이 아무 일도 안함
   moreBtn?.addEventListener("click", () => {
     displayLimit += 12;
     renderSearchCards(currentFilteredData);
@@ -250,7 +255,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const btn = e.target.closest(".like-btn");
     if (!btn) return;
     e.preventDefault(); // 카드 링크 이동 막기
-    e.stopPropagation();
+    e.stopPropagation(); // 이벤트 버블링 방지
     const nowLiked = toggleLike(btn.dataset.num); // localStorage 갱신 + 현재 찜 여부
     btn.textContent = nowLiked ? "♥" : "♡";
     btn.classList.toggle("liked", nowLiked);
@@ -259,6 +264,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   // -------------------------------------------------------------
   // [13] 검색어 + 상태 필터 → 필터링 + 정렬 + 렌더링을 한 번에 처리하는 함수
   // -------------------------------------------------------------
+  // 반복문(콜백)안에 컬렉션 전체를 훏는 무거운 연산을 넣지않는다.
+  // filter로 거른 뒤 딱 한번만 정렬한다
   function filterAndRender() {
     // 검색어 준비: 공백 제거 + 소문자. filter 콜백 밖에서 한 번만 가공
     const likedList = getLikedList(); // 한 번만 읽어서 filter에서 재사용
