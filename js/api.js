@@ -1,7 +1,6 @@
 // api.js
 // 한마디로 흐름은 api.js: 서버에 직접 요청을 보내고, 데이터를 무사히 받아올 때 까지
 // (await)가 데이터 배열을 통째로 배달해주는 역할
-
 // -------------------------------------------------------------
 // [1] 하단 통계 데이터 조회
 //- 지정된 기간(시작일~종료일) 동안의 유기동물 구조 및 통계 데이터를 공공데이터 API로부터 받아옴
@@ -43,23 +42,33 @@ async function fetchAnimalStats(lookbackMonths = 3) {
 /**
  * [2] 유기동물 목록 조회 함수 (가장 핵심)
  * - 전국의 보호 동물 리스트를 가져오는 메인 API 함수.
- * - 기본값인 10개만 가져오면 지역 필터링 시 데이터가 부족하므로, numOfRows=200을 주어 데이터 풀을 넓힘.
+ * - 기본값인 10개만 가져오면 지역 필터링 시 데이터가 부족해서 넉넉히 받되,
+ *   너무 많으면 응답 대기·이미지 로딩이 느려지니 호출부에서 조절 가능하게 매개변수로 뺌.
  */
-async function fetchAnimalsList() {
-  const url = `${RESCUEANIMAL_API_URL}?serviceKey=${encodeURIComponent(API_KEY)}&numOfRows=200&_type=json`;
+async function fetchAnimalsList(numOfRows = 200) {
+  const url = `${RESCUEANIMAL_API_URL}?serviceKey=${encodeURIComponent(API_KEY)}&numOfRows=${numOfRows}&_type=json`;
 
   try {
+    // 2. 가게에 결제완료 버튼을 누르고 오토바이가 출발해서 우리집에 올때까지 나는 다른걸 하면서 기다릴게(await)
     const response = await fetch(url);
+    // 3. 배달 기사님이 왔는데 주문 취소 됐어요!!! 라거나 가게 문을 닫았어요!!하고 (404, 500에러) 빈손으로 돌아오진 않았는지 영수증 확인(response.status)
     if (!response.ok) {
+      // throw 안잡으면 아래코드 실행X
       throw new Error(`HTTP 에러 발생! 상태 코드: ${response.status}`);
     }
+    // 4. 음식 포장 뜯기(json파싱) 도착한 배달 봉투를 받고(시간걸리니 await) 쌓여있는(방대한 데이터) 진짜 음식(데이터)을 내 입맛에 맞게 세팅
     const data = await response.json();
 
-    // 공공데이터 응답 구조에 따라 경로 확인 필요 (보통 response.body.items.item)
+    // 공공데이터 응답 구조에 따라 경로 확인 필요
+    // (보통 response.body.items.item)
+    // 5. 봉투를 열였더니 포장지(response) > 이중포장지(body) > 서비스포장박스(items) > 드디어 음식 발견(item)
+    // 중간에 봉투에 하나라도 비어있으면 빈 접시 ([]);
     return data?.response?.body?.items?.item || [];
+    // 6. 배달 도중 사고가 나거나(네트워크 끊김) 앱이 뻗었을 때, 쫄쫄 굶는대신 빈접시라도 받음([] 빈 배열)
   } catch (error) {
     console.error("유기동물 API 요청 실패:", error);
     return [];
+    // 리턴 안주면 undefined 반환
   }
 }
 
@@ -114,3 +123,11 @@ async function fetchProtectData(filters = {}) {
     return [];
   }
 }
+
+// [페이지 JS가 호출] main.js: const list = await fetchAnimalsList()
+// [1. 파라미터 준비] 날짜 계산, 필터 값 -> URL 문자열 조합
+// "https://.../abandonmentPublic?serviceKey=...&numOfRows=200&_type=json"
+// [2. 요청 보냄] const response = await fetch(url)
+// (공공API데이터 서버에 갔다옴)
+// [3. 상태 확인] response.ok? -> 아니면 throw (catch로 점프)
+// [4. 본문 파싱]

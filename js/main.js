@@ -95,14 +95,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 목록 컨테이너와 스켈레톤을 먼저 잡아둠 (두 API 응답 대기 동안 표시)
   const listContainer = document.querySelector("#today-dummy");
-  showSkeleton(listContainer, 5);
+  showSkeleton(listContainer, 5); // 두 API 기다리는 동안 스켈레톤 먼저
 
   // 두 함수를 await 없이 호출 → 요청이 동시에 나감.
   // Promise.all: 둘 다 끝나면 결과를 배열로 반환. 대기시간 = 둘 중 느린 쪽.
   // (각 함수는 내부에서 실패해도 []를 반환하므로 Promise.all이 reject되지 않음)
   const [statsData, allAnimalData] = await Promise.all([
-    fetchAnimalStats(),
-    fetchAnimalsList(),
+    fetchAnimalStats(), // 요청 나감 (안 멈춤)
+    fetchAnimalsList(100), // 요청 나감 (안 멈춤) -> 겹쳐서 동시 진행. 100건으로 응답·이미지 로딩 단축
   ]);
 
   // statsData 있을때만 실행
@@ -287,9 +287,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const adopReview = document.querySelector("#best-dummy");
 
   if (adopReview) {
-    adopReview.innerHTML = ADOPTION_REVIEWS
-      .map(
-        (r) => `
+    adopReview.innerHTML = ADOPTION_REVIEWS.map(
+      (r) => `
       <li class="best-card">
       <div class="best-thumb">
         <img src="${r.afterImg}" alt="${r.name}" data-after="${r.afterImg}" data-before="${r.beforeImg}" onerror="imgError(this)"/>
@@ -298,8 +297,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <span class="best-name">${r.name}</span>
       </li>
       `,
-      )
-      .join("");
+    ).join("");
 
     // 마우스 호버 이벤트 설정 (입양 전/후 이미지 및 배지 전환)
     // forEach로 순회하면서 카드마다 이벤트
@@ -341,15 +339,14 @@ document.querySelectorAll('.btn-more[data-category="today"]').forEach((btn) => {
 const donationContainer = document.querySelector("#donation-dummy");
 
 if (donationContainer) {
-  donationContainer.innerHTML = DONATION_CHALLENGES
-    .map((item) => {
-      // Math.min(계산값, 100) : 둘 중 작은값. 초과 모금돼도 100% 넘지않게함
-      const percent = Math.min(
-        // Math.round로 반올림
-        Math.round((item.current / item.goal) * 100),
-        100,
-      );
-      return `
+  donationContainer.innerHTML = DONATION_CHALLENGES.map((item) => {
+    // Math.min(계산값, 100) : 둘 중 작은값. 초과 모금돼도 100% 넘지않게함
+    const percent = Math.min(
+      // Math.round로 반올림
+      Math.round((item.current / item.goal) * 100),
+      100,
+    );
+    return `
     <div class="donation-card">
       <img src="${item.image}" alt="${item.title}" onerror="imgError(this)" />
       <div class="donation-info">
@@ -365,6 +362,5 @@ if (donationContainer) {
       </div>
     </div>
     `;
-    })
-    .join("");
+  }).join("");
 }

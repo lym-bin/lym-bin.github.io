@@ -317,7 +317,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // api.js에서 정의된 함수 공공데이터 보호동물 조회
   showSkeleton(recommendContainer, 5); // 추천 영역 스켈레톤
   showSkeleton(container, 12); // 전체 목록 스켈레톤
-  const apiItems = await fetchProtectData();
+  const apiItems = await fetchProtectData({ numOfRows: 100 }); // 500 -> 100건으로 줄여 응답·이미지 로딩 단축
   cacheAnimals(apiItems); // 상세 페이지가 재요청 없이 쓰도록 원본 캐시
   if (apiItems && apiItems.length > 0) {
     // API 원본 필드명과 매핑준비(desertionNo(공고번호), happenDt(구조 발견일?발생일)등)
