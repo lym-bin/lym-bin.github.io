@@ -81,7 +81,7 @@ async function fetchProtectData(filters = {}) {
   const baseUrl = RESCUEANIMAL_API_URL;
 
   // 2. 기본 필수 파라미터 조합 (서비스키 및 응답 타입)
-  const numOfRows = filters.numOfRows || 500;
+  const numOfRows = filters.numOfRows || 200;
   let url = `${baseUrl}?serviceKey=${encodeURIComponent(API_KEY)}&numOfRows=${numOfRows}&_type=json`;
 
   // 3. 전달받은 필터 값이 있다면 동적으로 URL에 추가
