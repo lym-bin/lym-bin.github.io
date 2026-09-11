@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // (각 함수는 내부에서 실패해도 []를 반환하므로 Promise.all이 reject되지 않음)
   const [statsData, allAnimalData] = await Promise.all([
     fetchAnimalStats(), // 요청 나감 (안 멈춤)
-    fetchAnimalsList(100), // 요청 나감 (안 멈춤) -> 겹쳐서 동시 진행. 100건으로 응답·이미지 로딩 단축
+    fetchAnimalsList(200), // 요청 나감 (안 멈춤) -> 겹쳐서 동시 진행. 지역 필터 칩 다양성 확보 위해 200 유지
   ]);
 
   // statsData 있을때만 실행
