@@ -388,7 +388,42 @@
           텍스트).
         </p>
 
-        <div style="margin-top: 24px">
+        <p class="sg-label" style="margin-top: 24px">서체 (Font Family)</p>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            padding: 20px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+          "
+        >
+          <div style="font-size: 2.5rem; font-weight: 700; color: var(--color-text-strong)">
+            Pretendard
+          </div>
+          <div style="font-family: 'Courier New', monospace; font-size: 12px; color: var(--color-text-sub); line-height: 1.8">
+            "Pretendard", -apple-system, BlinkMacSystemFont,<br />
+            "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕",<br />
+            system-ui, sans-serif
+          </div>
+        </div>
+        <p class="sg-section__desc" style="margin-top: 8px">
+          jsDelivr CDN에서 Pretendard 로드, 실패 시 OS 기본 한글 서체로 자동
+          대체.
+        </p>
+
+        <p class="sg-label">굵기 (Font Weight)</p>
+        <div class="sg-row" style="gap: 28px">
+          <span style="font-weight: 400">Regular 400</span>
+          <span style="font-weight: 500">Medium 500</span>
+          <span style="font-weight: 600">SemiBold 600</span>
+          <span style="font-weight: 700">Bold 700</span>
+          <span style="font-weight: 800">ExtraBold 800</span>
+        </div>
+
+        <p class="sg-label">크기 (Size Scale)</p>
+        <div style="margin-top: 8px">
           <div class="sg-type-row">
             <div class="sg-type-row__meta">
               --font-hero<br />2rem · 32px
