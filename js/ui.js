@@ -120,3 +120,33 @@ function formatYmd(d) {
     toggle.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
   });
 })();
+
+// ==========================================
+// 찜하기 기능 — localStorage 저장/조회
+// 여러 페이지(search, detail)에서 찜하기 버튼 사용
+// ==========================================
+
+//찜한 동물 번호 관리
+const LIKED_KEY = "likedAnimals"; // localStorage에 쓸 키
+
+function getLikedList() {
+  try {
+    // 아직 저장된 값이 없으면 null → || [] 로 빈 배열
+    // 저장된 값이 손상되면 JSON.parse가 에러 → catch에서 빈 배열
+    return JSON.parse(localStorage.getItem(LIKED_KEY)) || [];
+  } catch {
+    return [];
+  }
+}
+// 특정 동물 번호를(num) 찜 목록에 추가/제거하고, 최종 찜 여부(boolean)을 반환
+function toggleLike(num) {
+  const liked = getLikedList(); // 현재 목록
+  const index = liked.indexOf(num); // 번호 위치
+  if (index > -1) {
+    liked.splice(index, 1); // 이미 찜했으면 제거함
+  } else {
+    liked.push(num); //안 찜했으면 추가
+  }
+  localStorage.setItem(LIKED_KEY, JSON.stringify(liked)); // 저장
+  return liked.includes(num);
+}
