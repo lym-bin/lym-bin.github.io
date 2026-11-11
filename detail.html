@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -60,7 +60,12 @@
           <ul class="thumb-list"></ul>
         </div>
         <div class="summary-info">
-          <h1 class="detail-species">[개] 품종</h1>
+          <div class="detail-title-row">
+            <h1 class="detail-species">[개] 품종</h1>
+            <button type="button" class="detail-like-btn" aria-pressed="false">
+              ♡ 찜하기
+            </button>
+          </div>
           <div class="detail-desc-text">성별 / 색 / (년생) / (Kg)</div>
           <dl>
             <dt>공고번호</dt>
@@ -80,8 +85,12 @@
             <p>* 전화 문의는 보호소 운영시간 확인 후 이용 바랍니다.</p>
           </div>
           <div class="action-buttons">
-            <button type="button" class="btn btn--primary btn-view-app">앱에서 보기</button>
-            <button type="button" class="btn btn--primary btn-adopt-app">앱에서 입양신청</button>
+            <button type="button" class="btn btn--primary btn-view-app">
+              앱에서 보기
+            </button>
+            <button type="button" class="btn btn--primary btn-adopt-app">
+              앱에서 입양신청
+            </button>
           </div>
         </div>
       </section>
@@ -93,19 +102,31 @@
           <ul class="trait-list">
             <li class="trait">
               <span class="trait-name">건강상태</span>
-              <span class="trait-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+              <span class="trait-dots"
+                ><i class="on"></i><i class="on"></i><i class="on"></i
+                ><i class="on"></i><i></i
+              ></span>
             </li>
             <li class="trait">
               <span class="trait-name">사회성</span>
-              <span class="trait-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+              <span class="trait-dots"
+                ><i class="on"></i><i class="on"></i><i class="on"></i
+                ><i class="on"></i><i></i
+              ></span>
             </li>
             <li class="trait">
               <span class="trait-name">활동성</span>
-              <span class="trait-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+              <span class="trait-dots"
+                ><i class="on"></i><i class="on"></i><i class="on"></i><i></i
+                ><i></i
+              ></span>
             </li>
             <li class="trait">
               <span class="trait-name">친화도</span>
-              <span class="trait-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+              <span class="trait-dots"
+                ><i class="on"></i><i class="on"></i><i class="on"></i
+                ><i class="on"></i><i class="on"></i
+              ></span>
             </li>
           </ul>
           <p class="description">신중한 입양신청 부탁드립니다.</p>
@@ -123,10 +144,22 @@
         <article class="adoption-process">
           <h2>입양 절차</h2>
           <ol class="steps">
-            <li><span class="step-num">1</span><span class="step-label">공고 확인</span></li>
-            <li><span class="step-num">2</span><span class="step-label">입양신청서 제출</span></li>
-            <li><span class="step-num">3</span><span class="step-label">입양 상담</span></li>
-            <li><span class="step-num">4</span><span class="step-label">입양 확정</span></li>
+            <li>
+              <span class="step-num">1</span
+              ><span class="step-label">공고 확인</span>
+            </li>
+            <li>
+              <span class="step-num">2</span
+              ><span class="step-label">입양신청서 제출</span>
+            </li>
+            <li>
+              <span class="step-num">3</span
+              ><span class="step-label">입양 상담</span>
+            </li>
+            <li>
+              <span class="step-num">4</span
+              ><span class="step-label">입양 확정</span>
+            </li>
           </ol>
         </article>
       </section>
@@ -140,7 +173,13 @@
             id="comment-input"
             placeholder="보호소에서는 댓글을 확인하지 않습니다."
           ></textarea>
-          <button type="button" class="btn btn--primary" id="comment-submit-btn">등록</button>
+          <button
+            type="button"
+            class="btn btn--primary"
+            id="comment-submit-btn"
+          >
+            등록
+          </button>
         </div>
       </section>
     </main>

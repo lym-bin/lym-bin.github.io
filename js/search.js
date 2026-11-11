@@ -6,7 +6,6 @@
 //  3. 상태(보호중/긴급/입양완료) 체크박스 필터
 //  4. 최신순/오래된순 정렬
 //  5. 더보기 페이지네이션
-//  6. 찜하기(♡) 버튼 localStorage 저장
 // ==========================================
 
 // -------------------------------------------------------------
@@ -365,34 +364,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 찜 버튼 클릭은 위쪽 이벤트 위임에서 처리 (여기서 리스너 안 붙임)
   }
 });
-
-// ==========================================
-// [15] 찜하기 기능 — localStorage 저장/조회
-// (DOMContentLoaded 바깥에 둔 이유: 이 함수들은 이 파일의 다른 곳에서도
-//  재사용될 수 있는 독립적인 유틸리티 함수라서 전역 스코프에 둔다.)
-// ==========================================
-
-//찜한 동물 번호 관리
-const LIKED_KEY = "likedAnimals"; // localStorage에 쓸 키
-
-function getLikedList() {
-  try {
-    // JSON.parse는 저장된 값이 없거나(null) 손상된 값이면 에러를 던짐
-    // try-catch로 예외처리, 실패 시 return값을 배열로 반환
-    return JSON.parse(localStorage.getItem(LIKED_KEY)) || [];
-  } catch {
-    return [];
-  }
-}
-// 특정 동물 번호를(num) 찜 목록에 추가/제거하고, 최종 찜 여부(boolean)을 반환
-function toggleLike(num) {
-  const liked = getLikedList(); // 현재 목록
-  const index = liked.indexOf(num); // 번호 위치
-  if (index > -1) {
-    liked.splice(index, 1); // 이미 찜했으면 제거함
-  } else {
-    liked.push(num); //안 찜했으면 추가
-  }
-  localStorage.setItem(LIKED_KEY, JSON.stringify(liked)); // 저장
-  return liked.includes(num);
-}

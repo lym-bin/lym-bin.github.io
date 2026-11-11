@@ -155,6 +155,30 @@ function renderAnimalDetail(item) {
   const numEl = document.querySelector(".detail-num");
   if (numEl) numEl.textContent = item.desertionNo || item.num || "-";
 
+  // --- 찜하기 버튼 (목록과 같은 localStorage를 써서 하트 상태 공유) ---
+  const likeBtn = document.querySelector(".detail-like-btn");
+  if (likeBtn) {
+    // 목록의 data-num은 항상 문자열 → 같은 타입으로 맞춰야 includes가 찾음
+    const num = String(item.desertionNo);
+
+    // 찜 상태에 맞게 버튼 모양 바꾸기
+    const renderLike = (liked) => {
+      likeBtn.textContent = liked ? "♥ 찜했어요" : "♡ 찜하기";
+      likeBtn.classList.toggle("liked", liked);
+      likeBtn.setAttribute("aria-pressed", String(liked));
+    };
+
+    // ① 처음 열었을 때: 이미 찜한 동물인지 확인
+    renderLike(getLikedList().includes(num));
+
+    // ② 누르면: 찜 추가/제거 → 결과로 버튼 갱신
+    likeBtn.addEventListener("click", () => {
+      const nowLiked = toggleLike(num);
+      renderLike(nowLiked);
+      showToast(nowLiked ? "찜 목록에 추가했어요" : "찜 목록에서 해제되었어요");
+    });
+  }
+
   const periodEl = document.querySelector(".detail-period");
   // formatYmd(ui.js): "20260907" → "26.09.07"
   if (periodEl)
