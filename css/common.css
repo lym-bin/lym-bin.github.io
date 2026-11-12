@@ -66,6 +66,7 @@
   --shadow-card: 0 10px 20px rgba(0, 0, 0, 0.1);
   /* z-index 레이어 (값보다 순서가 의미. 사이에 낄 자리 두려고 띄엄띄엄) */
   --z-dropdown: 10;
+  --z-header: 500;
   --z-modal: 1000;
   --z-toast: 2000;
 }
@@ -130,6 +131,11 @@ body {
    ========================================== */
 .main-header {
   margin-bottom: 14px;
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  z-index: var(--z-header);
+  border-bottom: 1px solid var(--color-border-light);
 }
 .main-logo {
   display: block; /* 레이아웃 자유롭게 배치하기 위해*/
@@ -602,7 +608,8 @@ body {
 }
 
 /* 어떤 경우에도 가로 스크롤은 막는다 (안전장치) */
+/* hidden은 스크롤 영역을 만들어 헤더 sticky가 안 붙음 → 자르기만 하는 clip으로 수정 (8/27 1c1a07d에서 추가한 안전장치) */
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
