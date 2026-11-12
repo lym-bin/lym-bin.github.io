@@ -256,8 +256,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     e.preventDefault(); // 카드 링크 이동 막기
     e.stopPropagation(); // 이벤트 버블링 방지
     const nowLiked = toggleLike(btn.dataset.num); // localStorage 갱신 + 현재 찜 여부
-    btn.textContent = nowLiked ? "♥" : "♡";
+    btn.textContent = nowLiked ? "♥ 찜했어요" : "♡ 찜하기";
     btn.classList.toggle("liked", nowLiked);
+    btn.setAttribute("aria-pressed", nowLiked ? "true" : "false");
   });
 
   // -------------------------------------------------------------
@@ -356,7 +357,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <p class="card-meta">${meta}</p>
           </div>
         </a>
-        <button type="button" class="like-btn ${isLiked ? "liked" : ""}" data-num="${item.num}" aria-label="찜하기">${isLiked ? "♥" : "♡"}</button>
+        <button type="button" class="like-btn ${isLiked ? "liked" : ""}" data-num="${item.num}" aria-pressed="${isLiked ? "true" : "false"}">${isLiked ? "♥ 찜했어요" : "♡ 찜하기"}</button>
       </li>
     `;
       })
