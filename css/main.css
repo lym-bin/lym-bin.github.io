@@ -517,20 +517,21 @@
   border-color: var(--color-primary);
 }
 .stats-section__link {
-  position: absolute;
-  /* 상 우 하 좌 모든 방향 0 꽉 채움*/
-  inset: 0;
-  border-radius: var(--radius-md);
-}
-.stats-section__link span {
-  position: absolute;
-  right: 28px;
-  bottom: 28px;
+  display: block;
+  margin-top: 10px;
+  text-align: right;
   font-size: var(--font-sm);
-  font-weight: 600;
   color: var(--color-primary);
+  font-weight: 600;
 }
-.stats-section:hover .stats-section__link span {
+.stats-section__link::after {
+  position: absolute;
+  border-radius: var(--radius-md);
+  /* 상 하 좌 우 0으로 꽉 채움*/
+  inset: 0;
+  content: "";
+}
+.stats-section:hover .stats-section__link {
   text-decoration: underline;
 }
 .stats-header {
