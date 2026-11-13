@@ -317,40 +317,49 @@ document.addEventListener("DOMContentLoaded", async () => {
   // api.js에서 정의된 함수 공공데이터 보호동물 조회
   showSkeleton(recommendContainer, 5); // 추천 영역 스켈레톤
   showSkeleton(container, 12); // 전체 목록 스켈레톤
-  const apiItems = await fetchProtectData({ numOfRows: 100 }); // 500 -> 100건으로 줄여 응답·이미지 로딩 단축
-  cacheAnimals(apiItems); // 상세 페이지가 재요청 없이 쓰도록 원본 캐시
-  if (apiItems && apiItems.length > 0) {
-    // API 원본 필드명과 매핑준비(desertionNo(공고번호), happenDt(구조 발견일?발생일)등)
-    // 이름(name과 date등)을 매핑해서 allProtectData에 저장
-    allProtectData = apiItems.map((item, index) => ({
-      id: index + 1,
-      state: item.processState, // 보호중 / 종료(입양)등
-      sexCd: item.sexCd === "F" ? "암컷" : item.sexCd === "M" ? "수컷" : "미상",
-      num: item.desertionNo, // 공고번호 (상세 페이지 이동할 때 넘김)
-      date: item.happenDt, // 발생일 (YYYYMMDD)
-      loc: item.orgNm, // 관할기간(지역)
-      image: item.popfile1, // 이미지 1번
-      species: (item.kindFullNm || "").replace(/\[.*?\]\s*/g, ""), // "[개] 믹스견" → "믹스견"
-      careNm: item.careNm, // 보호센터 이름
-      careAddr: item.careAddr, // 보호센터 주소(지도 좌표 변환 사용)
-      careTel: item.careTel, // 보호센터 전화번호
-    }));
+  try {
+    const apiItems = await fetchProtectData({ numOfRows: 100 }); // 500 -> 100건으로 줄여 응답·이미지 로딩 단축
+    cacheAnimals(apiItems); // 상세 페이지가 재요청 없이 쓰도록 원본 캐시
+    if (apiItems.length > 0) {
+      // API 원본 필드명과 매핑준비(desertionNo(공고번호), happenDt(구조 발견일?발생일)등)
+      // 이름(name과 date등)을 매핑해서 allProtectData에 저장
+      allProtectData = apiItems.map((item, index) => ({
+        id: index + 1,
+        state: item.processState, // 보호중 / 종료(입양)등
+        sexCd:
+          item.sexCd === "F" ? "암컷" : item.sexCd === "M" ? "수컷" : "미상",
+        num: item.desertionNo, // 공고번호 (상세 페이지 이동할 때 넘김)
+        date: item.happenDt, // 발생일 (YYYYMMDD)
+        loc: item.orgNm, // 관할기간(지역)
+        image: item.popfile1, // 이미지 1번
+        species: (item.kindFullNm || "").replace(/\[.*?\]\s*/g, ""), // "[개] 믹스견" → "믹스견"
+        careNm: item.careNm, // 보호센터 이름
+        careAddr: item.careAddr, // 보호센터 주소(지도 좌표 변환 사용)
+        careTel: item.careTel, // 보호센터 전화번호
+      }));
 
-    // 렌더링전에 필터 없이 전체 데이터를 뿌려줌
-    currentFilteredData = allProtectData;
-    // 12개 갯수 제한
-    displayLimit = 12;
+      // 렌더링전에 필터 없이 전체 데이터를 뿌려줌
+      currentFilteredData = allProtectData;
+      // 12개 갯수 제한
+      displayLimit = 12;
 
-    renderProtectsCards(currentFilteredData);
-    renderRecommend(5); // 상단 "오늘의 추천 입양 동물" 5마리
-  } else {
-    // API 응답이 비어있거나 할 떄 에러 방어
+      renderProtectsCards(currentFilteredData);
+      renderRecommend(5); // 상단 "오늘의 추천 입양 동물" 5마리
+    } else {
+      // API 응답이 비어있거나 할 때 에러 방어
+      showStateMessage(container, "등록된 데이터가 0건입니다.", "empty");
+      if (moreBtn) moreBtn.classList.add("hidden");
+      renderRecommend(5);
+    }
+  } catch (error) {
+    console.error("데이터 로딩 실패: ", error);
     showStateMessage(
       container,
       "데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
       "error",
     );
     if (moreBtn) moreBtn.classList.add("hidden");
+    renderRecommend(5);
   }
 });
 

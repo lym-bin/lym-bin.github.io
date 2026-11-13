@@ -36,19 +36,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // [3] 캐시에 없으면 전체 목록을 받아 find (새로고침 / 직접 URL 접근 대비)
   if (!currentAnimal) {
-    const apiItems = await fetchProtectData({ numOfRows: 1000 });
-
-    if (!apiItems || apiItems.length === 0) {
+    try {
+      const apiItems = await fetchProtectData({ numOfRows: 1000 });
+      // String()으로 감싸는 이유: desertionNo 타입이 섞여 와도 안전하게 문자열 비교
+      // 0건([])이면 find가 undefined → 아래 "찾을 수 없습니다"로 처리됨
+      currentAnimal = apiItems.find(
+        (item) => String(item.desertionNo) === String(targetNum),
+      );
+    } catch {
+      // 실패 메시지
       showDetailError(
         "데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
       );
       return;
     }
-
-    // String()으로 감싸는 이유: desertionNo 타입이 섞여 와도 안전하게 문자열 비교
-    currentAnimal = apiItems.find(
-      (item) => String(item.desertionNo) === String(targetNum),
-    );
   }
 
   if (!currentAnimal) {
