@@ -189,30 +189,40 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 조회 기간을 최근 3일로 좁혀서 numOfRows(api.js 기본값 200)로도
   // 그 기간의 데이터를 충분히 커버하게 하고, 등록일(happenDt)이 다양하게
   // 섞이도록 해서 정렬 기능이 실제로 눈에 띄게 동작하도록 만듬.
+
   const { bgnde, endde } = getDateRange(3); // 최근 3일
   showSkeleton(searchListContainer, 12); // API 응답 대기 중 스켈레톤 표시
-  const apiItems = await fetchProtectData({ bgnde, endde }); // api.js호출
-  cacheAnimals(apiItems); // 상세 페이지가 재요청 없이 쓰도록 원본 캐시
 
-  if (apiItems && apiItems.length > 0) {
-    allSearchData = apiItems.map((item, index) => ({
-      id: index + 1,
-      state: item.processState || "보호중",
-      num: item.desertionNo, // 공고 번호 (상세 페이지로 이동 + 찜하기 식별자로 사용)
-      image: item.popfile1 || "", // 기존 더미 이미지있던 버그 삭제
-      rawKind: item.kindFullNm || item.kindCd || "", // 게[믹스견] 원본 형태(검색용)
-      species: item.kindFullNm
-        ? // 정규식 으로 감싼다음 replace
-          item.kindFullNm.replace(/\[.*?\]\s*/g, "")
-        : item.kindCd || "정보 없음",
-      loc: item.orgNm || "",
-      specialMark: item.specialMark || "",
-      noticeDate: item.noticeSdt || item.happenDt || "", // 정렬 기준 날짜
-    }));
+  try {
+    const apiItems = await fetchProtectData({ bgnde, endde }); // api.js 호출
+    cacheAnimals(apiItems); // 상세 페이지가 재요청 없이 쓰도록 원본 캐시
 
-    filterAndRender();
-    // 실패 처리
-  } else {
+    if (apiItems.length > 0) {
+      allSearchData = apiItems.map((item, index) => ({
+        id: index + 1,
+        state: item.processState || "보호중",
+        num: item.desertionNo, // 공고 번호 (상세 페이지로 이동 + 찜하기 식별자로 사용)
+        image: item.popfile1 || "", // 기존 더미 이미지 있던 버그 삭제
+        rawKind: item.kindFullNm || item.kindCd || "", // 원본 형태(검색용)
+        species: item.kindFullNm
+          ? item.kindFullNm.replace(/\[.*?\]\s*/g, "") // 정규식으로 replace 대괄호 및 공백 제거
+          : item.kindCd || "정보 없음",
+        loc: item.orgNm || "",
+        specialMark: item.specialMark || "",
+        noticeDate: item.noticeSdt || item.happenDt || "", // 정렬 기준 날짜
+      }));
+
+      filterAndRender();
+    } else {
+      showStateMessage(
+        searchListContainer,
+        "최근 3일간 등록된 동물이 없습니다.",
+        "empty",
+      );
+    }
+  } catch (error) {
+    // 실패 메시지
+    console.error("데이터 로딩 실패:", error);
     showStateMessage(
       searchListContainer,
       "데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",

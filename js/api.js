@@ -120,7 +120,7 @@ async function fetchProtectData(filters = {}) {
     return [];
   } catch (error) {
     console.error("유기동물 API 요청 실패:", error);
-    return [];
+    throw error;
   }
 }
 
