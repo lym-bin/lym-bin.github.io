@@ -25,13 +25,14 @@
 :root {
   /* 브랜드 */
   --color-primary: #ff9900;
+  --color-primary-text: #ad5600;
   --color-primary-dark: #f28c00;
   --color-primary-soft: #fdeccf; /* 연한 주황 (아이콘 배경 등) */
   /* 텍스트 */
   --color-text: #333;
   --color-text-strong: #111;
   --color-text-sub: #666;
-  --color-text-muted: #999;
+  --color-text-muted: #6f6f6f;
   /* 배경 / 테두리 */
   --color-bg: #fff;
   --color-bg-soft: #f9f9f9;
@@ -39,9 +40,9 @@
   --color-border: #e0e0e0;
   --color-border-light: #eee;
   /* 상태 뱃지 */
-  --color-state-protect: #4a90d9; /* 보호중 */
-  --color-state-urgent: #e74c3c; /* 긴급 */
-  --color-state-done: #27ae60; /* 종료/입양완료 */
+  --color-state-protect: #2d6fb8; /* 보호중 */
+  --color-state-urgent: #c0392b; /* 긴급 */
+  --color-state-done: #1e8449; /* 종료/입양완료 */
   /* 타이포 스케일 */
   --font-hero: 2rem; /* 32px - 배너 등 히어로 제목 */
   --font-h1: 1.75rem; /* 28px */
@@ -153,11 +154,11 @@ body {
 }
 .nav-item:hover {
   opacity: 0.8;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 /* 현재 페이지 표시 (ui.js에서 클래스 부여) */
 .nav-item.is-current {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   font-weight: 700;
 }
 /* 로그인/로그아웃 버튼 — nav 텍스트 링크와 구분되는 알약 버튼 */
@@ -171,7 +172,7 @@ body {
   border-radius: var(--radius-pill);
   font-size: var(--font-sm);
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   /* 한 줄 유지*/
   white-space: nowrap;
   transition:
@@ -180,7 +181,7 @@ body {
 }
 .nav-auth:hover {
   background-color: var(--color-primary);
-  color: #fff;
+  color: #111;
 }
 /* 로그인 상태: 채움 + 초록 점으로 '접속 중' 명시 */
 .nav-auth.is-logged-in {
@@ -430,7 +431,7 @@ body {
   color: var(--color-text-sub);
 }
 .page-error a {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   font-weight: 700;
 }
 /* ==========================================================
@@ -464,7 +465,7 @@ body {
 /* 주 CTA — 주황 채움 */
 .btn--primary {
   background: var(--color-primary);
-  color: #fff;
+  color: #111;
 }
 .btn--primary:hover {
   background: var(--color-primary-dark);
@@ -477,7 +478,7 @@ body {
 }
 .btn--ghost:hover {
   border-color: var(--color-primary);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 /* 필터 칩 — 작고 둥근 pill */
 .btn--chip {
@@ -494,7 +495,7 @@ body {
 .btn--chip.is-active {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: #fff;
+  color: #111;
 }
 /* 텍스트 버튼 */
 .btn--text {
@@ -505,7 +506,7 @@ body {
   font-weight: 600;
 }
 .btn--text:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 /* 크기 / 폭 변형 */
 .btn--sm {

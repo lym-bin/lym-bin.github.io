@@ -34,7 +34,7 @@
   color: var(--color-text);
 }
 .protect-tab.active {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   font-weight: 700;
   border-bottom-color: var(--color-primary);
 }
