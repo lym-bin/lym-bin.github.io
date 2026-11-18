@@ -501,10 +501,14 @@ function renderShelterMap() {
           const marker = new kakao.maps.Marker({ map, position: coords });
           bounds.extend(coords);
 
+          // 길찾기 링크: 문서 형식 /link/to/이름,위도,경도
+          const routeUrl = `https://map.kakao.com/link/to/${encodeURIComponent(shelter.name)},${result[0].y},${result[0].x}`;
           const infowindow = new kakao.maps.InfoWindow({
             content: `<div style="padding:8px; font-size:13px; white-space:nowrap;">
                       <strong>${shelter.name}</strong><br/>
-                      ${shelter.tel || "전화번호 정보 없음"}
+                      ${shelter.addr}<br/>
+                      ${shelter.tel ? `<a href="tel:${shelter.tel}">${shelter.tel}</a>` : "전화번호 정보 없음"}<br/>
+                      <a href="${routeUrl}" target="_blank" rel="noopener noreferrer">길찾기 (새 창)</a>
                     </div>`,
           });
 
