@@ -45,13 +45,12 @@
   text-align: center;
   gap: 12px;
   padding: 40px 36px;
-  background-color: #b5622a;
+  background-color: #a0521f;
   color: #fff;
 }
 /* 폰트: 기본은 --font-* 토큰, 일부 히어로/특수 자리만 px 직접 지정 */
 .banner-eyebrow {
   font-size: var(--font-sm);
-  opacity: 0.9;
 }
 .banner-title {
   font-size: var(--font-hero);
@@ -60,7 +59,6 @@
 }
 .banner-desc {
   font-size: var(--font-body);
-  opacity: 0.95;
 }
 .banner-cta {
   margin-top: 8px;
@@ -113,7 +111,7 @@
   padding: 11px;
   border-radius: 50%;
   background: var(--color-bg-soft);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   transition: background 0.2s ease;
 }
 .quick-list a span {
@@ -123,7 +121,7 @@
 }
 .quick-list a:hover {
   transform: translateY(-4px);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 .quick-list a:hover svg {
   background: var(--color-primary-soft);
@@ -422,10 +420,10 @@
 }
 /* 실종 / 제보에 따라 뱃지 색상을 다르게 */
 .miss-img-wrap .missing-badge {
-  background-color: #ff5252; /* 실종: 붉은계열 */
+  background-color: var(--color-state-urgent); /* 실종: 붉은계열 */
 }
 .miss-img-wrap .report-badge {
-  background-color: #448aff; /* 제보: 푸른계열 */
+  background-color: var(--color-state-protect); /* 제보: 푸른계열 */
 }
 /* ==========================================
    기부 챌린지 영역
@@ -498,7 +496,7 @@
 }
 .donation-meta .percent {
   font-weight: 700;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 /* ==========================================
    유기동물 처리 현황 (본문 하단 미니 대시보드)
@@ -521,7 +519,7 @@
   margin-top: 10px;
   text-align: right;
   font-size: var(--font-sm);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   font-weight: 600;
 }
 .stats-section__link::after {
@@ -581,13 +579,13 @@
   color: var(--color-text-sub);
 }
 .stat-care {
-  --tile-color: #28a745; /* 이 카드만 초록*/
+  --tile-color: var(--color-state-done); /* 이 카드만 초록*/
 }
 .stat-adopt {
-  --tile-color: #007bff; /* 이 카드만 파랑*/
+  --tile-color: var(--color-state-protect); /* 이 카드만 파랑*/
 }
 .stat-eol {
-  --tile-color: #fd7e14; /* 이 카드만 주황*/
+  --tile-color: var(--color-primary-text); /* 이 카드만 주황*/
 }
 /* 보호 종료 결과 스택 바 */
 .stats-breakdown-title {
