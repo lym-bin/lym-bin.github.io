@@ -232,6 +232,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               ? "암컷"
               : "미상";
         const age = animal.age || "나이 미상";
+        const region = animal.orgNm || "지역 미상";
         const img = animal.popfile1 || animal.popfile2 || "";
         const desertionNo = animal.desertionNo || "";
         // 백틱으로 카드 마크업 공고번호로 전달
@@ -242,6 +243,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <img src="${img}" alt="${kind}" loading="lazy" onerror="imgError(this)">
         <span class="card-species">${kind}</span>
         <span class="card-meta">${sex} · ${age}</span>
+        <span class="card-meta">${region}</span>
         </a>
         </li>
       `;
