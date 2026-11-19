@@ -168,11 +168,14 @@
 }
 /* 개별 카드 디자인 */
 .card-list li {
-  border: 1px solid var(--color-border-light);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md); /* 모서리 둥글게 */
   overflow: hidden;
-  transition: transform 0.3s; /* 마우스 올렸을 때 애니메이션 */
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s; /* 마우스 올렸을 때 애니메이션 */
   background: var(--color-bg);
+  box-shadow: var(--shadow-soft);
 }
 .card-list li:hover {
   transform: translateY(-5px); /* 마우스 올리면 살짝 위로 이동 */
