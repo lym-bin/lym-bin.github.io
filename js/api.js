@@ -35,7 +35,7 @@ async function fetchAnimalStats(lookbackMonths = 3) {
     return data?.response?.body?.items?.item || []; // 4. 필요한 데이터만 꺼내서 반환
   } catch (error) {
     console.error("API 요청 실패:", error);
-    return []; // 5. 실패해도 빈 배열 -> 호출 한 쪽이 안터짐
+    throw error; // 5. 실패는 던져서 호출한 쪽이 실패와 0건을 구분하게
   }
 }
 
@@ -64,11 +64,10 @@ async function fetchAnimalsList(numOfRows = 200) {
     // 5. 봉투를 열였더니 포장지(response) > 이중포장지(body) > 서비스포장박스(items) > 드디어 음식 발견(item)
     // 중간에 봉투에 하나라도 비어있으면 빈 접시 ([]);
     return data?.response?.body?.items?.item || [];
-    // 6. 배달 도중 사고가 나거나(네트워크 끊김) 앱이 뻗었을 때, 쫄쫄 굶는대신 빈접시라도 받음([] 빈 배열)
+    // 6. 배달 도중 사고가 나거나(네트워크 끊김) 앱이 뻗었을 때, 쫄쫄 굶는대신 배달실패라도 받음(throw)
   } catch (error) {
     console.error("유기동물 API 요청 실패:", error);
-    return [];
-    // 리턴 안주면 undefined 반환
+    throw error;
   }
 }
 

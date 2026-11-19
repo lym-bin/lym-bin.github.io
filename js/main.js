@@ -98,18 +98,40 @@ document.addEventListener("DOMContentLoaded", async () => {
   showSkeleton(listContainer, 5); // 두 API 기다리는 동안 스켈레톤 먼저
 
   // 두 함수를 await 없이 호출 → 요청이 동시에 나감.
-  // Promise.all: 둘 다 끝나면 결과를 배열로 반환. 대기시간 = 둘 중 느린 쪽.
-  // (각 함수는 내부에서 실패해도 []를 반환하므로 Promise.all이 reject되지 않음)
-  const [statsData, allAnimalData] = await Promise.all([
+  // (레거시)Promise.all: 둘 다 끝나면 결과를 배열로 반환. 대기시간 = 둘 중 느린 쪽
+  // Promise.allSettled: 모두 끝날 때까지 기다려서 각각의 성공 실패를 알려줌(if, else if)
+  const [statsResult, listResult] = await Promise.allSettled([
     fetchAnimalStats(), // 요청 나감 (안 멈춤)
     fetchAnimalsList(200), // 요청 나감 (안 멈춤) -> 겹쳐서 동시 진행. 지역 필터 칩 다양성 확보 위해 200 유지
   ]);
 
-  // statsData 있을때만 실행
-  if (statsData && statsData.length > 0) {
+  // 각 결과에서 값 꺼내기: 성공이면 value, 실패면 null
+  const statsData =
+    statsResult.status === "fulfilled" ? statsResult.value : null;
+  const allAnimalData =
+    listResult.status === "fulfilled" ? listResult.value : null;
+
+  const legendEl = document.querySelector("#statsLegend");
+
+  // 통계: 실패(null) / 0건([]) / 성공 세 갈래
+  if (statsData === null) {
+    // 1. 실패
+    ["statCare", "statAdopt", "statEol"].forEach((id) => {
+      const el = document.querySelector("#" + id);
+      if (el) el.textContent = "-";
+    });
+    showStateMessage(
+      legendEl,
+      "현황을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
+      "error",
+    );
+  } else if (statsData.length === 0) {
+    // 2. 성공했지만 0건
+    showStateMessage(legendEl, "집계된 현황 데이터가 없습니다.", "empty");
+  } else {
+    // 성공
     // chart1 = 처리상태별 "마리 수" (보호중 / 자연사 / 입양 / 기증 / 반환 / 안락사)
     // 주의: tot 값은 비율(%)이 아니라 마리 수. 예전엔 %로 잘못 표기했음.
-    // filter 메서드로 chart1만
     const chart1 = statsData.filter((item) => item.se === "chart1");
 
     // --- find 메서드 이름으로 마리수 꺼내는 헬퍼 ---
@@ -150,7 +172,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 누적상자(sum)의 시작값을 0으로 두고 각 항목(s)의 s.value를 더해줌
     const endedTotal = segments.reduce((sum, s) => sum + s.value, 0);
     const barEl = document.querySelector("#statsBar");
-    const legendEl = document.querySelector("#statsLegend");
 
     // 태그들이 존재하고 0보다 클 때 실행
     if (barEl && legendEl && endedTotal > 0) {
@@ -228,9 +249,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       .join("");
   }
 
-  //  1. 위 Promise.all로 이미 받아둔 목록 데이터를 캐시 + 렌더링
-  cacheAnimals(allAnimalData); // 상세 페이지가 재요청 없이 쓰도록 원본 캐시
-  renderAnimals(allAnimalData); // 처음엔 전체 데이터 기본 렌더링
   // -------------------------------------------------------------
   // 2. 지역 필터 칩(API 데이터에서 시/도별 집계)
   // -------------------------------------------------------------
@@ -280,7 +298,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
   }
-  renderRegionFilter();
+  // 1. allSettled로 받은 목록: null이면 실패, 아니면 캐시 + 렌더링
+  if (allAnimalData === null) {
+    showStateMessage(
+      listContainer,
+      "추천 동물을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
+      "error",
+    );
+  } else {
+    cacheAnimals(allAnimalData); // 캐시
+    renderAnimals(allAnimalData); // 렌더링 (0건이면 renderAnimals가 안에서 "없음" 안내)
+    renderRegionFilter(); // 지역 칩
+  }
+
   // -------------------------------------------------------------
   // [4단계] 베스트 입양후기 렌더링 및 호버 이벤트
   // -------------------------------------------------------------

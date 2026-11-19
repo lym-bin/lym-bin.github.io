@@ -15,9 +15,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const regionTable = document.querySelector("#region-table"); // 표
 
   const LOOKBACK = 12; // 최근 12개월 (상수로 빼서 재사용)
-  const data = await fetchAnimalStats(LOOKBACK); // api.js 호출
 
-  if (!data || data.length === 0) {
+  let data; // try 밖에서도 쓰려고 바깥에 선언
+  try {
+    data = await fetchAnimalStats(LOOKBACK);
+  } catch (error) {
     // api실패 방어
     if (periodEl) periodEl.textContent = "통계 데이터를 불러오지 못했습니다.";
     showStateMessage(
@@ -25,6 +27,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       "통계를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
       "error",
     );
+    return;
+  }
+
+  if (data.length === 0) {
+    // 0건: 실패 문구가 아니라 "데이터 없음" 안내
+    if (periodEl)
+      periodEl.textContent = "최근 12개월 동안 집계된 통계가 없습니다.";
+    showStateMessage(outcomeChart, "집계된 통계 데이터가 없습니다.", "empty");
     return;
   }
 
