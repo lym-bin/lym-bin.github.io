@@ -204,13 +204,14 @@
   color: var(--color-text-strong);
 }
 .card-list li .card-meta,
-.miss-list li .card-meta {
+.miss-list li .card-meta,
+.best-cardlist li .card-meta {
   margin-top: 3px;
   font-size: var(--font-xs);
   color: var(--color-text-sub);
 }
 /* ==========================================
-   베스트 입양후기 영역
+   새 가족을 만난 친구들 영역
    ========================================== */
 .best-animal {
   max-width: var(--container-max);
@@ -220,6 +221,7 @@
 }
 .best-header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 25px;
@@ -232,6 +234,8 @@
   padding: 0;
 }
 .best-card {
+  display: flex;
+  flex-direction: column;
   background: var(--color-bg);
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
@@ -269,9 +273,6 @@
   font-weight: 700;
   color: #fff;
   background: var(--color-state-done); /* 입양 후 =초록*/
-}
-.best-badge.is-before {
-  background: var(--color-text-muted); /*입양 전 = 회색*/
 }
 .best-name {
   font-size: var(--font-body);
@@ -364,7 +365,8 @@
   align-items: baseline;
   margin-bottom: 20px;
 }
-.miss-source {
+.miss-source,
+.best-source {
   font-size: var(--font-xs);
   color: var(--color-text-muted);
 }
