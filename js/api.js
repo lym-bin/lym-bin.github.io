@@ -123,10 +123,26 @@ async function fetchProtectData(filters = {}) {
   }
 }
 
-// [페이지 JS가 호출] main.js: const list = await fetchAnimalsList()
-// [1. 파라미터 준비] 날짜 계산, 필터 값 -> URL 문자열 조합
-// "https://.../abandonmentPublic?serviceKey=...&numOfRows=200&_type=json"
-// [2. 요청 보냄] const response = await fetch(url)
-// (공공API데이터 서버에 갔다옴)
-// [3. 상태 확인] response.ok? -> 아니면 throw (catch로 점프)
-// [4. 본문 파싱]
+/**
+ * [4] 분실동물 조회 (서버 함수 경유)
+ * - 서버가 보호자 정보를 뺀 필드만 돌려줌
+ * - 실패(네트워크, 502, ok:false)는 throw → 호출한 쪽이 실패와 0건을 구분
+ */
+async function fetchLostAnimals() {
+  try {
+    const response = await fetch(LOST_API_URL);
+    // 1. HTTP 에러 체크
+    if (!response.ok) {
+      throw new Error(`HTTP 에러 발생! 상태코드 : ${response.status}`);
+    }
+    const data = await response.json();
+    // 2. 서버가 ok:false를 보낸 경우도 실패
+    if (!data.ok) {
+      throw new Error(data.message || data.error || "서버 응답 실패(ok:false)");
+    }
+    return data.items; // 3. 성공이면 배열 (0건이면 [])
+  } catch (error) {
+    console.error("분실동물 API 요청 실패 : ", error);
+    throw error;
+  }
+}

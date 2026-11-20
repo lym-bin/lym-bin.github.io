@@ -37,11 +37,14 @@ const DONATION_CHALLENGES = [
   },
 ];
 
-// 실종/제보 (missing.js)
+// 제보 예시(사용자가 직접 제보하는 글이라 백엔드 연동필요, 실종은 API로)
 const MISSING_REPORTS = [
-  { id: 1, type: "실종", region: "가평군", breed: "포메라니안", color: "갈색/흰색", image: "images/missing_1.jpg" },
-  { id: 2, type: "제보", region: "마포구", breed: "강아지", color: "흰색", image: "images/missing_2.jpg" },
-  { id: 3, type: "실종", region: "구로구", breed: "말티즈", color: "흰색", image: "images/missing_3.jpg" },
-  { id: 4, type: "실종", region: "수원특례시", breed: "고양이", color: "고등어색", image: "images/missing_4.jpg" },
-  { id: 5, type: "실종", region: "부산광역시", breed: "웰시코기", color: "흰색/갈색", image: "images/missing_5.jpg" },
+  {
+    id: 2,
+    type: "제보",
+    region: "마포구",
+    breed: "강아지",
+    color: "흰색",
+    image: "images/missing_2.jpg",
+  },
 ];
