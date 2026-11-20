@@ -349,6 +349,25 @@
         </div>
         <a href="stats.html" class="stats-section__link">전체 통계 보기 →</a>
       </section>
+      <!-- 동물 정보 모달 (새 가족을 만난 친구들 / 실종 카드 공용, JS가 내용 채움) -->
+      <dialog
+        class="animal-dialog"
+        id="animal-dialog"
+        aria-labelledby="animal-dialog-title"
+      >
+        <form method="dialog">
+          <button type="submit" class="animal-dialog-close" aria-label="닫기">
+            ×
+          </button>
+        </form>
+        <img class="animal-dialog-img" alt="" />
+        <div class="animal-dialog-body">
+          <span class="animal-dialog-badge"></span>
+          <h2 class="animal-dialog-title" id="animal-dialog-title"></h2>
+          <dl class="animal-dialog-info"></dl>
+          <p class="animal-dialog-note"></p>
+        </div>
+      </dialog>
     </main>
     <!--푸터 영역-->
     <footer class="footer-wrapper">

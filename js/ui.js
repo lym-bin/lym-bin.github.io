@@ -105,6 +105,55 @@ function formatYmd(d) {
     ? `${d.slice(2, 4)}.${d.slice(4, 6)}.${d.slice(6, 8)}`
     : d || "";
 }
+
+// "M"/"F"/그 외 → 수컷/암컷/미상 (main.js 추천 카드와 같은 규칙)
+function toSexLabel(code) {
+  return code === "M" ? "수컷" : code === "F" ? "암컷" : "미상";
+}
+
+/**
+ * 동물 정보 모달 열기 (index: 새 가족을 만난 친구들 / 실종 카드 공용)
+ * - rows 값은 API 데이터라 textContent로 넣음 (innerHTML 금지: 트러블슈팅 6 댓글 XSS와 같은 이유)
+ * - noteHtml에는 코드에 직접 쓴 고정 문구(링크)만 넣음
+ */
+function openAnimalDialog(data) {
+  const dialog = document.querySelector("#animal-dialog");
+  if (!dialog) return;
+
+  // 1. 사진 (실패하면 회색 플레이스홀더)
+  const img = dialog.querySelector(".animal-dialog-img");
+  img.onerror = () => imgError(img);
+  img.src = data.image || PLACEHOLDER_IMG;
+  img.alt = data.title;
+
+  // 2. 배지: 글자 + 실종이면 빨간색 클래스
+  const badge = dialog.querySelector(".animal-dialog-badge");
+  badge.textContent = data.badge;
+  badge.classList.toggle(
+    "animal-dialog-badge--lost",
+    data.badgeType === "lost",
+  );
+
+  // 3. 제목
+  dialog.querySelector(".animal-dialog-title").textContent = data.title;
+
+  // 4. 항목-값 목록 (createElement + textContent)
+  const info = dialog.querySelector(".animal-dialog-info");
+  info.innerHTML = ""; // 이전에 연 내용 비우기 (고정 빈 문자열이라 안전)
+  data.rows.forEach(([label, value]) => {
+    const dt = document.createElement("dt");
+    dt.textContent = label;
+    const dd = document.createElement("dd");
+    dd.textContent = value;
+    info.append(dt, dd);
+  });
+
+  // 5. 안내 문구 (고정 HTML만)
+  dialog.querySelector(".animal-dialog-note").innerHTML = data.noteHtml || "";
+
+  dialog.showModal(); // 모달로 열기
+}
+
 // 모바일 헤더 햄버거 메뉴 토글 (전 페이지 공통)
 (function initNavToggle() {
   // 지역변수선언
