@@ -356,20 +356,45 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
       } else {
         adopReview.innerHTML = adopted
-          .map((a) => {
+          .map((a, i) => {
             const kind = a.kindNm || a.kindCd || "품종 정보 없음";
             const region = a.orgNm || "지역 미상";
             return `
           <li class="best-card">
-            <div class="best-thumb">
+           <button type="button" class="card-open-btn best-card-btn" data-index="${i}" aria-haspopup="dialog">
+            <span class="best-thumb">
               <img src="${a.popfile1}" alt="${kind}" loading="lazy" onerror="imgError(this)" />
               <span class="best-badge">입양 완료</span>
-            </div>
+            </span>
             <span class="best-name">${kind}</span>
             <span class="card-meta">${region}</span>
+            </button>
           </li>`;
           })
           .join("");
+
+        // 목록에 리스너 하나: 클릭된 곳에서 가장 가까운 카드 버튼을 찾음
+        adopReview.addEventListener("click", (e) => {
+          // ① missList → adopReview
+          const btn = e.target.closest(".card-open-btn");
+          if (!btn) return;
+          const a = adopted[Number(btn.dataset.index)]; // ② lostCards → adopted, 변수 이름은 a로
+          const kind = a.kindNm || a.kindCd || "품종 정보 없음";
+          openAnimalDialog({
+            image: a.popfile1,
+            title: kind,
+            badge: "입양 완료",
+            badgeType: "done",
+            rows: [
+              ["성별", toSexLabel(a.sexCd)],
+              ["나이", a.age || "미상"],
+              ["구조일", formatYmd(a.happenDt) || "미상"], // 구조일 필드
+              ["보호소", a.careNm || "미상"], // 보호소 이름 필드
+              ["지역", a.orgNm || "지역 미상"],
+            ],
+            noteHtml: "공공데이터 기준 입양으로 보호가 종료된 동물이에요.",
+          });
+        });
       }
     }
   }

@@ -39,23 +39,47 @@ document.addEventListener("DOMContentLoaded", async () => {
     region: item.region || "지역 미상",
     color: item.color || "색상 미상",
     image: item.image || "",
+    sex: item.sex || "성별 미상",
+    age: item.age || "나이 미상",
+    date: item.date || "실종일 미상",
   }));
 
   // 실종(API) 4장 + 제보(예시) → 기존 템플릿으로 렌더
   missList.innerHTML = [...lostCards, ...MISSING_REPORTS]
-    .map((item) => {
-      return `
-    <li>
-      <div class="miss-card">
-        <div class="miss-img-wrap">
-          <img src="${item.image}" alt="${item.breed} (${item.color})" onerror="imgError(this)">
-          <span class="badge ${item.type === "실종" ? "missing-badge" : "report-badge"}">${item.type}</span>
-        </div>
-        <span class="card-species">${item.breed}</span>
-        <span class="card-meta">${item.region} · ${item.color}</span>
-      </div>
-    </li>
-  `;
+    .map((item, i) => {
+      const inner = `<span class="miss-img-wrap">
+        <img src="${item.image}" alt="${item.breed} (${item.color})" onerror="imgError(this)">
+        <span class="badge ${item.type === "실종" ? "missing-badge" : "report-badge"}">${item.type}</span>
+      </span>
+      <span class="card-species">${item.breed}</span>
+      <span class="card-meta">${item.region} · ${item.color}</span>`;
+
+      // 실종(실제 데이터)만 눌러서 자세히 보기, 제보(예시)는 클릭 없음
+      return item.type === "실종"
+        ? `<li><button type="button" class="miss-card card-open-btn" data-index="${i}" aria-haspopup="dialog">${inner}</button></li>`
+        : `<li><div class="miss-card">${inner}</div></li>`;
     })
     .join("");
+
+  // 목록에 리스너 하나: 클릭된 곳에서 가장 가까운 카드 버튼을 찾음
+  missList.addEventListener("click", (e) => {
+    const btn = e.target.closest(".card-open-btn"); // 카드 버튼 클래스
+    if (!btn) return; // 제보 카드나 빈 곳 클릭
+    const item = lostCards[Number(btn.dataset.index)]; // data-index → 숫자로
+    openAnimalDialog({
+      image: item.image,
+      title: item.breed,
+      badge: "실종",
+      badgeType: "lost",
+      rows: [
+        ["성별", toSexLabel(item.sex)],
+        ["나이", item.age || "미상"],
+        ["분실일", formatYmd(item.date)], // "20261118" → "26.11.18" (ui.js에 있는 함수)
+        ["지역", item.region],
+        ["색", item.color],
+      ],
+      noteHtml:
+        '보호자 연락처는 개인정보 보호를 위해 표시하지 않습니다. <a href="https://www.animal.go.kr/front/awtis/loss/lossList.do?menuNo=1000100000" target="_blank" rel="noopener">국가동물보호정보시스템 분실 신고</a>에서 확인하세요.',
+    });
+  });
 });
