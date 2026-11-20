@@ -58,7 +58,7 @@ export async function GET(request) {
     // 4. 허용 목록: 화면에 필요한 필드만 새 객체로 (나머지는 여기서 버려짐)
     const items = list
       .map((item) => ({
-        image: item.popfile,
+        image: item.popfile?.replace(/^http:\/\//i, `https://`) || ``,
         kind: item.kindCd,
         color: item.colorCd,
         sex: item.sexCd,
