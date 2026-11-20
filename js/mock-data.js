@@ -1,16 +1,8 @@
 // ==========================================================
-// mock-data.js — API가 없는 메인 페이지 섹션들의 콘텐츠
-// (입양후기 / 기부챌린지 / 실종·제보는 사용자 등록 영역이라 백엔드 없음)
+// mock-data.js — API가 없는 메인 페이지 섹션들의 예시 데이터
+// (기부챌린지 / 제보: 사용자 등록 영역이라 백엔드가 필요해 예시 데이터로 유지)
 // index.html에서 main.js / missing.js 보다 먼저 로드
 // ==========================================================
-
-// 베스트 입양후기 (main.js)
-const ADOPTION_REVIEWS = [
-  { name: "초코", afterImg: "images/dog_2.jpg", beforeImg: "images/dog_1.jpg" },
-  { name: "구름", afterImg: "images/dog_4.jpg", beforeImg: "images/dog_3.jpg" },
-  { name: "쵸파", afterImg: "images/dog_6.jpg", beforeImg: "images/dog_5.jpg" },
-  { name: "가을", afterImg: "images/cat_2.jpg", beforeImg: "images/cat_1.jpg" },
-];
 
 // 기부 챌린지 (main.js)
 const DONATION_CHALLENGES = [

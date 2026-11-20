@@ -96,13 +96,29 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 목록 컨테이너와 스켈레톤을 먼저 잡아둠 (두 API 응답 대기 동안 표시)
   const listContainer = document.querySelector("#today-dummy");
   showSkeleton(listContainer, 5); // 두 API 기다리는 동안 스켈레톤 먼저
+  // 새 가족을 만난 친구들 영역도 기다리는 동안 스켈레톤 처리
+  const adopReview = document.querySelector("#best-dummy");
+  showSkeleton(adopReview, 4);
+
+  // 2~3개월 전 구조된 동물: 최근 구조 동물은 대부분 아직 보호중이라 입양 건이 없음.(11/19 확인: 최근 0건, 8월 64건)
+  const ymd = (d) =>
+    `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
+  const adoptFrom = new Date();
+  adoptFrom.setDate(adoptFrom.getDate() - 90); // 90일 전
+  const adoptTo = new Date();
+  adoptTo.setDate(adoptTo.getDate() - 60); // 60일 전
 
   // 두 함수를 await 없이 호출 → 요청이 동시에 나감.
   // (레거시)Promise.all: 둘 다 끝나면 결과를 배열로 반환. 대기시간 = 둘 중 느린 쪽
   // Promise.allSettled: 모두 끝날 때까지 기다려서 각각의 성공 실패를 알려줌(if, else if)
-  const [statsResult, listResult] = await Promise.allSettled([
+  const [statsResult, listResult, adoptResult] = await Promise.allSettled([
     fetchAnimalStats(), // 요청 나감 (안 멈춤)
     fetchAnimalsList(200), // 요청 나감 (안 멈춤) -> 겹쳐서 동시 진행. 지역 필터 칩 다양성 확보 위해 200 유지
+    fetchProtectData({
+      bgnde: ymd(adoptFrom),
+      endde: ymd(adoptTo),
+      numOfRows: 200,
+    }),
   ]);
 
   // 각 결과에서 값 꺼내기: 성공이면 value, 실패면 null
@@ -110,6 +126,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     statsResult.status === "fulfilled" ? statsResult.value : null;
   const allAnimalData =
     listResult.status === "fulfilled" ? listResult.value : null;
+  const adoptData =
+    adoptResult.status === "fulfilled" ? adoptResult.value : null;
 
   const legendEl = document.querySelector("#statsLegend");
 
@@ -314,45 +332,46 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // -------------------------------------------------------------
-  // [4단계] 베스트 입양후기 렌더링 및 호버 이벤트
+  // [4단계] 새 가족을 만난 친구들 (입양 완료 동물, 공공데이터)
   // -------------------------------------------------------------
-  const adopReview = document.querySelector("#best-dummy");
 
   if (adopReview) {
-    adopReview.innerHTML = ADOPTION_REVIEWS.map(
-      (r) => `
-      <li class="best-card">
-      <div class="best-thumb">
-        <img src="${r.afterImg}" alt="${r.name}" data-after="${r.afterImg}" data-before="${r.beforeImg}" onerror="imgError(this)"/>
-        <span class="best-badge">입양 후</span>
-        </div>
-        <span class="best-name">${r.name}</span>
-      </li>
-      `,
-    ).join("");
+    if (adoptData === null) {
+      showStateMessage(
+        adopReview,
+        "입양 완료 동물을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
+        "error",
+      );
+    } else {
+      // 입양으로 종료 + 사진 있는 동물만 4마리
+      const adopted = adoptData
+        .filter((a) => a.processState?.includes("입양") && a.popfile1)
+        .slice(0, 4);
 
-    // 마우스 호버 이벤트 설정 (입양 전/후 이미지 및 배지 전환)
-    // forEach로 순회하면서 카드마다 이벤트
-    adopReview.querySelectorAll(".best-card").forEach((card) => {
-      const img = card.querySelector("img");
-      const badge = card.querySelector(".best-badge");
-      // 이미지 없으면 카드 스킵
-      if (!img) return;
-
-      // 마우스 갖다 댈 시
-      card.addEventListener("mouseenter", () => {
-        // html에 넣어논 data-before 읽어오기
-        img.src = img.dataset.before;
-        badge.textContent = "입양 전"; // 뱃지 텍스트 교체
-        badge.classList.add("is-before"); // CSS 회색 클래스
-      });
-      // 마우스 뗄 시
-      card.addEventListener("mouseleave", () => {
-        img.src = img.dataset.after;
-        badge.textContent = "입양 후";
-        badge.classList.remove("is-before");
-      });
-    });
+      if (adopted.length === 0) {
+        showStateMessage(
+          adopReview,
+          "2~3개월 전 구조된 동물 중 입양 완료 정보가 없습니다.",
+          "empty",
+        );
+      } else {
+        adopReview.innerHTML = adopted
+          .map((a) => {
+            const kind = a.kindNm || a.kindCd || "품종 정보 없음";
+            const region = a.orgNm || "지역 미상";
+            return `
+          <li class="best-card">
+            <div class="best-thumb">
+              <img src="${a.popfile1}" alt="${kind}" loading="lazy" onerror="imgError(this)" />
+              <span class="best-badge">입양 완료</span>
+            </div>
+            <span class="best-name">${kind}</span>
+            <span class="card-meta">${region}</span>
+          </li>`;
+          })
+          .join("");
+      }
+    }
   }
 });
 
