@@ -13,3 +13,5 @@ const RESCUEANIMAL_API_URL =
 // 유기동물 보호소 조회 API End point
 const SHELTER_API_URL =
   "https://apis.data.go.kr/1543061/abandonmentPublicService_v2/shelter_v2";
+// 분실동물 서버 함수 (Vercel), 키는 서버에만 있어서 이 주소는 공개 가능
+const LOST_API_URL = "https://lym-bingithubio.vercel.app/api/lost";

@@ -359,9 +359,14 @@
 }
 .miss-header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 20px;
+}
+.miss-source {
+  font-size: var(--font-xs);
+  color: var(--color-text-muted);
 }
 /* 실종/제보 동물 카드 리스트 그리드 */
 .miss-cardgrid {
