@@ -492,6 +492,22 @@ function renderShelterMap() {
     let currentInfowindow = null;
     let completedCount = 0;
 
+    // 창 크기가 바뀌면 지도도 새 크기로 다시 그림 (Issue #10)
+    // resize는 드래그하는 동안 수십 번 발생 -> 멈춘 뒤 한 번만 실행 (디바운스)
+    let resizeTimer = null;
+
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        // 지도 탭이 숨겨져 있으면 크기가 0이라 다시 그리지 않음.
+        if (mapSection.classList.contains("hidden")) return;
+        map.relayout(); // 새 크기로 다시 그림.
+        // 넓어진 화면에서 멀리 본 상태로 그대로면 지도 그림(타일) 바깥이 흰색으로 보임
+        // -> 마커 전체가 꽉 차게 확대 수준을 다시 맞춤
+        if (!bounds.isEmpty()) map.setBounds(bounds);
+      }, 200);
+    });
+
     uniqueShelters.forEach((shelter) => {
       geocoder.addressSearch(shelter.addr, (result, status) => {
         completedCount++;
